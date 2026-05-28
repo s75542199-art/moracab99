@@ -506,7 +506,13 @@
 </div>
 
 <script>
-    const STORAGE_KEY = 'barman_products';
+    // ========== کلیدهای اختصاصی برای گیت‌هاب ==========
+    // اسم ریپازیتوری خودت رو اینجا جایگزین کن (مثلاً: barman-shop)
+    const REPO_NAME = 'barman-shop';
+    const STORAGE_KEY = `barman_products_${REPO_NAME}`;
+    const SETTINGS_KEY = `barman_settings_${REPO_NAME}`;
+    // ================================================
+    
     let products = [], cart = [], wishlist = [];
     let searchTimeout = null;
 
@@ -630,8 +636,9 @@
 
     function loadProductsFromStorage() {
         const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved && JSON.parse(saved).length > 0) { products = JSON.parse(saved); }
-        else { 
+        if (saved && JSON.parse(saved).length > 0) { 
+            products = JSON.parse(saved); 
+        } else { 
             products = getDefaultProducts(); 
             localStorage.setItem(STORAGE_KEY, JSON.stringify(products)); 
         }
@@ -738,10 +745,10 @@
     }
 
     function checkAmazingSectionVisibility() {
-        let isVisible = localStorage.getItem('amazing_section_visible');
+        let isVisible = localStorage.getItem(SETTINGS_KEY);
         if (isVisible === null) {
             isVisible = 'false';
-            localStorage.setItem('amazing_section_visible', 'false');
+            localStorage.setItem(SETTINGS_KEY, 'false');
         }
         const amazingContainer = document.querySelector('.amazing-section');
         if (amazingContainer) {
@@ -782,11 +789,23 @@
         if (wrapper && !wrapper.contains(e.target)) { document.getElementById('searchSuggestions').classList.remove('show'); }
     });
 
-    function loadCart() { const s = localStorage.getItem('barman_cart'); if (s) { cart = JSON.parse(s); updateCartCount(); } }
+    function loadCart() { 
+        const s = localStorage.getItem(`barman_cart_${REPO_NAME}`); 
+        if (s) { cart = JSON.parse(s); updateCartCount(); } 
+    }
     function updateCartCount() { const count = cart.reduce((s, i) => s + i.quantity, 0); const cartCountSpan = document.getElementById('cartCount'); if (cartCountSpan) cartCountSpan.innerText = count; }
-    function loadWishlist() { const s = localStorage.getItem('barman_wishlist'); if (s) wishlist = JSON.parse(s); updateWishlistCount(); }
+    function loadWishlist() { 
+        const s = localStorage.getItem(`barman_wishlist_${REPO_NAME}`); 
+        if (s) wishlist = JSON.parse(s); 
+        updateWishlistCount(); 
+    }
     function updateWishlistCount() { const wishlistCountSpan = document.getElementById('wishlistCount'); if (wishlistCountSpan) wishlistCountSpan.innerText = wishlist.length; }
-    function saveWishlist() { localStorage.setItem('barman_wishlist', JSON.stringify(wishlist)); updateWishlistCount(); renderAllCategories(); renderAmazing(); }
+    function saveWishlist() { 
+        localStorage.setItem(`barman_wishlist_${REPO_NAME}`, JSON.stringify(wishlist)); 
+        updateWishlistCount(); 
+        renderAllCategories(); 
+        renderAmazing(); 
+    }
     function toggleWishlist(pid) {
         if (wishlist.includes(pid)) { wishlist = wishlist.filter(id => id !== pid); showToast('از علاقه‌مندی‌ها حذف شد'); } else { wishlist.push(pid); showToast('به علاقه‌مندی‌ها اضافه شد'); }
         saveWishlist();
@@ -812,19 +831,23 @@
     
     function goToProfile() { window.location.href = 'profile.html'; }
     function logout() { 
-        localStorage.removeItem('barman_logged_in'); 
-        localStorage.removeItem('barman_user'); 
+        localStorage.removeItem(`barman_logged_in_${REPO_NAME}`); 
+        localStorage.removeItem(`barman_user_${REPO_NAME}`); 
         window.location.href = 'index.html'; 
     }
     function checkLogin() { 
         const span = document.getElementById('displayName');
-        if(span) span.innerText = localStorage.getItem('barman_logged_in') ? (localStorage.getItem('barman_user') || 'کاربر') : 'ورود';
+        const userName = localStorage.getItem(`barman_user_${REPO_NAME}`);
+        if(span) span.innerText = localStorage.getItem(`barman_logged_in_${REPO_NAME}`) ? (userName || 'کاربر') : 'ورود';
     }
-    function toggleMobileMenu() { document.getElementById('mobileMenu')?.classList.toggle('open'); document.getElementById('mobileOverlay')?.classList.toggle('show'); }
+    function toggleMobileMenu() { 
+        document.getElementById('mobileMenu')?.classList.toggle('open'); 
+        document.getElementById('mobileOverlay')?.classList.toggle('show'); 
+    }
 
     window.addEventListener('storage', function(e) {
         if (e.key === STORAGE_KEY || e.key === 'products_updated') { loadProductsFromStorage(); showToast('محصولات به‌روزرسانی شدند 🔄'); }
-        if (e.key === 'amazing_section_visible') { document.querySelector('.amazing-section').style.display = e.newValue === 'false' ? 'none' : 'block'; }
+        if (e.key === SETTINGS_KEY) { document.querySelector('.amazing-section').style.display = e.newValue === 'false' ? 'none' : 'block'; }
     });
 
     let lastUpdate = localStorage.getItem('products_updated');

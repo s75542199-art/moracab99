@@ -7,12 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --primary: #ef6b00;
             --primary-dark: #d35400;
@@ -36,7 +31,6 @@
             --radius-lg: 20px;
             --radius-xl: 28px;
         }
-
         body {
             font-family: 'Vazirmatn', 'Tahoma', sans-serif;
             background: var(--light);
@@ -45,51 +39,17 @@
             scroll-behavior: smooth;
             overflow-x: hidden;
         }
-
-        /* انیمیشن‌ها */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInRight {
-            from { opacity: 0; transform: translateX(40px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes fadeInLeft {
-            from { opacity: 0; transform: translateX(-40px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        @keyframes bounce {
-            0%,100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-        @keyframes pulse {
-            0%,100% { transform: scale(1); }
-            50% { transform: scale(1.08); box-shadow: var(--shadow-neon); }
-        }
-        @keyframes shimmer {
-            0% { background-position: -1000px 0; }
-            100% { background-position: 1000px 0; }
-        }
-        @keyframes float {
-            0%,100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* اسکرول بار */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); box-shadow: var(--shadow-neon); } }
+        @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
+        @keyframes float { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
         ::-webkit-scrollbar { width: 8px; height: 6px; }
         ::-webkit-scrollbar-track { background: var(--gray-light); border-radius: 10px; }
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
-
         .top-bar {
             background: linear-gradient(135deg, #1a1a2e, #16213e);
             color: var(--gray-light);
@@ -102,19 +62,9 @@
             position: relative;
             overflow: hidden;
         }
-        .top-bar::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            animation: shimmer 3s infinite;
-        }
+        .top-bar::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); animation: shimmer 3s infinite; }
         .top-bar a { color: var(--gray-light); text-decoration: none; margin-left: 20px; transition: var(--transition); }
         .top-bar a:hover { color: var(--primary); transform: translateX(-3px); }
-
         .main-header {
             background: rgba(255,255,255,0.96);
             backdrop-filter: blur(10px);
@@ -128,129 +78,31 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            transition: var(--transition);
         }
-        .main-header:hover { box-shadow: var(--shadow-xl); }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: var(--transition-bounce);
-        }
+        .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; transition: var(--transition-bounce); }
         .logo:hover { transform: scale(1.05); }
-        .logo-icon {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
-        }
+        .logo-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; box-shadow: var(--shadow-md); }
         .logo:hover .logo-icon { transform: rotate(360deg) scale(1.1); }
-        .logo h1 {
-            font-size: 22px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 800;
-        }
-
+        .logo h1 { font-size: 22px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
         .search-wrapper { flex: 1; max-width: 550px; position: relative; }
-        .search-box {
-            display: flex;
-            background: var(--light);
-            border-radius: 50px;
-            overflow: hidden;
-            border: 2px solid transparent;
-            transition: var(--transition);
-        }
-        .search-box:focus-within {
-            border-color: var(--primary);
-            box-shadow: var(--shadow-neon);
-            transform: scale(1.02);
-        }
-        .search-box input {
-            flex: 1;
-            padding: 14px 22px;
-            border: none;
-            background: none;
-            outline: none;
-            font-size: 14px;
-            font-family: inherit;
-        }
-        .search-box button {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            border: none;
-            padding: 0 28px;
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-        .search-box button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
+        .search-box { display: flex; background: var(--light); border-radius: 50px; overflow: hidden; border: 2px solid transparent; transition: var(--transition); }
+        .search-box:focus-within { border-color: var(--primary); box-shadow: var(--shadow-neon); transform: scale(1.02); }
+        .search-box input { flex: 1; padding: 14px 22px; border: none; background: none; outline: none; font-size: 14px; font-family: inherit; }
+        .search-box button { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; border: none; padding: 0 28px; cursor: pointer; transition: var(--transition); position: relative; overflow: hidden; }
+        .search-box button::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.5s; }
         .search-box button:hover::before { left: 100%; }
         .search-box button:hover { transform: scale(1.05); }
-
         .header-icons { display: flex; align-items: center; gap: 25px; }
-        .header-icon {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            font-size: 12px;
-            color: var(--gray);
-            position: relative;
-            transition: var(--transition);
-        }
+        .header-icon { display: flex; flex-direction: column; align-items: center; cursor: pointer; font-size: 12px; color: var(--gray); position: relative; transition: var(--transition); }
         .header-icon i { font-size: 22px; margin-bottom: 4px; transition: var(--transition-bounce); }
         .header-icon:hover { color: var(--primary); }
         .header-icon:hover i { transform: translateY(-5px) scale(1.1); }
-        .cart-icon, .wishlist-icon {
-            position: relative;
-            cursor: pointer;
-            transition: var(--transition);
-            padding: 8px;
-            border-radius: 50%;
-        }
+        .cart-icon, .wishlist-icon { position: relative; cursor: pointer; transition: var(--transition); padding: 8px; border-radius: 50%; }
         .cart-icon:hover, .wishlist-icon:hover { background: rgba(239,107,0,0.1); transform: scale(1.05); }
-        .cart-count, .wishlist-count {
-            position: absolute;
-            top: -5px;
-            right: -8px;
-            background: linear-gradient(135deg, var(--danger), #c0392b);
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            animation: pulse 1.5s infinite;
-        }
+        .cart-count, .wishlist-count { position: absolute; top: -5px; right: -8px; background: linear-gradient(135deg, var(--danger), #c0392b); color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; animation: pulse 1.5s infinite; }
         .mobile-menu-btn { display: none; background: none; border: none; font-size: 26px; cursor: pointer; color: var(--dark); transition: var(--transition); }
         .mobile-menu-btn:hover { transform: scale(1.1); color: var(--primary); }
 
-        /* ========== دسته‌بندی‌ها مثل دیجی کالا ========== */
         .categories-section {
             margin: 30px 40px;
             background: white;
@@ -261,17 +113,9 @@
             animation: fadeInUp 0.8s ease;
         }
         .categories-section:hover { box-shadow: var(--shadow-xl); transform: translateY(-5px); }
-        .categories-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--gray-light);
-        }
+        .categories-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid var(--gray-light); }
         .categories-header h3 { font-size: 22px; color: var(--dark); display: flex; align-items: center; gap: 10px; }
         .categories-header h3 i { color: var(--primary); animation: pulse 2s infinite; }
-
         .categories-container {
             overflow-x: auto;
             overflow-y: hidden;
@@ -287,7 +131,6 @@
         .categories-container::-webkit-scrollbar-track { background: #e0e0e0; border-radius: 10px; }
         .categories-container::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
         .categories-grid { display: flex; gap: 20px; width: fit-content; }
-
         .cat-item {
             text-align: center;
             cursor: pointer;
@@ -301,41 +144,14 @@
             overflow: hidden;
             flex-shrink: 0;
         }
-        .cat-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
+        .cat-item::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.5s; }
         .cat-item:hover::before { left: 100%; }
-        .cat-item:hover {
-            transform: translateY(-12px) scale(1.05);
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            box-shadow: var(--shadow-xl);
-        }
-        .cat-icon {
-            width: 65px;
-            height: 65px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 12px;
-            font-size: 30px;
-            color: var(--primary);
-            transition: var(--transition-bounce);
-        }
+        .cat-item:hover { transform: translateY(-12px) scale(1.05); background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; box-shadow: var(--shadow-xl); }
+        .cat-icon { width: 65px; height: 65px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 30px; color: var(--primary); transition: var(--transition-bounce); }
         .cat-item:hover .cat-icon { transform: scale(1.1) rotate(10deg); box-shadow: var(--shadow-md); }
         .cat-item span { font-size: 14px; font-weight: 600; }
         .cat-item p { font-size: 10px; opacity: 0.7; margin-top: 5px; }
 
-        /* ========== بخش شگفت‌انگیز ========== */
         .amazing-section {
             background: linear-gradient(135deg, #f39c12, #ef6b00);
             margin: 30px 40px;
@@ -347,34 +163,10 @@
             overflow: hidden;
             animation: fadeInUp 0.9s ease;
         }
-        .amazing-section::before {
-            content: '🔥';
-            position: absolute;
-            font-size: 200px;
-            bottom: -60px;
-            left: -60px;
-            opacity: 0.15;
-            pointer-events: none;
-            animation: float 4s ease infinite;
-        }
-        .amazing-section::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-            animation: shimmer 4s infinite;
-        }
+        .amazing-section::before { content: '🔥'; position: absolute; font-size: 200px; bottom: -60px; left: -60px; opacity: 0.15; pointer-events: none; animation: float 4s ease infinite; }
+        .amazing-section::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent); animation: shimmer 4s infinite; }
         .amazing-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
-        .amazing-title {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 28px;
-            font-weight: 800;
-        }
+        .amazing-title { display: flex; align-items: center; gap: 15px; font-size: 28px; font-weight: 800; }
         .amazing-title i { animation: pulse 1.5s infinite; filter: drop-shadow(0 0 5px rgba(255,255,255,0.5)); }
         .amazing-products-container { overflow-x: auto; overflow-y: hidden; scroll-behavior: smooth; padding-bottom: 10px; cursor: grab; }
         .amazing-products-container:active { cursor: grabbing; }
@@ -396,77 +188,26 @@
             overflow: hidden;
             flex-shrink: 0;
         }
-        .amazing-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.5s;
-        }
+        .amazing-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: left 0.5s; }
         .amazing-card:hover::before { left: 100%; }
-        .amazing-card:hover {
-            transform: translateY(-12px) scale(1.03);
-            box-shadow: var(--shadow-xl);
-        }
+        .amazing-card:hover { transform: translateY(-12px) scale(1.03); box-shadow: var(--shadow-xl); }
         .amazing-card span { font-size: 55px; display: inline-block; transition: var(--transition-bounce); }
         .amazing-card:hover span { transform: scale(1.2) rotate(5deg); }
         .amazing-card .price { color: var(--danger); font-weight: 800; font-size: 20px; margin-top: 10px; }
 
-        /* ========== بخش محصولات هر دسته با اسکرول حرفه‌ای ========== */
         .category-section-wrapper {
             margin: 35px 40px;
             scroll-margin-top: 80px;
             animation: fadeInUp 0.6s ease;
             animation-fill-mode: both;
         }
-        .category-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .category-title {
-            font-size: 24px;
-            font-weight: 800;
-            position: relative;
-            padding-right: 15px;
-            color: var(--dark);
-            transition: var(--transition);
-        }
-        .category-title::before {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 0;
-            height: 100%;
-            width: 5px;
-            background: linear-gradient(180deg, var(--primary), var(--primary-dark));
-            border-radius: 3px;
-        }
-        .category-title:hover {
-            transform: translateX(-5px);
-            color: var(--primary);
-        }
-        .category-view-all {
-            color: var(--primary);
-            text-decoration: none;
-            font-size: 13px;
-            transition: var(--transition-bounce);
-            padding: 6px 15px;
-            border-radius: 30px;
-            background: rgba(239,107,0,0.1);
-        }
-        .category-view-all:hover {
-            color: white;
-            background: var(--primary);
-            transform: translateX(-5px);
-            box-shadow: var(--shadow-neon);
-        }
+        .category-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .category-title { font-size: 24px; font-weight: 800; position: relative; padding-right: 15px; color: var(--dark); transition: var(--transition); }
+        .category-title::before { content: ''; position: absolute; right: 0; top: 0; height: 100%; width: 5px; background: linear-gradient(180deg, var(--primary), var(--primary-dark)); border-radius: 3px; }
+        .category-title:hover { transform: translateX(-5px); color: var(--primary); }
+        .category-view-all { color: var(--primary); text-decoration: none; font-size: 13px; transition: var(--transition-bounce); padding: 6px 15px; border-radius: 30px; background: rgba(239,107,0,0.1); }
+        .category-view-all:hover { color: white; background: var(--primary); transform: translateX(-5px); box-shadow: var(--shadow-neon); }
 
-        /* اسکرول محصولات هر دسته - مثل دیجی کالا */
         .products-scroll-container {
             position: relative;
             overflow-x: auto;
@@ -478,25 +219,11 @@
             padding: 10px 0;
             scroll-snap-type: none;
         }
-        .products-scroll-container:active {
-            cursor: grabbing;
-        }
-        .products-scroll-container::-webkit-scrollbar {
-            height: 5px;
-        }
-        .products-scroll-container::-webkit-scrollbar-track {
-            background: var(--gray-light);
-            border-radius: 10px;
-        }
-        .products-scroll-container::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
-        }
-        .products-scroll {
-            display: flex;
-            gap: 25px;
-            width: fit-content;
-        }
+        .products-scroll-container:active { cursor: grabbing; }
+        .products-scroll-container::-webkit-scrollbar { height: 5px; }
+        .products-scroll-container::-webkit-scrollbar-track { background: var(--gray-light); border-radius: 10px; }
+        .products-scroll-container::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        .products-scroll { display: flex; gap: 25px; width: fit-content; }
 
         .product-card {
             width: 260px;
@@ -509,22 +236,9 @@
             box-shadow: var(--shadow-md);
             flex-shrink: 0;
         }
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-            z-index: 1;
-        }
+        .product-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.5s; z-index: 1; }
         .product-card:hover::before { left: 100%; }
-        .product-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: var(--shadow-xl);
-        }
+        .product-card:hover { transform: translateY(-15px) scale(1.02); box-shadow: var(--shadow-xl); }
         .product-img {
             height: 220px;
             display: flex;
@@ -533,70 +247,19 @@
             background: linear-gradient(135deg, #fef5e7, #fff);
             position: relative;
             overflow: hidden;
-            transition: var(--transition);
         }
         .product-card:hover .product-img { background: linear-gradient(135deg, #fff3e0, #ffe8d4); }
         .product-img img { max-width: 85%; max-height: 85%; object-fit: contain; transition: var(--transition-bounce); }
         .product-card:hover .product-img img { transform: scale(1.1); }
         .product-img span { font-size: 70px; transition: var(--transition-bounce); }
         .product-card:hover .product-img span { transform: scale(1.15) rotate(5deg); }
-        .discount-badge {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background: linear-gradient(135deg, var(--danger), #c0392b);
-            color: white;
-            padding: 5px 14px;
-            border-radius: 30px;
-            font-size: 11px;
-            font-weight: bold;
-            animation: pulse 2s infinite;
-            z-index: 2;
-        }
-        .new-badge {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: linear-gradient(135deg, var(--success), #1e8449);
-            color: white;
-            padding: 5px 14px;
-            border-radius: 30px;
-            font-size: 11px;
-            font-weight: bold;
-            z-index: 2;
-        }
-        .wishlist-btn {
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
-            background: white;
-            border: none;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            cursor: pointer;
-            color: #ccc;
-            box-shadow: var(--shadow-md);
-            z-index: 5;
-            transition: var(--transition-bounce);
-            font-size: 18px;
-        }
-        .wishlist-btn:hover {
-            transform: scale(1.15);
-            background: #fee;
-            box-shadow: var(--shadow-lg);
-        }
+        .discount-badge { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, var(--danger), #c0392b); color: white; padding: 5px 14px; border-radius: 30px; font-size: 11px; font-weight: bold; animation: pulse 2s infinite; z-index: 2; }
+        .new-badge { position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, var(--success), #1e8449); color: white; padding: 5px 14px; border-radius: 30px; font-size: 11px; font-weight: bold; z-index: 2; }
+        .wishlist-btn { position: absolute; bottom: 15px; right: 15px; background: white; border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; color: #ccc; box-shadow: var(--shadow-md); z-index: 5; transition: var(--transition-bounce); font-size: 18px; }
+        .wishlist-btn:hover { transform: scale(1.15); background: #fee; box-shadow: var(--shadow-lg); }
         .wishlist-btn.active { color: var(--danger); animation: pulse 1s ease; }
         .product-info { padding: 15px; }
-        .product-title {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            height: 44px;
-            overflow: hidden;
-            color: var(--dark);
-            transition: var(--transition);
-        }
+        .product-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; height: 44px; overflow: hidden; color: var(--dark); transition: var(--transition); }
         .product-card:hover .product-title { color: var(--primary); }
         .price-row { display: flex; align-items: baseline; gap: 10px; margin: 10px 0; flex-wrap: wrap; }
         .current-price { color: var(--danger); font-size: 18px; font-weight: 800; }
@@ -611,53 +274,14 @@
             position: relative;
             overflow: hidden;
         }
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-            animation: shimmer 5s infinite;
-        }
+        .footer::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent); animation: shimmer 5s infinite; }
         .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
-        .footer-col h4 {
-            margin-bottom: 20px;
-            font-size: 18px;
-            position: relative;
-            padding-bottom: 10px;
-            display: inline-block;
-        }
-        .footer-col h4::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 50px;
-            height: 3px;
-            background: var(--primary);
-            border-radius: 3px;
-            transition: var(--transition);
-        }
+        .footer-col h4 { margin-bottom: 20px; font-size: 18px; position: relative; padding-bottom: 10px; display: inline-block; }
+        .footer-col h4::after { content: ''; position: absolute; bottom: 0; right: 0; width: 50px; height: 3px; background: var(--primary); border-radius: 3px; transition: var(--transition); }
         .footer-col:hover h4::after { width: 100%; }
-        .footer-col a {
-            display: block;
-            color: #b2bec3;
-            text-decoration: none;
-            margin-bottom: 12px;
-            font-size: 13px;
-            transition: var(--transition);
-        }
+        .footer-col a { display: block; color: #b2bec3; text-decoration: none; margin-bottom: 12px; font-size: 13px; transition: var(--transition); }
         .footer-col a:hover { color: var(--primary); padding-right: 8px; transform: translateX(-5px); }
-        .footer-bottom {
-            text-align: center;
-            padding-top: 35px;
-            margin-top: 35px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 12px;
-            color: #b2bec3;
-        }
+        .footer-bottom { text-align: center; padding-top: 35px; margin-top: 35px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: #b2bec3; }
 
         .support-fab {
             position: fixed;
@@ -678,7 +302,6 @@
         }
         .support-fab:hover { transform: scale(1.15) rotate(10deg); box-shadow: var(--shadow-xl); animation: none; }
         .support-fab i { font-size: 28px; color: white; }
-
         .back-to-top {
             position: fixed;
             bottom: 85px;
@@ -699,18 +322,8 @@
         }
         .back-to-top:hover { transform: scale(1.15); box-shadow: var(--shadow-neon); }
         .back-to-top.show { display: flex; }
-
-        .empty-all-products {
-            text-align: center;
-            padding: 80px 20px;
-            background: white;
-            border-radius: var(--radius-xl);
-            margin: 30px 40px;
-            box-shadow: var(--shadow-md);
-        }
+        .empty-all-products { text-align: center; padding: 80px 20px; background: white; border-radius: var(--radius-xl); margin: 30px 40px; box-shadow: var(--shadow-md); }
         .empty-all-products i { font-size: 80px; color: var(--gray); margin-bottom: 20px; opacity: 0.5; }
-        .empty-all-products h3 { font-size: 24px; color: #333; margin-bottom: 10px; }
-
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -725,29 +338,11 @@
             box-shadow: var(--shadow-xl);
         }
         .mobile-menu.open { right: 0; }
-        .mobile-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-            z-index: 1999;
-            display: none;
-        }
+        .mobile-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 1999; display: none; }
         .mobile-overlay.show { display: block; animation: fadeInUp 0.3s ease; }
-        .mobile-menu a {
-            display: block;
-            padding: 12px 0;
-            color: #333;
-            text-decoration: none;
-            border-bottom: 1px solid var(--gray-light);
-            transition: var(--transition);
-        }
+        .mobile-menu a { display: block; padding: 12px 0; color: #333; text-decoration: none; border-bottom: 1px solid var(--gray-light); transition: var(--transition); }
         .mobile-menu a:hover { color: var(--primary); padding-right: 15px; transform: translateX(-5px); }
 
-        /* پیام خوش‌آمدگویی */
         .welcome-overlay {
             position: fixed;
             top: 0;
@@ -764,10 +359,7 @@
             visibility: hidden;
             transition: all 0.4s ease;
         }
-        .welcome-overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
+        .welcome-overlay.show { opacity: 1; visibility: visible; }
         .welcome-card {
             background: linear-gradient(135deg, #fff, #fff8f0);
             border-radius: 40px;
@@ -783,88 +375,18 @@
             position: relative;
             overflow: hidden;
         }
-        .welcome-overlay.show .welcome-card {
-            transform: scale(1);
-            opacity: 1;
-        }
-        .welcome-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(239,107,0,0.1), transparent);
-            animation: shimmer 3s infinite;
-        }
-        .welcome-icon {
-            font-size: 70px;
-            margin-bottom: 20px;
-            display: inline-block;
-            animation: bounce 0.8s ease;
-        }
-        .welcome-title {
-            font-size: 28px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ef6b00, #d35400);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 15px;
-        }
-        .welcome-message {
-            font-size: 18px;
-            color: #555;
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-        .welcome-btn {
-            background: linear-gradient(135deg, #ef6b00, #d35400);
-            color: white;
-            border: none;
-            padding: 12px 35px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(239,107,0,0.3);
-        }
-        .welcome-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(239,107,0,0.5);
-        }
-        .close-welcome {
-            position: absolute;
-            top: 15px;
-            left: 20px;
-            font-size: 24px;
-            color: #999;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: none;
-            border: none;
-        }
-        .close-welcome:hover {
-            color: #ef6b00;
-            transform: rotate(90deg);
-        }
-        @keyframes confetti {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-        }
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: #ef6b00;
-            position: absolute;
-            animation: confetti 3s ease forwards;
-            z-index: 10000;
-        }
-
+        .welcome-overlay.show .welcome-card { transform: scale(1); opacity: 1; }
+        .welcome-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(239,107,0,0.1), transparent); animation: shimmer 3s infinite; }
+        .welcome-icon { font-size: 70px; margin-bottom: 20px; display: inline-block; animation: bounce 0.8s ease; }
+        .welcome-title { font-size: 28px; font-weight: 800; background: linear-gradient(135deg, #ef6b00, #d35400); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 15px; }
+        .welcome-message { font-size: 18px; color: #555; margin-bottom: 25px; line-height: 1.6; }
+        .welcome-btn { background: linear-gradient(135deg, #ef6b00, #d35400); color: white; border: none; padding: 12px 35px; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(239,107,0,0.3); }
+        .welcome-btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(239,107,0,0.5); }
+        .close-welcome { position: absolute; top: 15px; left: 20px; font-size: 24px; color: #999; cursor: pointer; transition: all 0.3s ease; background: none; border: none; }
+        .close-welcome:hover { color: #ef6b00; transform: rotate(90deg); }
+        @keyframes confetti { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
+        .confetti { position: fixed; width: 10px; height: 10px; background: #ef6b00; position: absolute; animation: confetti 3s ease forwards; z-index: 10000; }
         .toast { display: none; }
-
         @media (max-width: 768px) {
             .top-bar { display: none; }
             .main-header { padding: 12px 20px; }
@@ -899,29 +421,16 @@
 <body>
 
 <div class="top-bar">
-    <div>
-        <a href="about.html">درباره ما</a>
-        <a href="#">مجله ساختمان</a>
-        <a href="contact.html">تماس با ما</a>
-        <a href="faq.html">سوالات متداول</a>
-    </div>
+    <div><a href="about.html">درباره ما</a><a href="#">مجله ساختمان</a><a href="contact.html">تماس با ما</a><a href="faq.html">سوالات متداول</a></div>
     <div><i class="fas fa-tag"></i> تخفیف ویژه مصالح تا ۳۰٪</div>
 </div>
 
 <div class="main-header">
     <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
-    <div class="logo" onclick="scrollToTop()">
-        <div class="logo-icon"><i class="fas fa-hard-hat"></i></div>
-        <h1>بارمان مرکب کویر</h1>
-    </div>
+    <div class="logo" onclick="scrollToTop()"><div class="logo-icon"><i class="fas fa-hard-hat"></i></div><h1>بارمان مرکب کویر</h1></div>
     <div class="search-wrapper">
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="جستجوی مصالح ساختمانی..." autocomplete="off">
-            <button onclick="searchProducts()"><i class="fas fa-search"></i></button>
-        </div>
-        <div class="search-suggestions" id="searchSuggestions">
-            <div id="suggestionsList"></div>
-        </div>
+        <div class="search-box"><input type="text" id="searchInput" placeholder="جستجوی مصالح ساختمانی..." autocomplete="off"><button onclick="searchProducts()"><i class="fas fa-search"></i></button></div>
+        <div class="search-suggestions" id="searchSuggestions"><div id="suggestionsList"></div></div>
     </div>
     <div class="header-icons">
         <div class="header-icon" onclick="goToProfile()"><i class="fas fa-user"></i><span id="displayName">حساب</span></div>
@@ -932,9 +441,7 @@
 </div>
 
 <div class="categories-section">
-    <div class="categories-header">
-        <h3><i class="fas fa-compass"></i> دسته‌بندی مصالح</h3>
-    </div>
+    <div class="categories-header"><h3><i class="fas fa-compass"></i> دسته‌بندی مصالح</h3></div>
     <div class="categories-container" id="categoriesContainer">
         <div class="categories-grid">
             <div class="cat-item" onclick="scrollToCategory('cement')"><div class="cat-icon"><i class="fas fa-cube"></i></div><span>سیمان</span><p>تیپ 2 - تیپ 5</p></div>
@@ -959,19 +466,11 @@
 </div>
 
 <div class="amazing-section">
-    <div class="amazing-header">
-        <div class="amazing-title"><i class="fas fa-bolt"></i> شگفت‌انگیزهای ساختمانی</div>
-    </div>
-    <div class="amazing-products-container" id="amazingContainer">
-        <div class="amazing-products" id="amazingProducts"></div>
-    </div>
+    <div class="amazing-header"><div class="amazing-title"><i class="fas fa-bolt"></i> شگفت‌انگیزهای ساختمانی</div></div>
+    <div class="amazing-products-container" id="amazingContainer"><div class="amazing-products" id="amazingProducts"></div></div>
 </div>
 
-<div id="emptyAllProducts" class="empty-all-products" style="display: none;">
-    <i class="fas fa-box-open"></i>
-    <h3>به زودی...</h3>
-    <p>محصولات جدید به زودی اضافه خواهند شد</p>
-</div>
+<div id="emptyAllProducts" class="empty-all-products" style="display: none;"><i class="fas fa-box-open"></i><h3>به زودی...</h3><p>محصولات جدید به زودی اضافه خواهند شد</p></div>
 
 <!-- بخش‌های محصولات -->
 <div id="category-cement" class="category-section-wrapper"><div class="category-header"><div class="category-title">🧱 سیمان</div><a href="products.html?cat=cement" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="cementContainer"><div class="products-scroll" id="cementProducts"></div></div></div>
@@ -1011,44 +510,14 @@
 <div class="mobile-menu" id="mobileMenu">
     <div class="search-box" style="width:100%; margin-bottom:20px;"><input type="text" id="mobileSearchInput" placeholder="جستجو..."><button onclick="searchProducts()"><i class="fas fa-search"></i></button></div>
     <div style="display:flex; flex-direction:column; gap:5px;">
-        <a href="#" onclick="scrollToCategory('cement');toggleMobileMenu();">🧱 سیمان</a>
-        <a href="#" onclick="scrollToCategory('block');toggleMobileMenu();">🔲 بلوک</a>
-        <a href="#" onclick="scrollToCategory('brick');toggleMobileMenu();">🧱 آجر</a>
-        <a href="#" onclick="scrollToCategory('steel');toggleMobileMenu();">📐 تیرآهن</a>
-        <a href="#" onclick="scrollToCategory('roof');toggleMobileMenu();">🏠 سقف</a>
-        <a href="#" onclick="scrollToCategory('tile');toggleMobileMenu();">🔲 کاشی</a>
-        <a href="#" onclick="scrollToCategory('wood');toggleMobileMenu();">🌲 چوب</a>
-        <a href="#" onclick="scrollToCategory('door');toggleMobileMenu();">🚪 درب و پنجره</a>
-        <a href="#" onclick="scrollToCategory('paint');toggleMobileMenu();">🎨 رنگ</a>
-        <a href="#" onclick="scrollToCategory('tools');toggleMobileMenu();">🔧 ابزارآلات</a>
-        <a href="#" onclick="scrollToCategory('gypsum');toggleMobileMenu();">⚪ گچ</a>
-        <a href="#" onclick="scrollToCategory('sand');toggleMobileMenu();">🏖️ ماسه و شن</a>
-        <a href="#" onclick="scrollToCategory('pumice');toggleMobileMenu();">🪨 پوکه</a>
-        <a href="#" onclick="scrollToCategory('lime');toggleMobileMenu();">🔥 آهک</a>
-        <a href="#" onclick="scrollToCategory('pipe');toggleMobileMenu();">📦 لوله</a>
-        <a href="#" onclick="scrollToCategory('insulation');toggleMobileMenu();">🛢️ عایق</a>
-        <a href="#" onclick="scrollToCategory('additive');toggleMobileMenu();">🧪 افزودنی</a>
-        <hr>
-        <a href="about.html" onclick="toggleMobileMenu();">🏪 درباره ما</a>
-        <a href="faq.html" onclick="toggleMobileMenu();">❓ سوالات متداول</a>
-        <a href="contact.html" onclick="toggleMobileMenu();">📞 تماس با ما</a>
-        <hr>
-        <a href="#" onclick="goToProfile();toggleMobileMenu();">👤 پروفایل</a>
-        <a href="#" onclick="showWishlist();toggleMobileMenu();">❤️ علاقه‌مندی‌ها</a>
-        <a href="#" onclick="goToCart();toggleMobileMenu();">🛒 سبد خرید</a>
-        <a href="#" onclick="logout();">🚪 خروج</a>
+        <a href="#" onclick="scrollToCategory('cement');toggleMobileMenu();">🧱 سیمان</a><a href="#" onclick="scrollToCategory('block');toggleMobileMenu();">🔲 بلوک</a><a href="#" onclick="scrollToCategory('brick');toggleMobileMenu();">🧱 آجر</a><a href="#" onclick="scrollToCategory('steel');toggleMobileMenu();">📐 تیرآهن</a><a href="#" onclick="scrollToCategory('roof');toggleMobileMenu();">🏠 سقف</a><a href="#" onclick="scrollToCategory('tile');toggleMobileMenu();">🔲 کاشی</a><a href="#" onclick="scrollToCategory('wood');toggleMobileMenu();">🌲 چوب</a><a href="#" onclick="scrollToCategory('door');toggleMobileMenu();">🚪 درب و پنجره</a><a href="#" onclick="scrollToCategory('paint');toggleMobileMenu();">🎨 رنگ</a><a href="#" onclick="scrollToCategory('tools');toggleMobileMenu();">🔧 ابزارآلات</a><a href="#" onclick="scrollToCategory('gypsum');toggleMobileMenu();">⚪ گچ</a><a href="#" onclick="scrollToCategory('sand');toggleMobileMenu();">🏖️ ماسه و شن</a><a href="#" onclick="scrollToCategory('pumice');toggleMobileMenu();">🪨 پوکه</a><a href="#" onclick="scrollToCategory('lime');toggleMobileMenu();">🔥 آهک</a><a href="#" onclick="scrollToCategory('pipe');toggleMobileMenu();">📦 لوله</a><a href="#" onclick="scrollToCategory('insulation');toggleMobileMenu();">🛢️ عایق</a><a href="#" onclick="scrollToCategory('additive');toggleMobileMenu();">🧪 افزودنی</a>
+        <hr><a href="about.html" onclick="toggleMobileMenu();">🏪 درباره ما</a><a href="faq.html" onclick="toggleMobileMenu();">❓ سوالات متداول</a><a href="contact.html" onclick="toggleMobileMenu();">📞 تماس با ما</a>
+        <hr><a href="#" onclick="goToProfile();toggleMobileMenu();">👤 پروفایل</a><a href="#" onclick="showWishlist();toggleMobileMenu();">❤️ علاقه‌مندی‌ها</a><a href="#" onclick="goToCart();toggleMobileMenu();">🛒 سبد خرید</a><a href="#" onclick="logout();">🚪 خروج</a>
     </div>
 </div>
 
-<!-- پیام خوش‌آمدگویی -->
 <div id="welcomeOverlay" class="welcome-overlay">
-    <div class="welcome-card">
-        <button class="close-welcome" onclick="closeWelcome()"><i class="fas fa-times"></i></button>
-        <div class="welcome-icon" id="welcomeIcon">🎉</div>
-        <div class="welcome-title" id="welcomeTitle">خوش آمدید!</div>
-        <div class="welcome-message" id="welcomeMessage">به بارمان مرکب کویر خوش آمدید</div>
-        <button class="welcome-btn" onclick="closeWelcome()">شروع خرید 🚀</button>
-    </div>
+    <div class="welcome-card"><button class="close-welcome" onclick="closeWelcome()"><i class="fas fa-times"></i></button><div class="welcome-icon" id="welcomeIcon">🎉</div><div class="welcome-title" id="welcomeTitle">خوش آمدید!</div><div class="welcome-message" id="welcomeMessage">به بارمان مرکب کویر خوش آمدید</div><button class="welcome-btn" onclick="closeWelcome()">شروع خرید 🚀</button></div>
 </div>
 
 <script>
@@ -1056,7 +525,6 @@
     let products = [], cart = [], wishlist = [];
     let searchTimeout = null;
 
-    // ==================== پیام‌های خوش‌آمدگویی ====================
     const welcomeMessages = [
         { icon: "🎉", title: "خوش آمدید!", message: "به جمع حرفه‌ای‌های ساختمان بپیوندید!" },
         { icon: "🏗️", title: "شروع ساخت!", message: "با بارمان، پروژه‌هات رو حرفه‌ای شروع کن!" },
@@ -1105,11 +573,8 @@
         setTimeout(() => { if (overlay.classList.contains('show')) closeWelcome(); }, 4000);
     }
     
-    function closeWelcome() {
-        document.getElementById('welcomeOverlay').classList.remove('show');
-    }
+    function closeWelcome() { document.getElementById('welcomeOverlay').classList.remove('show'); }
 
-    // ==================== محصولات پیش‌فرض ====================
     function getDefaultProducts() {
         return [
             { id: 1, name: "پودر سنگ زنبق 25 کیلوگرمی", price: 45000, oldPrice: null, category: "additive", desc: "پودر سنگ زنبق درجه یک", stock: 200, rating: 4.5, reviews: 12, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
@@ -1127,23 +592,14 @@
 
     function loadProductsFromStorage() {
         const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved && JSON.parse(saved).length > 0) {
-            products = JSON.parse(saved);
-        } else {
-            products = getDefaultProducts();
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
-        }
-        
+        if (saved && JSON.parse(saved).length > 0) { products = JSON.parse(saved); }
+        else { products = getDefaultProducts(); localStorage.setItem(STORAGE_KEY, JSON.stringify(products)); }
         const emptyMessage = document.getElementById('emptyAllProducts');
         if (products.length === 0) {
             if (emptyMessage) emptyMessage.style.display = 'block';
             const categories = ['cement', 'block', 'brick', 'steel', 'roof', 'tile', 'wood', 'door', 'paint', 'tools', 'gypsum', 'sand', 'pumice', 'lime', 'pipe', 'insulation', 'additive'];
-            categories.forEach(cat => {
-                const section = document.getElementById(`category-${cat}`);
-                if (section) section.style.display = 'none';
-            });
-            const amazingSection = document.querySelector('.amazing-section');
-            if (amazingSection) amazingSection.style.display = 'none';
+            categories.forEach(cat => { const section = document.getElementById(`category-${cat}`); if (section) section.style.display = 'none'; });
+            const amazingSection = document.querySelector('.amazing-section'); if (amazingSection) amazingSection.style.display = 'none';
         } else {
             if (emptyMessage) emptyMessage.style.display = 'none';
             renderAllCategories();
@@ -1158,120 +614,29 @@
 
     function formatPrice(p) { return p.toLocaleString(); }
 
-    // ========== تابع اسکرول حرفه‌ای برای هر کانتینر (مثل دیجی کالا) ==========
     function initSmoothScroll(container) {
         if (!container) return;
-        
-        // اسکرول با چرخ موس - نرم و کنترل شده
-        container.addEventListener('wheel', function(e) {
-            if (Math.abs(e.deltaY) > 0) {
-                e.preventDefault();
-                container.scrollLeft += e.deltaY * 0.6;
-            }
-        }, { passive: false });
-        
-        // قابلیت درگ و کشیدن با موس + مومنتوم
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-        let velocity = 0;
-        let lastX = 0;
-        let lastTime = 0;
-        let momentumId = null;
-        
-        container.addEventListener('mousedown', (e) => {
-            isDown = true;
-            container.style.cursor = 'grabbing';
-            startX = e.pageX - container.offsetLeft;
-            scrollLeft = container.scrollLeft;
-            lastX = e.pageX;
-            lastTime = Date.now();
-            velocity = 0;
-            if (momentumId) clearInterval(momentumId);
-        });
-        
-        container.addEventListener('mouseleave', () => {
-            isDown = false;
-            container.style.cursor = 'grab';
-            if (Math.abs(velocity) > 0.5) {
-                startMomentum(container, velocity);
-            }
-        });
-        
-        container.addEventListener('mouseup', () => {
-            isDown = false;
-            container.style.cursor = 'grab';
-            if (Math.abs(velocity) > 0.5) {
-                startMomentum(container, velocity);
-            }
-        });
-        
-        container.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - container.offsetLeft;
-            const walk = (x - startX) * 1.2;
-            container.scrollLeft = scrollLeft - walk;
-            
-            const now = Date.now();
-            const dx = e.pageX - lastX;
-            const dt = now - lastTime;
-            if (dt > 0) {
-                velocity = (dx / dt) * 15;
-                velocity = Math.min(Math.max(velocity, -30), 30);
-            }
-            lastX = e.pageX;
-            lastTime = now;
-        });
-        
-        function startMomentum(container, startVelocity) {
-            let vel = startVelocity;
-            const friction = 0.95;
-            
-            function step() {
-                if (Math.abs(vel) < 0.5) {
-                    if (momentumId) clearInterval(momentumId);
-                    momentumId = null;
-                    return;
-                }
-                container.scrollLeft -= vel;
-                vel *= friction;
-            }
-            
-            if (momentumId) clearInterval(momentumId);
-            momentumId = setInterval(step, 16);
-        }
+        container.addEventListener('wheel', function(e) { if (Math.abs(e.deltaY) > 0) { e.preventDefault(); container.scrollLeft += e.deltaY * 0.6; } }, { passive: false });
+        let isDown = false, startX, scrollLeft, velocity = 0, lastX = 0, lastTime = 0, momentumId = null;
+        container.addEventListener('mousedown', (e) => { isDown = true; container.style.cursor = 'grabbing'; startX = e.pageX - container.offsetLeft; scrollLeft = container.scrollLeft; lastX = e.pageX; lastTime = Date.now(); velocity = 0; if (momentumId) clearInterval(momentumId); });
+        container.addEventListener('mouseleave', () => { isDown = false; container.style.cursor = 'grab'; if (Math.abs(velocity) > 0.5) startMomentum(container, velocity); });
+        container.addEventListener('mouseup', () => { isDown = false; container.style.cursor = 'grab'; if (Math.abs(velocity) > 0.5) startMomentum(container, velocity); });
+        container.addEventListener('mousemove', (e) => { if (!isDown) return; e.preventDefault(); const x = e.pageX - container.offsetLeft; const walk = (x - startX) * 1.2; container.scrollLeft = scrollLeft - walk; const now = Date.now(); const dx = e.pageX - lastX; const dt = now - lastTime; if (dt > 0) { velocity = (dx / dt) * 15; velocity = Math.min(Math.max(velocity, -30), 30); } lastX = e.pageX; lastTime = now; });
+        function startMomentum(container, startVelocity) { let vel = startVelocity; const friction = 0.95; function step() { if (Math.abs(vel) < 0.5) { if (momentumId) clearInterval(momentumId); momentumId = null; return; } container.scrollLeft -= vel; vel *= friction; } if (momentumId) clearInterval(momentumId); momentumId = setInterval(step, 16); }
     }
 
-    // ========== راه‌اندازی اسکرول حرفه‌ای برای همه بخش‌ها ==========
     function initAllScrolls() {
-        // دسته‌بندی‌ها
-        const categoriesContainer = document.getElementById('categoriesContainer');
-        if (categoriesContainer) initSmoothScroll(categoriesContainer);
-        
-        // بخش شگفت‌انگیز
-        const amazingContainer = document.getElementById('amazingContainer');
-        if (amazingContainer) initSmoothScroll(amazingContainer);
-        
-        // محصولات هر دسته
-        const productContainers = [
-            'cementContainer', 'blockContainer', 'brickContainer', 'steelContainer',
-            'roofContainer', 'tileContainer', 'woodContainer', 'doorContainer',
-            'paintContainer', 'toolsContainer', 'gypsumContainer', 'sandContainer',
-            'pumiceContainer', 'limeContainer', 'pipeContainer', 'insulationContainer',
-            'additiveContainer'
-        ];
-        
-        productContainers.forEach(id => {
-            const container = document.getElementById(id);
-            if (container) initSmoothScroll(container);
-        });
+        const categoriesContainer = document.getElementById('categoriesContainer'); if (categoriesContainer) initSmoothScroll(categoriesContainer);
+        const amazingContainer = document.getElementById('amazingContainer'); if (amazingContainer) initSmoothScroll(amazingContainer);
+        const productContainers = ['cementContainer','blockContainer','brickContainer','steelContainer','roofContainer','tileContainer','woodContainer','doorContainer','paintContainer','toolsContainer','gypsumContainer','sandContainer','pumiceContainer','limeContainer','pipeContainer','insulationContainer','additiveContainer'];
+        productContainers.forEach(id => { const container = document.getElementById(id); if (container) initSmoothScroll(container); });
     }
 
-    function renderCategoryProducts(categoryId, containerId, limit = 6) {
+    // ========== اصلاح شده: نمایش همه محصولات (بدون محدودیت) ==========
+    function renderCategoryProducts(categoryId, containerId, limit = 999) {
         const container = document.getElementById(containerId);
         if (!container) return;
-        const categoryProducts = products.filter(p => p.category === categoryId).slice(0, limit);
+        const categoryProducts = products.filter(p => p.category === categoryId);
         if (categoryProducts.length === 0) {
             container.innerHTML = '<div style="text-align:center; padding:40px; width:100%; color:#999;">محصولی در این دسته وجود ندارد</div>';
             const section = document.getElementById(`category-${categoryId}`);
@@ -1327,24 +692,14 @@
         const container = document.getElementById('amazingProducts');
         if (container) {
             if (amazing.length === 0) { container.innerHTML = '<div style="text-align:center; padding:40px; width:100%;">محصول شگفت‌انگیزی وجود ندارد</div>'; return; }
-            container.innerHTML = amazing.map(p => `
-                <div class="amazing-card" onclick="goToProduct(${p.id})">
-                    <span>${p.emoji}</span>
-                    <div style="font-weight:bold; margin:8px 0;">${p.name.length > 20 ? p.name.substring(0,18)+'...' : p.name}</div>
-                    <div class="price">${formatPrice(p.price)} تومان</div>
-                    ${p.oldPrice ? `<div style="font-size:11px; color:#999; text-decoration:line-through;">${formatPrice(p.oldPrice)} تومان</div>` : ''}
-                </div>
-            `).join('');
+            container.innerHTML = amazing.map(p => `<div class="amazing-card" onclick="goToProduct(${p.id})"><span>${p.emoji}</span><div style="font-weight:bold; margin:8px 0;">${p.name.length > 20 ? p.name.substring(0,18)+'...' : p.name}</div><div class="price">${formatPrice(p.price)} تومان</div>${p.oldPrice ? `<div style="font-size:11px; color:#999; text-decoration:line-through;">${formatPrice(p.oldPrice)} تومان</div>` : ''}</div>`).join('');
         }
     }
 
     function checkAmazingSectionVisibility() {
         const isVisible = localStorage.getItem('amazing_section_visible');
         const amazingContainer = document.querySelector('.amazing-section');
-        if (amazingContainer) {
-            if (isVisible === 'false') amazingContainer.style.display = 'none';
-            else amazingContainer.style.display = 'block';
-        }
+        if (amazingContainer) { if (isVisible === 'false') amazingContainer.style.display = 'none'; else amazingContainer.style.display = 'block'; }
     }
 
     function goToProduct(id) { window.location.href = `product.html?id=${id}`; }
@@ -1376,14 +731,11 @@
 
     document.addEventListener('click', function(e) {
         const wrapper = document.querySelector('.search-wrapper');
-        if (wrapper && !wrapper.contains(e.target)) {
-            document.getElementById('searchSuggestions').classList.remove('show');
-        }
+        if (wrapper && !wrapper.contains(e.target)) { document.getElementById('searchSuggestions').classList.remove('show'); }
     });
 
     function loadCart() { const s = localStorage.getItem('barman_cart'); if (s) { cart = JSON.parse(s); updateCartCount(); } }
     function updateCartCount() { const count = cart.reduce((s, i) => s + i.quantity, 0); const cartCountSpan = document.getElementById('cartCount'); if (cartCountSpan) cartCountSpan.innerText = count; }
-
     function loadWishlist() { const s = localStorage.getItem('barman_wishlist'); if (s) wishlist = JSON.parse(s); updateWishlistCount(); }
     function updateWishlistCount() { const wishlistCountSpan = document.getElementById('wishlistCount'); if (wishlistCountSpan) wishlistCountSpan.innerText = wishlist.length; }
     function saveWishlist() { localStorage.setItem('barman_wishlist', JSON.stringify(wishlist)); updateWishlistCount(); renderAllCategories(); renderAmazing(); }
@@ -1411,19 +763,9 @@
     }
     
     function goToProfile() { window.location.href = 'profile.html'; }
-    function logout() { 
-        localStorage.removeItem('barman_logged_in'); 
-        localStorage.removeItem('barman_user'); 
-        window.location.href = 'index.html';
-    }
-    function checkLogin() { 
-        const span = document.getElementById('displayName');
-        if(span) span.innerText = localStorage.getItem('barman_logged_in') ? (localStorage.getItem('barman_user') || 'کاربر') : 'ورود';
-    }
-    function toggleMobileMenu() { 
-        document.getElementById('mobileMenu')?.classList.toggle('open'); 
-        document.getElementById('mobileOverlay')?.classList.toggle('show'); 
-    }
+    function logout() { localStorage.removeItem('barman_logged_in'); localStorage.removeItem('barman_user'); window.location.href = 'index.html'; }
+    function checkLogin() { const span = document.getElementById('displayName'); if(span) span.innerText = localStorage.getItem('barman_logged_in') ? (localStorage.getItem('barman_user') || 'کاربر') : 'ورود'; }
+    function toggleMobileMenu() { document.getElementById('mobileMenu')?.classList.toggle('open'); document.getElementById('mobileOverlay')?.classList.toggle('show'); }
 
     window.addEventListener('storage', function(e) {
         if (e.key === STORAGE_KEY || e.key === 'products_updated') { loadProductsFromStorage(); showToast('محصولات به‌روزرسانی شدند 🔄'); }
@@ -1437,15 +779,11 @@
         checkAmazingSectionVisibility();
     }, 3000);
 
-    window.addEventListener('scroll', function() {
-        const btn = document.getElementById('backToTop');
-        if (btn) { if (window.scrollY > 300) btn.classList.add('show'); else btn.classList.remove('show'); }
-    });
+    window.addEventListener('scroll', function() { const btn = document.getElementById('backToTop'); if (btn) { if (window.scrollY > 300) btn.classList.add('show'); else btn.classList.remove('show'); } });
     
     const searchInput = document.getElementById('searchInput');
     if(searchInput) searchInput.addEventListener('input', () => liveSearch());
     searchInput?.addEventListener('keypress', function(e) { if (e.key === 'Enter') searchProducts(); });
-    
     const mobileSearchInput = document.getElementById('mobileSearchInput');
     if(mobileSearchInput) mobileSearchInput.addEventListener('input', (e) => { document.getElementById('searchInput').value = e.target.value; searchProducts(); });
 

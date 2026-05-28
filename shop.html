@@ -322,13 +322,13 @@
         .back-to-top:hover { transform: scale(1.15); box-shadow: var(--shadow-neon); }
         .back-to-top.show { display: flex; }
         
-        /* دکمه مخفی نامرئی - فقط برای ادمین */
+        /* دکمه مخفی نامرئی - لینک به admin-panel.html */
         .hidden-dashboard-btn {
             position: fixed;
             bottom: 10px;
             right: 10px;
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             background: transparent;
             cursor: pointer;
             z-index: 999;
@@ -474,8 +474,8 @@
 <div id="category-insulation" class="category-section-wrapper"><div class="category-header"><div class="category-title">🛢️ عایق و ایزوگام</div><a href="products.html?cat=insulation" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="insulationContainer"><div class="products-scroll" id="insulationProducts"></div></div></div>
 <div id="category-additive" class="category-section-wrapper"><div class="category-header"><div class="category-title">🧪 مواد افزودنی و چسب</div><a href="products.html?cat=additive" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="additiveContainer"><div class="products-scroll" id="additiveProducts"></div></div></div>
 
-<!-- دکمه مخفی نامرئی - فقط با هاور پیدا میشه -->
-<div class="hidden-dashboard-btn" onclick="window.location.href='admin.html'"></div>
+<!-- دکمه مخفی نامرئی - لینک به admin-panel.html -->
+<div class="hidden-dashboard-btn" onclick="window.location.href='admin-panel.html'"></div>
 
 <div class="footer">
     <div class="footer-content">
@@ -560,7 +560,7 @@
     
     function closeWelcome() { document.getElementById('welcomeOverlay').classList.remove('show'); }
 
-    // ========== 114 محصول کامل از فایل اکسل ==========
+    // ========== 50+ محصول کامل ==========
     function getDefaultProducts() {
         let allProducts = [];
         // سیمان
@@ -811,8 +811,15 @@
     }
     
     function goToProfile() { window.location.href = 'profile.html'; }
-    function logout() { localStorage.removeItem('barman_logged_in'); localStorage.removeItem('barman_user'); window.location.href = 'index.html'; }
-    function checkLogin() { const span = document.getElementById('displayName'); if(span) span.innerText = localStorage.getItem('barman_logged_in') ? (localStorage.getItem('barman_user') || 'کاربر') : 'ورود'; }
+    function logout() { 
+        localStorage.removeItem('barman_logged_in'); 
+        localStorage.removeItem('barman_user'); 
+        window.location.href = 'index.html'; 
+    }
+    function checkLogin() { 
+        const span = document.getElementById('displayName');
+        if(span) span.innerText = localStorage.getItem('barman_logged_in') ? (localStorage.getItem('barman_user') || 'کاربر') : 'ورود';
+    }
     function toggleMobileMenu() { document.getElementById('mobileMenu')?.classList.toggle('open'); document.getElementById('mobileOverlay')?.classList.toggle('show'); }
 
     window.addEventListener('storage', function(e) {

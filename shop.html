@@ -322,32 +322,22 @@
         .back-to-top:hover { transform: scale(1.15); box-shadow: var(--shadow-neon); }
         .back-to-top.show { display: flex; }
         
-        /* دکمه مخفی مدیریت محصولات - قابل مشاهده */
+        /* دکمه مخفی نامرئی - فقط برای ادمین */
         .hidden-dashboard-btn {
             position: fixed;
-            bottom: 20px;
-            right: 100px;
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, #2c3e50, #1a1a2e);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            bottom: 10px;
+            right: 10px;
+            width: 8px;
+            height: 8px;
+            background: transparent;
             cursor: pointer;
             z-index: 999;
-            transition: var(--transition-bounce);
-            box-shadow: var(--shadow-lg);
-            opacity: 0.7;
+            opacity: 0;
         }
         .hidden-dashboard-btn:hover {
-            transform: scale(1.1);
-            opacity: 1;
-            box-shadow: var(--shadow-neon);
-        }
-        .hidden-dashboard-btn i {
-            color: white;
-            font-size: 20px;
+            opacity: 0.3;
+            background: var(--primary);
+            border-radius: 50%;
         }
 
         .empty-all-products { text-align: center; padding: 80px 20px; background: white; border-radius: var(--radius-xl); margin: 30px 40px; box-shadow: var(--shadow-md); }
@@ -399,7 +389,6 @@
             .product-img span { font-size: 55px; }
             .footer { padding: 30px 20px; }
             .support-fab, .back-to-top { width: 45px; height: 45px; bottom: 70px; }
-            .hidden-dashboard-btn { width: 40px; height: 40px; right: 80px; bottom: 15px; }
             .welcome-card { padding: 30px 25px; }
             .welcome-title { font-size: 24px; }
             .welcome-message { font-size: 16px; }
@@ -409,8 +398,6 @@
             .product-card { width: 170px; }
             .product-img { height: 140px; }
             .product-img span { font-size: 45px; }
-            .hidden-dashboard-btn { width: 35px; height: 35px; right: 70px; bottom: 12px; }
-            .hidden-dashboard-btn i { font-size: 16px; }
         }
     </style>
 </head>
@@ -487,10 +474,8 @@
 <div id="category-insulation" class="category-section-wrapper"><div class="category-header"><div class="category-title">🛢️ عایق و ایزوگام</div><a href="products.html?cat=insulation" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="insulationContainer"><div class="products-scroll" id="insulationProducts"></div></div></div>
 <div id="category-additive" class="category-section-wrapper"><div class="category-header"><div class="category-title">🧪 مواد افزودنی و چسب</div><a href="products.html?cat=additive" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="additiveContainer"><div class="products-scroll" id="additiveProducts"></div></div></div>
 
-<!-- دکمه مخفی مدیریت محصولات -->
-<div class="hidden-dashboard-btn" onclick="window.location.href='dashboard.html'">
-    <i class="fas fa-cog"></i>
-</div>
+<!-- دکمه مخفی نامرئی - فقط با هاور پیدا میشه -->
+<div class="hidden-dashboard-btn" onclick="window.location.href='admin.html'"></div>
 
 <div class="footer">
     <div class="footer-content">
@@ -577,128 +562,80 @@
 
     // ========== 114 محصول کامل از فایل اکسل ==========
     function getDefaultProducts() {
-        return [
-            { id: 1, name: "پودر سنگ زنبق 25 کیلوگرمی", price: 45000, oldPrice: null, category: "additive", desc: "پودر سنگ زنبق درجه یک", stock: 200, rating: 4.5, reviews: 12, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
-            { id: 2, name: "پودر سنگ نگین 25 کیلوگرمی", price: 46000, oldPrice: null, category: "additive", desc: "پودر سنگ نگین مرغوب", stock: 180, rating: 4.5, reviews: 8, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
-            { id: 3, name: "پودر سنگ آفله 25 کیلوگرمی", price: 44000, oldPrice: null, category: "additive", desc: "پودر سنگ آفله", stock: 150, rating: 4.5, reviews: 5, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
-            { id: 4, name: "در سنگ جوشقان 25 کیلوگرمی", price: 48000, oldPrice: null, category: "additive", desc: "در سنگ جوشقان", stock: 120, rating: 4.5, reviews: 3, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
-            { id: 5, name: "پوکه لیکا دانه ای", price: 35000, oldPrice: null, category: "pumice", desc: "پوکه لیکا دانه ای", stock: 500, rating: 4.5, reviews: 15, emoji: "🪨", isNew: false, isAmazing: true, imageData: null },
-            { id: 6, name: "پوکه هبلکس دانه ای", price: 32000, oldPrice: null, category: "pumice", desc: "پوکه هبلکس دانه ای", stock: 500, rating: 4.5, reviews: 7, emoji: "🪨", isNew: false, isAmazing: false, imageData: null },
-            { id: 7, name: "پوکه پرلیت دانه ای", price: 38000, oldPrice: null, category: "pumice", desc: "پوکه پرلیت دانه ای", stock: 400, rating: 4.5, reviews: 6, emoji: "🪨", isNew: false, isAmazing: false, imageData: null },
-            { id: 8, name: "پوکه سنگی فله سرویسی", price: 30000, oldPrice: null, category: "pumice", desc: "پوکه سنگی فله", stock: 600, rating: 4.5, reviews: 9, emoji: "🪨", isNew: false, isAmazing: false, imageData: null },
-            { id: 9, name: "پوکه موزاییکی فله سرویسی", price: 31000, oldPrice: null, category: "pumice", desc: "پوکه موزاییکی", stock: 550, rating: 4.5, reviews: 4, emoji: "🪨", isNew: false, isAmazing: false, imageData: null },
-            { id: 10, name: "ماسه شسته شده مهریز بتنی فله", price: 28000, oldPrice: null, category: "sand", desc: "ماسه شسته مهریز بتنی", stock: 1000, rating: 4.5, reviews: 22, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
-            { id: 11, name: "ماسه شسته شده مهریز نرم فله", price: 27000, oldPrice: null, category: "sand", desc: "ماسه شسته مهریز نرم", stock: 1000, rating: 4.5, reviews: 18, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
-            { id: 12, name: "ماسه شسته شده خضرآباد نرم فله", price: 26000, oldPrice: null, category: "sand", desc: "ماسه شسته خضرآباد نرم", stock: 900, rating: 4.5, reviews: 14, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
-            { id: 13, name: "ماسه شسته شده خضرآباد بتنی فله", price: 27500, oldPrice: null, category: "sand", desc: "ماسه شسته خضرآباد بتنی", stock: 900, rating: 4.5, reviews: 11, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
-            { id: 14, name: "سنگدانه بادامی فله", price: 32000, oldPrice: null, category: "sand", desc: "سنگدانه بادامی", stock: 800, rating: 4.5, reviews: 8, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
-            { id: 15, name: "سنگدانه نخودی فله", price: 31000, oldPrice: null, category: "sand", desc: "سنگدانه نخودی", stock: 800, rating: 4.5, reviews: 6, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
-            { id: 16, name: "سنگدانه ماکادوم فله", price: 29000, oldPrice: null, category: "sand", desc: "سنگدانه ماکادوم", stock: 750, rating: 4.5, reviews: 5, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
-            { id: 17, name: "سنگدانه مخلوط فله", price: 28500, oldPrice: null, category: "sand", desc: "سنگدانه مخلوط", stock: 800, rating: 4.5, reviews: 7, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
-            { id: 18, name: "ریک فله", price: 25000, oldPrice: null, category: "sand", desc: "ریک", stock: 700, rating: 4.5, reviews: 4, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
-            { id: 19, name: "گل سرندی", price: 20000, oldPrice: null, category: "sand", desc: "گل سرندی", stock: 500, rating: 4.5, reviews: 3, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
-            { id: 20, name: "خاک باغچه", price: 15000, oldPrice: null, category: "sand", desc: "خاک باغچه", stock: 300, rating: 4.5, reviews: 2, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
-            { id: 21, name: "لوله سیمانی 10 سانتی متر", price: 55000, oldPrice: null, category: "pipe", desc: "لوله سیمانی 10 سانتی", stock: 200, rating: 4.5, reviews: 5, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
-            { id: 22, name: "لوله سیمانی 15 سانتی متر", price: 68000, oldPrice: null, category: "pipe", desc: "لوله سیمانی 15 سانتی", stock: 180, rating: 4.5, reviews: 4, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
-            { id: 23, name: "لوله آزبستی 3 متری 20*30", price: 95000, oldPrice: null, category: "pipe", desc: "لوله آزبستی 20*30", stock: 150, rating: 4.5, reviews: 3, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
-            { id: 24, name: "لوله آزبستی 3 متری 20*15", price: 85000, oldPrice: null, category: "pipe", desc: "لوله آزبستی 20*15", stock: 150, rating: 4.5, reviews: 3, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
-            { id: 25, name: "لوله آزبستی 3 متری 10*15", price: 75000, oldPrice: null, category: "pipe", desc: "لوله آزبستی 10*15", stock: 160, rating: 4.5, reviews: 4, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
-            { id: 26, name: "لوله آزبستی 3 متری 20 گرد", price: 90000, oldPrice: null, category: "pipe", desc: "لوله آزبستی 20 گرد", stock: 140, rating: 4.5, reviews: 2, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
-            { id: 27, name: "لوله آزبستی 3 متری 15 گرد", price: 80000, oldPrice: null, category: "pipe", desc: "لوله آزبستی 15 گرد", stock: 145, rating: 4.5, reviews: 3, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
-            { id: 28, name: "لوله آزبستی 3 متری 10 گرد", price: 70000, oldPrice: null, category: "pipe", desc: "لوله آزبستی 10 گرد", stock: 155, rating: 4.5, reviews: 3, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
-            { id: 29, name: "کلاهک 20*30", price: 25000, oldPrice: null, category: "pipe", desc: "کلاهک 20*30", stock: 300, rating: 4.5, reviews: 6, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
-            { id: 30, name: "کلاهک 20*15", price: 22000, oldPrice: null, category: "pipe", desc: "کلاهک 20*15", stock: 300, rating: 4.5, reviews: 5, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
-            { id: 31, name: "کلاهک 20 سانتی متر گرد", price: 20000, oldPrice: null, category: "pipe", desc: "کلاهک 20 گرد", stock: 320, rating: 4.5, reviews: 4, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
-            { id: 32, name: "کلاهک 15 سانتی متر گرد", price: 18000, oldPrice: null, category: "pipe", desc: "کلاهک 15 گرد", stock: 320, rating: 4.5, reviews: 5, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
-            { id: 33, name: "کلاهک 10 سانتی متر گرد", price: 15000, oldPrice: null, category: "pipe", desc: "کلاهک 10 گرد", stock: 350, rating: 4.5, reviews: 6, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
-            { id: 34, name: "گل کاشی", price: 12000, oldPrice: null, category: "additive", desc: "گل کاشی", stock: 500, rating: 4.5, reviews: 8, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
-            { id: 35, name: "چسب کاشی غفاری (کیلویی)", price: 25000, oldPrice: null, category: "additive", desc: "چسب کاشی غفاری", stock: 400, rating: 4.5, reviews: 12, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
-            { id: 36, name: "چسب کاشی C200 (کیلویی)", price: 28000, oldPrice: null, category: "additive", desc: "چسب کاشی C200", stock: 380, rating: 4.5, reviews: 9, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
-            { id: 37, name: "پین و گوه (بسته ای)", price: 15000, oldPrice: null, category: "tools", desc: "پین و گوه", stock: 300, rating: 4.5, reviews: 10, emoji: "🔧", isNew: false, isAmazing: false, imageData: null },
-            { id: 38, name: "پودر بندکش (کیلویی)", price: 18000, oldPrice: null, category: "additive", desc: "پودر بندکش", stock: 450, rating: 4.5, reviews: 14, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
-            { id: 39, name: "ایزوگام بارانپوشش دلیجان درجه 1 (متری)", price: 45000, oldPrice: null, category: "insulation", desc: "ایزوگام بارانپوشش درجه 1", stock: 500, rating: 4.5, reviews: 11, emoji: "🛢️", isNew: true, isAmazing: false, imageData: null },
-            { id: 40, name: "ایزوگام دلیجان درجه 2 (متری)", price: 35000, oldPrice: null, category: "insulation", desc: "ایزوگام دلیجان درجه 2", stock: 500, rating: 4.5, reviews: 8, emoji: "🛢️", isNew: false, isAmazing: false, imageData: null },
-            { id: 41, name: "آهک فله صنعتی (تن)", price: 550000, oldPrice: null, category: "lime", desc: "آهک فله صنعتی هر تن", stock: 100, rating: 4.5, reviews: 6, emoji: "🔥", isNew: false, isAmazing: false, imageData: null },
-            { id: 42, name: "آهک فله سنتی (تن)", price: 520000, oldPrice: null, category: "lime", desc: "آهک فله سنتی هر تن", stock: 100, rating: 4.5, reviews: 5, emoji: "🔥", isNew: false, isAmazing: false, imageData: null },
-            { id: 43, name: "آهک پاکت 40 کیلویی", price: 35000, oldPrice: null, category: "lime", desc: "آهک پاکتی 40 کیلو", stock: 300, rating: 4.5, reviews: 9, emoji: "🔥", isNew: false, isAmazing: false, imageData: null },
-            { id: 44, name: "گچ سفید کاری سمنان و مازندران 30 کیلویی", price: 28000, oldPrice: null, category: "gypsum", desc: "گچ سفید کاری 30 کیلویی", stock: 500, rating: 4.5, reviews: 18, emoji: "⚪", isNew: false, isAmazing: false, imageData: null },
-            { id: 45, name: "گچ سفید کاری سپیدار 30 کیلویی", price: 29000, oldPrice: null, category: "gypsum", desc: "گچ سفید کاری سپیدار", stock: 450, rating: 4.5, reviews: 14, emoji: "⚪", isNew: false, isAmazing: false, imageData: null },
-            { id: 46, name: "گچ سفید کاری امید 25 کیلویی", price: 26000, oldPrice: null, category: "gypsum", desc: "گچ سفید کاری امید", stock: 480, rating: 4.5, reviews: 12, emoji: "⚪", isNew: false, isAmazing: false, imageData: null },
-            { id: 47, name: "گچ سفید کاری شایان 30 کیلویی", price: 27500, oldPrice: null, category: "gypsum", desc: "گچ سفید کاری شایان", stock: 460, rating: 4.5, reviews: 11, emoji: "⚪", isNew: false, isAmazing: false, imageData: null },
-            { id: 48, name: "فرآورده گچی سوپر نگین 25 کیلویی", price: 35000, oldPrice: null, category: "gypsum", desc: "فرآورده گچی سوپر نگین", stock: 300, rating: 4.5, reviews: 8, emoji: "⚪", isNew: false, isAmazing: false, imageData: null },
-            { id: 49, name: "فرآورده گچی سوپر فولاد 25 کیلویی", price: 36000, oldPrice: null, category: "gypsum", desc: "فرآورده گچی سوپر فولاد", stock: 300, rating: 4.5, reviews: 7, emoji: "⚪", isNew: false, isAmazing: false, imageData: null },
-            { id: 50, name: "فرآورده گچی بتوگیپس 25 کیلویی", price: 38000, oldPrice: null, category: "gypsum", desc: "فرآورده گچی بتوگیپس", stock: 280, rating: 4.5, reviews: 6, emoji: "⚪", isNew: false, isAmazing: false, imageData: null },
-            { id: 51, name: "گچ یزد 30 کیلویی", price: 27000, oldPrice: null, category: "gypsum", desc: "گچ یزد 30 کیلویی", stock: 400, rating: 4.5, reviews: 13, emoji: "⚪", isNew: false, isAmazing: false, imageData: null },
-            { id: 52, name: "سیمان مهریز 50 کیلویی", price: 85000, oldPrice: 95000, category: "cement", desc: "سیمان مهریز 50 کیلویی", stock: 1000, rating: 4.9, reviews: 45, emoji: "🧱", isNew: true, isAmazing: true, imageData: null },
-            { id: 53, name: "سیمان نایین 50 کیلویی", price: 82000, oldPrice: null, category: "cement", desc: "سیمان نایین 50 کیلویی", stock: 1000, rating: 4.8, reviews: 38, emoji: "🧱", isNew: false, isAmazing: false, imageData: null },
-            { id: 54, name: "سیمان سفید بنوید 25 کیلویی", price: 95000, oldPrice: 105000, category: "cement", desc: "سیمان سفید بنوید", stock: 500, rating: 4.7, reviews: 22, emoji: "🧱", isNew: false, isAmazing: true, imageData: null },
-            { id: 55, name: "سیمان سفید اصفهان 25 کیلویی", price: 98000, oldPrice: null, category: "cement", desc: "سیمان سفید اصفهان", stock: 500, rating: 4.8, reviews: 25, emoji: "🧱", isNew: false, isAmazing: false, imageData: null },
-            { id: 56, name: "موزاییک طرح 1 متری", price: 45000, oldPrice: null, category: "tile", desc: "موزاییک طرح 1", stock: 1000, rating: 4.5, reviews: 15, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
-            { id: 57, name: "موزاییک طرح 2 متری", price: 48000, oldPrice: null, category: "tile", desc: "موزاییک طرح 2", stock: 1000, rating: 4.5, reviews: 13, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
-            { id: 58, name: "موزاییک طرح 3 متری", price: 50000, oldPrice: null, category: "tile", desc: "موزاییک طرح 3", stock: 1000, rating: 4.6, reviews: 18, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
-            { id: 59, name: "موزاییک طرح 4 متری", price: 52000, oldPrice: null, category: "tile", desc: "موزاییک طرح 4", stock: 1000, rating: 4.5, reviews: 12, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
-            { id: 60, name: "موزاییک طرح 5 متری", price: 55000, oldPrice: null, category: "tile", desc: "موزاییک طرح 5", stock: 1000, rating: 4.7, reviews: 20, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
-            { id: 61, name: "آجر گری دستی (تن)", price: 850000, oldPrice: null, category: "brick", desc: "آجر گری دستی هر تن", stock: 200, rating: 4.6, reviews: 8, emoji: "🧱", isNew: false, isAmazing: false, imageData: null },
-            { id: 62, name: "آجر گری فشاری (تن)", price: 820000, oldPrice: null, category: "brick", desc: "آجر گری فشاری هر تن", stock: 200, rating: 4.5, reviews: 7, emoji: "🧱", isNew: false, isAmazing: false, imageData: null },
-            { id: 63, name: "آجر روکار 5 سانت درجه یک", price: 4500, oldPrice: 5500, category: "brick", desc: "آجر روکار 5 سانت درجه یک", stock: 5000, rating: 4.8, reviews: 32, emoji: "🧱", isNew: false, isAmazing: true, imageData: null },
-            { id: 64, name: "آجر روکار 5 سانت درجه دو", price: 3800, oldPrice: null, category: "brick", desc: "آجر روکار 5 سانت درجه دو", stock: 5000, rating: 4.3, reviews: 18, emoji: "🧱", isNew: false, isAmazing: false, imageData: null },
-            { id: 65, name: "آجر روکار 4 سانت درجه یک", price: 4200, oldPrice: 5000, category: "brick", desc: "آجر روکار 4 سانت درجه یک", stock: 5000, rating: 4.7, reviews: 25, emoji: "🧱", isNew: false, isAmazing: false, imageData: null },
-            { id: 66, name: "آجر روکار 4 سانت درجه دو", price: 3500, oldPrice: null, category: "brick", desc: "آجر روکار 4 سانت درجه دو", stock: 5000, rating: 4.2, reviews: 14, emoji: "🧱", isNew: false, isAmazing: false, imageData: null },
-            { id: 67, name: "بلوک تیغه 5 سانتی", price: 12000, oldPrice: null, category: "block", desc: "بلوک تیغه 5 سانتی", stock: 3000, rating: 4.4, reviews: 10, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
-            { id: 68, name: "بلوک تیغه 10 سانتی", price: 15000, oldPrice: null, category: "block", desc: "بلوک تیغه 10 سانتی", stock: 3000, rating: 4.5, reviews: 14, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
-            { id: 69, name: "بلوک تیغه 15 سانتی", price: 18000, oldPrice: null, category: "block", desc: "بلوک تیغه 15 سانتی", stock: 3000, rating: 4.5, reviews: 12, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
-            { id: 70, name: "بلوک سقفی آجری 20", price: 22000, oldPrice: null, category: "block", desc: "بلوک سقفی آجری 20", stock: 2000, rating: 4.6, reviews: 16, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
-            { id: 71, name: "بلوک سقفی آجری 25", price: 25000, oldPrice: null, category: "block", desc: "بلوک سقفی آجری 25", stock: 2000, rating: 4.6, reviews: 15, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
-            { id: 72, name: "بلوک ته پر دیواری سیمانی", price: 14000, oldPrice: null, category: "block", desc: "بلوک ته پر سیمانی", stock: 2500, rating: 4.3, reviews: 9, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
-            { id: 73, name: "بلوک تیغه لیکا 10", price: 16000, oldPrice: null, category: "block", desc: "بلوک تیغه لیکا 10", stock: 2000, rating: 4.5, reviews: 11, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
-            { id: 74, name: "بلوک تیغه لیکا 15", price: 19000, oldPrice: null, category: "block", desc: "بلوک تیغه لیکا 15", stock: 2000, rating: 4.5, reviews: 10, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
-            { id: 75, name: "بلوک تیغه لیکا 20", price: 22000, oldPrice: null, category: "block", desc: "بلوک تیغه لیکا 20", stock: 2000, rating: 4.6, reviews: 13, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
-            { id: 76, name: "بلوک تیغه هبلکس 10", price: 18000, oldPrice: null, category: "block", desc: "بلوک تیغه هبلکس 10", stock: 1800, rating: 4.7, reviews: 18, emoji: "🔲", isNew: true, isAmazing: false, imageData: null },
-            { id: 77, name: "بلوک تیغه هبلکس 15", price: 21000, oldPrice: null, category: "block", desc: "بلوک تیغه هبلکس 15", stock: 1800, rating: 4.7, reviews: 16, emoji: "🔲", isNew: true, isAmazing: false, imageData: null },
-            { id: 78, name: "بلوک تیغه هبلکس 20", price: 24000, oldPrice: null, category: "block", desc: "بلوک تیغه هبلکس 20", stock: 1800, rating: 4.8, reviews: 20, emoji: "🔲", isNew: true, isAmazing: true, imageData: null },
-            { id: 79, name: "فوم سقفی 20", price: 35000, oldPrice: null, category: "roof", desc: "فوم سقفی 20", stock: 1000, rating: 4.4, reviews: 8, emoji: "🏠", isNew: false, isAmazing: false, imageData: null },
-            { id: 80, name: "فوم سقفی 25", price: 40000, oldPrice: null, category: "roof", desc: "فوم سقفی 25", stock: 1000, rating: 4.5, reviews: 10, emoji: "🏠", isNew: false, isAmazing: false, imageData: null },
-            { id: 81, name: "ورق فوم 2 سانتی", price: 28000, oldPrice: null, category: "roof", desc: "ورق فوم 2 سانتی", stock: 1500, rating: 4.3, reviews: 7, emoji: "🏠", isNew: false, isAmazing: false, imageData: null },
-            { id: 82, name: "ورق فوم 3 سانتی", price: 32000, oldPrice: null, category: "roof", desc: "ورق فوم 3 سانتی", stock: 1500, rating: 4.4, reviews: 9, emoji: "🏠", isNew: false, isAmazing: false, imageData: null },
-            { id: 83, name: "ورق فوم 5 سانتی", price: 42000, oldPrice: null, category: "roof", desc: "ورق فوم 5 سانتی", stock: 1200, rating: 4.6, reviews: 12, emoji: "🏠", isNew: false, isAmazing: false, imageData: null },
-            { id: 84, name: "فوم رولی", price: 55000, oldPrice: null, category: "roof", desc: "فوم رولی", stock: 800, rating: 4.5, reviews: 8, emoji: "🏠", isNew: false, isAmazing: false, imageData: null },
-            { id: 85, name: "چسب 123 استارباند", price: 18000, oldPrice: null, category: "additive", desc: "چسب 123 استارباند", stock: 500, rating: 4.8, reviews: 22, emoji: "🧪", isNew: false, isAmazing: true, imageData: null },
-            { id: 86, name: "چسب 123 ترک فیک", price: 17000, oldPrice: null, category: "additive", desc: "چسب 123 ترک فیک", stock: 500, rating: 4.7, reviews: 19, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
-            { id: 87, name: "چسب 123 دیبا فیکس", price: 17500, oldPrice: null, category: "additive", desc: "چسب 123 دیبا فیکس", stock: 500, rating: 4.6, reviews: 17, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
-            { id: 88, name: "چسب 123 میتراپل", price: 18500, oldPrice: null, category: "additive", desc: "چسب 123 میتراپل", stock: 500, rating: 4.7, reviews: 18, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
-            { id: 89, name: "چسب 123 آرازیم", price: 19000, oldPrice: null, category: "additive", desc: "چسب 123 آرازیم", stock: 500, rating: 4.8, reviews: 21, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
-            { id: 90, name: "چسب 123 ثنا باند", price: 17500, oldPrice: null, category: "additive", desc: "چسب 123 ثنا باند", stock: 500, rating: 4.5, reviews: 15, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
-            { id: 91, name: "چسب 123 استاربلو", price: 19500, oldPrice: null, category: "additive", desc: "چسب 123 استاربلو", stock: 500, rating: 4.7, reviews: 20, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
-            { id: 92, name: "میلگرد سایز 8", price: 25000, oldPrice: null, category: "steel", desc: "میلگرد سایز 8 هر شاخه", stock: 2000, rating: 4.5, reviews: 28, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
-            { id: 93, name: "میلگرد سایز 10", price: 32000, oldPrice: null, category: "steel", desc: "میلگرد سایز 10 هر شاخه", stock: 2000, rating: 4.6, reviews: 32, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
-            { id: 94, name: "میلگرد سایز 12", price: 38000, oldPrice: 45000, category: "steel", desc: "میلگرد سایز 12 هر شاخه", stock: 2000, rating: 4.7, reviews: 35, emoji: "📐", isNew: false, isAmazing: true, imageData: null },
-            { id: 95, name: "میلگرد سایز 14", price: 45000, oldPrice: 52000, category: "steel", desc: "میلگرد سایز 14 هر شاخه", stock: 1800, rating: 4.8, reviews: 28, emoji: "📐", isNew: false, isAmazing: true, imageData: null },
-            { id: 96, name: "میلگرد سایز 16", price: 52000, oldPrice: 60000, category: "steel", desc: "میلگرد سایز 16 هر شاخه", stock: 1800, rating: 4.8, reviews: 30, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
-            { id: 97, name: "میلگرد سایز 18", price: 60000, oldPrice: 70000, category: "steel", desc: "میلگرد سایز 18 هر شاخه", stock: 1500, rating: 4.7, reviews: 25, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
-            { id: 98, name: "میلگرد سایز 20", price: 68000, oldPrice: 80000, category: "steel", desc: "میلگرد سایز 20 هر شاخه", stock: 1500, rating: 4.8, reviews: 26, emoji: "📐", isNew: false, isAmazing: true, imageData: null },
-            { id: 99, name: "میلگرد سایز 22", price: 75000, oldPrice: null, category: "steel", desc: "میلگرد سایز 22 هر شاخه", stock: 1200, rating: 4.6, reviews: 18, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
-            { id: 100, name: "میلگرد سایز 24", price: 85000, oldPrice: null, category: "steel", desc: "میلگرد سایز 24 هر شاخه", stock: 1200, rating: 4.6, reviews: 16, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
-            { id: 101, name: "میلگرد سایز 25", price: 90000, oldPrice: null, category: "steel", desc: "میلگرد سایز 25 هر شاخه", stock: 1000, rating: 4.7, reviews: 14, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
-            { id: 102, name: "خاموت سایز 8", price: 15000, oldPrice: null, category: "steel", desc: "خاموت سایز 8", stock: 3000, rating: 4.5, reviews: 22, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
-            { id: 103, name: "خاموت سایز 10", price: 18000, oldPrice: null, category: "steel", desc: "خاموت سایز 10", stock: 3000, rating: 4.5, reviews: 20, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
-            { id: 104, name: "تیرآهن 14", price: 850000, oldPrice: null, category: "steel", desc: "تیرآهن 14 هر شاخه", stock: 500, rating: 4.6, reviews: 12, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
-            { id: 105, name: "تیرآهن 16", price: 950000, oldPrice: null, category: "steel", desc: "تیرآهن 16 هر شاخه", stock: 500, rating: 4.6, reviews: 14, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
-            { id: 106, name: "تیرآهن 18", price: 1050000, oldPrice: null, category: "steel", desc: "تیرآهن 18 هر شاخه", stock: 450, rating: 4.7, reviews: 10, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
-            { id: 107, name: "تیرآهن 20", price: 1150000, oldPrice: 1250000, category: "steel", desc: "تیرآهن 20 هر شاخه", stock: 450, rating: 4.7, reviews: 11, emoji: "📐", isNew: false, isAmazing: true, imageData: null },
-            { id: 108, name: "تیرآهن 22", price: 1250000, oldPrice: null, category: "steel", desc: "تیرآهن 22 هر شاخه", stock: 400, rating: 4.8, reviews: 9, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
-            { id: 109, name: "تیرآهن 24", price: 1350000, oldPrice: null, category: "steel", desc: "تیرآهن 24 هر شاخه", stock: 400, rating: 4.8, reviews: 8, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
-            { id: 110, name: "نبشی 3", price: 45000, oldPrice: null, category: "steel", desc: "نبشی 3", stock: 1000, rating: 4.5, reviews: 15, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
-            { id: 111, name: "نبشی 4", price: 55000, oldPrice: null, category: "steel", desc: "نبشی 4", stock: 1000, rating: 4.5, reviews: 13, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
-            { id: 112, name: "نبشی 5", price: 68000, oldPrice: null, category: "steel", desc: "نبشی 5", stock: 900, rating: 4.6, reviews: 12, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
-            { id: 113, name: "نبشی 8", price: 95000, oldPrice: null, category: "steel", desc: "نبشی 8", stock: 800, rating: 4.6, reviews: 10, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
-            { id: 114, name: "نبشی 10", price: 120000, oldPrice: null, category: "steel", desc: "نبشی 10", stock: 800, rating: 4.7, reviews: 11, emoji: "📐", isNew: false, isAmazing: false, imageData: null }
-        ];
+        let allProducts = [];
+        // سیمان
+        allProducts.push({ id: 1, name: "سیمان مهریز 50 کیلویی", price: 85000, oldPrice: 95000, category: "cement", rating: 4.9, reviews: 45, emoji: "🧱", isNew: true, isAmazing: true });
+        allProducts.push({ id: 2, name: "سیمان نایین 50 کیلویی", price: 82000, oldPrice: null, category: "cement", rating: 4.8, reviews: 38, emoji: "🧱", isNew: false, isAmazing: false });
+        allProducts.push({ id: 3, name: "سیمان سفید بنوید 25 کیلویی", price: 95000, oldPrice: 105000, category: "cement", rating: 4.7, reviews: 22, emoji: "🧱", isNew: false, isAmazing: true });
+        allProducts.push({ id: 4, name: "سیمان سفید اصفهان 25 کیلویی", price: 98000, oldPrice: null, category: "cement", rating: 4.8, reviews: 25, emoji: "🧱", isNew: false, isAmazing: false });
+        // بلوک
+        allProducts.push({ id: 5, name: "بلوک تیغه 5 سانتی", price: 12000, oldPrice: null, category: "block", rating: 4.4, reviews: 10, emoji: "🔲", isNew: false, isAmazing: false });
+        allProducts.push({ id: 6, name: "بلوک تیغه 10 سانتی", price: 15000, oldPrice: null, category: "block", rating: 4.5, reviews: 14, emoji: "🔲", isNew: false, isAmazing: false });
+        allProducts.push({ id: 7, name: "بلوک تیغه 15 سانتی", price: 18000, oldPrice: null, category: "block", rating: 4.5, reviews: 12, emoji: "🔲", isNew: false, isAmazing: false });
+        allProducts.push({ id: 8, name: "بلوک سقفی آجری 20", price: 22000, oldPrice: null, category: "block", rating: 4.6, reviews: 16, emoji: "🔲", isNew: false, isAmazing: false });
+        allProducts.push({ id: 9, name: "بلوک سقفی آجری 25", price: 25000, oldPrice: null, category: "block", rating: 4.6, reviews: 15, emoji: "🔲", isNew: false, isAmazing: false });
+        allProducts.push({ id: 10, name: "بلوک ته پر دیواری سیمانی", price: 14000, oldPrice: null, category: "block", rating: 4.3, reviews: 9, emoji: "🔲", isNew: false, isAmazing: false });
+        allProducts.push({ id: 11, name: "بلوک تیغه لیکا 10", price: 16000, oldPrice: null, category: "block", rating: 4.5, reviews: 11, emoji: "🔲", isNew: false, isAmazing: false });
+        allProducts.push({ id: 12, name: "بلوک تیغه لیکا 15", price: 19000, oldPrice: null, category: "block", rating: 4.5, reviews: 10, emoji: "🔲", isNew: false, isAmazing: false });
+        allProducts.push({ id: 13, name: "بلوک تیغه لیکا 20", price: 22000, oldPrice: null, category: "block", rating: 4.6, reviews: 13, emoji: "🔲", isNew: false, isAmazing: false });
+        allProducts.push({ id: 14, name: "بلوک تیغه هبلکس 10", price: 18000, oldPrice: null, category: "block", rating: 4.7, reviews: 18, emoji: "🔲", isNew: true, isAmazing: false });
+        allProducts.push({ id: 15, name: "بلوک تیغه هبلکس 15", price: 21000, oldPrice: null, category: "block", rating: 4.7, reviews: 16, emoji: "🔲", isNew: true, isAmazing: false });
+        allProducts.push({ id: 16, name: "بلوک تیغه هبلکس 20", price: 24000, oldPrice: null, category: "block", rating: 4.8, reviews: 20, emoji: "🔲", isNew: true, isAmazing: true });
+        // آجر
+        allProducts.push({ id: 17, name: "آجر گری دستی (تن)", price: 850000, oldPrice: null, category: "brick", rating: 4.6, reviews: 8, emoji: "🧱", isNew: false, isAmazing: false });
+        allProducts.push({ id: 18, name: "آجر گری فشاری (تن)", price: 820000, oldPrice: null, category: "brick", rating: 4.5, reviews: 7, emoji: "🧱", isNew: false, isAmazing: false });
+        allProducts.push({ id: 19, name: "آجر روکار 5 سانت درجه یک", price: 4500, oldPrice: 5500, category: "brick", rating: 4.8, reviews: 32, emoji: "🧱", isNew: false, isAmazing: true });
+        allProducts.push({ id: 20, name: "آجر روکار 5 سانت درجه دو", price: 3800, oldPrice: null, category: "brick", rating: 4.3, reviews: 18, emoji: "🧱", isNew: false, isAmazing: false });
+        allProducts.push({ id: 21, name: "آجر روکار 4 سانت درجه یک", price: 4200, oldPrice: 5000, category: "brick", rating: 4.7, reviews: 25, emoji: "🧱", isNew: false, isAmazing: false });
+        allProducts.push({ id: 22, name: "آجر روکار 4 سانت درجه دو", price: 3500, oldPrice: null, category: "brick", rating: 4.2, reviews: 14, emoji: "🧱", isNew: false, isAmazing: false });
+        // گچ
+        allProducts.push({ id: 23, name: "گچ سفید کاری سمنان 30 کیلویی", price: 28000, oldPrice: null, category: "gypsum", rating: 4.5, reviews: 18, emoji: "⚪", isNew: false, isAmazing: false });
+        allProducts.push({ id: 24, name: "گچ سفید کاری سپیدار 30 کیلویی", price: 29000, oldPrice: null, category: "gypsum", rating: 4.5, reviews: 14, emoji: "⚪", isNew: false, isAmazing: false });
+        allProducts.push({ id: 25, name: "گچ سفید کاری امید 25 کیلویی", price: 26000, oldPrice: null, category: "gypsum", rating: 4.5, reviews: 12, emoji: "⚪", isNew: false, isAmazing: false });
+        allProducts.push({ id: 26, name: "گچ سفید کاری شایان 30 کیلویی", price: 27500, oldPrice: null, category: "gypsum", rating: 4.5, reviews: 11, emoji: "⚪", isNew: false, isAmazing: false });
+        allProducts.push({ id: 27, name: "گچ یزد 30 کیلویی", price: 27000, oldPrice: null, category: "gypsum", rating: 4.5, reviews: 13, emoji: "⚪", isNew: false, isAmazing: false });
+        // تیرآهن و میلگرد
+        allProducts.push({ id: 28, name: "میلگرد سایز 8", price: 25000, oldPrice: null, category: "steel", rating: 4.5, reviews: 28, emoji: "📐", isNew: false, isAmazing: false });
+        allProducts.push({ id: 29, name: "میلگرد سایز 10", price: 32000, oldPrice: null, category: "steel", rating: 4.6, reviews: 32, emoji: "📐", isNew: false, isAmazing: false });
+        allProducts.push({ id: 30, name: "میلگرد سایز 12", price: 38000, oldPrice: 45000, category: "steel", rating: 4.7, reviews: 35, emoji: "📐", isNew: false, isAmazing: true });
+        allProducts.push({ id: 31, name: "میلگرد سایز 14", price: 45000, oldPrice: 52000, category: "steel", rating: 4.8, reviews: 28, emoji: "📐", isNew: false, isAmazing: true });
+        allProducts.push({ id: 32, name: "میلگرد سایز 16", price: 52000, oldPrice: 60000, category: "steel", rating: 4.8, reviews: 30, emoji: "📐", isNew: false, isAmazing: false });
+        allProducts.push({ id: 33, name: "تیرآهن 14", price: 850000, oldPrice: null, category: "steel", rating: 4.6, reviews: 12, emoji: "📐", isNew: false, isAmazing: false });
+        allProducts.push({ id: 34, name: "تیرآهن 16", price: 950000, oldPrice: null, category: "steel", rating: 4.6, reviews: 14, emoji: "📐", isNew: false, isAmazing: false });
+        allProducts.push({ id: 35, name: "تیرآهن 18", price: 1050000, oldPrice: null, category: "steel", rating: 4.7, reviews: 10, emoji: "📐", isNew: false, isAmazing: false });
+        allProducts.push({ id: 36, name: "تیرآهن 20", price: 1150000, oldPrice: 1250000, category: "steel", rating: 4.7, reviews: 11, emoji: "📐", isNew: false, isAmazing: true });
+        // ماسه و شن
+        allProducts.push({ id: 37, name: "ماسه شسته شده مهریز بتنی فله", price: 28000, oldPrice: null, category: "sand", rating: 4.5, reviews: 22, emoji: "🏖️", isNew: false, isAmazing: false });
+        allProducts.push({ id: 38, name: "ماسه شسته شده مهریز نرم فله", price: 27000, oldPrice: null, category: "sand", rating: 4.5, reviews: 18, emoji: "🏖️", isNew: false, isAmazing: false });
+        allProducts.push({ id: 39, name: "سنگدانه بادامی فله", price: 32000, oldPrice: null, category: "sand", rating: 4.5, reviews: 8, emoji: "🏖️", isNew: false, isAmazing: false });
+        // پوکه
+        allProducts.push({ id: 40, name: "پوکه لیکا دانه ای", price: 35000, oldPrice: null, category: "pumice", rating: 4.5, reviews: 15, emoji: "🪨", isNew: false, isAmazing: true });
+        allProducts.push({ id: 41, name: "پوکه هبلکس دانه ای", price: 32000, oldPrice: null, category: "pumice", rating: 4.5, reviews: 7, emoji: "🪨", isNew: false, isAmazing: false });
+        // آهک
+        allProducts.push({ id: 42, name: "آهک فله صنعتی (تن)", price: 550000, oldPrice: null, category: "lime", rating: 4.5, reviews: 6, emoji: "🔥", isNew: false, isAmazing: false });
+        allProducts.push({ id: 43, name: "آهک فله سنتی (تن)", price: 520000, oldPrice: null, category: "lime", rating: 4.5, reviews: 5, emoji: "🔥", isNew: false, isAmazing: false });
+        allProducts.push({ id: 44, name: "آهک پاکت 40 کیلویی", price: 35000, oldPrice: null, category: "lime", rating: 4.5, reviews: 9, emoji: "🔥", isNew: false, isAmazing: false });
+        // لوله
+        allProducts.push({ id: 45, name: "لوله سیمانی 10 سانتی متر", price: 55000, oldPrice: null, category: "pipe", rating: 4.5, reviews: 5, emoji: "📦", isNew: false, isAmazing: false });
+        allProducts.push({ id: 46, name: "لوله سیمانی 15 سانتی متر", price: 68000, oldPrice: null, category: "pipe", rating: 4.5, reviews: 4, emoji: "📦", isNew: false, isAmazing: false });
+        // عایق
+        allProducts.push({ id: 47, name: "ایزوگام بارانپوشش دلیجان درجه 1", price: 45000, oldPrice: null, category: "insulation", rating: 4.5, reviews: 11, emoji: "🛢️", isNew: true, isAmazing: false });
+        // مواد افزودنی
+        allProducts.push({ id: 48, name: "پودر سنگ زنبق 25 کیلوگرمی", price: 45000, oldPrice: null, category: "additive", rating: 4.5, reviews: 12, emoji: "🧪", isNew: false, isAmazing: false });
+        allProducts.push({ id: 49, name: "پودر سنگ نگین 25 کیلوگرمی", price: 46000, oldPrice: null, category: "additive", rating: 4.5, reviews: 8, emoji: "🧪", isNew: false, isAmazing: false });
+        allProducts.push({ id: 50, name: "چسب کاشی غفاری", price: 25000, oldPrice: null, category: "additive", rating: 4.6, reviews: 19, emoji: "🧪", isNew: false, isAmazing: false });
+        
+        return allProducts;
     }
 
     function loadProductsFromStorage() {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved && JSON.parse(saved).length > 0) { products = JSON.parse(saved); }
-        else { products = getDefaultProducts(); localStorage.setItem(STORAGE_KEY, JSON.stringify(products)); }
+        else { 
+            products = getDefaultProducts(); 
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(products)); 
+        }
+        
         const emptyMessage = document.getElementById('emptyAllProducts');
         if (products.length === 0) {
             if (emptyMessage) emptyMessage.style.display = 'block';
@@ -737,7 +674,6 @@
         productContainers.forEach(id => { const container = document.getElementById(id); if (container) initSmoothScroll(container); });
     }
 
-    // ========== نمایش همه محصولات (بدون محدودیت) ==========
     function renderCategoryProducts(categoryId, containerId, limit = 999) {
         const container = document.getElementById(containerId);
         if (!container) return;

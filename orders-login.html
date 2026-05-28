@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود به پنل سفارشات | بارمان مرکب کویر</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tahoma', sans-serif;
+            background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            direction: rtl;
+            padding: 20px;
+        }
+        .container { width: 100%; max-width: 420px; }
+        .logo { text-align: center; margin-bottom: 30px; animation: fadeInDown 0.5s ease; }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        .logo-icon {
+            width: 80px; height: 80px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 40px;
+            color: white;
+        }
+        .logo h1 { color: white; font-size: 28px; }
+        .logo p { color: rgba(255,255,255,0.8); font-size: 14px; margin-top: 5px; }
+        .card {
+            background: white;
+            border-radius: 30px;
+            padding: 35px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            animation: fadeInUp 0.5s ease;
+        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; color: #333; }
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #e67e22;
+            box-shadow: 0 0 0 3px rgba(230,126,34,0.1);
+        }
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(230,126,34,0.3); }
+        .info-text { text-align: center; margin-top: 20px; font-size: 12px; color: #999; }
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #27ae60;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            z-index: 2000;
+            animation: fadeIn 0.3s;
+        }
+        .toast.error { background: #e74c3c; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="logo">
+        <div class="logo-icon"><i class="fas fa-clipboard-list"></i></div>
+        <h1>پنل سفارشات</h1>
+        <p>مدیریت سفارشات مشتریان</p>
+    </div>
+    <div class="card">
+        <div class="form-group">
+            <label><i class="fas fa-user"></i> نام کاربری</label>
+            <input type="text" id="orderUsername" placeholder="نام کاربری خود را وارد کنید">
+        </div>
+        <div class="form-group">
+            <label><i class="fas fa-lock"></i> رمز عبور</label>
+            <input type="password" id="orderPassword" placeholder="رمز عبور خود را وارد کنید">
+        </div>
+        <button class="submit-btn" onclick="orderLogin()"><i class="fas fa-sign-in-alt"></i> ورود به پنل سفارشات</button>
+        <div class="info-text">
+        </div>
+    </div>
+</div>
+
+<script>
+    function orderLogin() {
+        const username = document.getElementById('orderUsername').value.trim();
+        const password = document.getElementById('orderPassword').value;
+        
+        const orderUser = 'order';
+        const orderPass = 'order123';
+        
+        if (username === orderUser && password === orderPass) {
+            localStorage.setItem('order_logged_in', 'true');
+            localStorage.setItem('order_user', username);
+            showToast('ورود موفق! در حال انتقال...');
+            setTimeout(() => {
+                window.location.href = 'orders-panel.html';
+            }, 1000);
+        } else {
+            showToast('نام کاربری یا رمز عبور اشتباه است!', 'error');
+        }
+    }
+    
+    function showToast(msg, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        if (type === 'error') toast.classList.add('error');
+        toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${msg}`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2500);
+    }
+</script>
+</body>
+</html>

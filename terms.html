@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قوانین و مقررات | بارمان مرکب کویر</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tahoma', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            direction: rtl;
+        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; animation: fadeInUp 0.5s ease; }
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 15px 25px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .logo-icon {
+            width: 45px; height: 45px;
+            background: linear-gradient(135deg, #ef6b00, #d35400);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        .logo h1 { font-size: 22px; color: #333; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: #666; transition: all 0.3s ease; }
+        .nav-links a:hover { color: #ef6b00; }
+        .back-btn {
+            background: #ef6b00;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover { transform: translateY(-2px); background: #d35400; }
+        .hero {
+            background: linear-gradient(135deg, #ef6b00, #d35400);
+            border-radius: 25px;
+            padding: 50px 30px;
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.6s ease;
+        }
+        .hero h1 { font-size: 32px; margin-bottom: 10px; }
+        .hero p { font-size: 16px; opacity: 0.9; }
+        .content-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.5s ease;
+        }
+        .content-card h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            color: #ef6b00;
+        }
+        .content-card p { color: #666; line-height: 1.8; margin-bottom: 15px; }
+        .content-card ul { padding-right: 20px; margin: 15px 0; }
+        .content-card li { margin-bottom: 10px; color: #666; }
+        .footer {
+            background: #2d3436;
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 30px;
+            animation: fadeInUp 0.8s ease;
+        }
+        .footer a { color: #b2bec3; text-decoration: none; margin: 0 10px; transition: all 0.3s ease; }
+        .footer a:hover { color: #ef6b00; }
+        .update-date { text-align: center; margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 12px; color: #999; font-size: 13px; }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header { flex-direction: column; text-align: center; }
+            .hero h1 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo" onclick="window.location.href='shop.html'">
+            <div class="logo-icon"><i class="fas fa-hard-hat"></i></div>
+            <h1>بارمان مرکب کویر</h1>
+        </div>
+        <div class="nav-links">
+            <a href="shop.html">فروشگاه</a>
+            <a href="about.html">درباره ما</a>
+            <a href="contact.html">تماس با ما</a>
+            <a href="faq.html">سوالات</a>
+        </div>
+        <button class="back-btn" onclick="window.location.href='shop.html'">
+            <i class="fas fa-arrow-right"></i> بازگشت
+        </button>
+    </div>
+
+    <div class="hero">
+        <h1><i class="fas fa-gavel"></i> قوانین و مقررات</h1>
+        <p>لطفاً قبل از استفاده از سایت، قوانین را مطالعه فرمایید</p>
+    </div>
+
+    <div class="content-card">
+        <h2><i class="fas fa-info-circle"></i> شرایط عمومی</h2>
+        <p>استفاده از وب‌سایت بارمان مرکب کویر به منزله پذیرش کلیه قوانین و مقررات زیر می‌باشد. لطفاً در صورت عدم پذیرش قوانین، از استفاده از سایت خودداری نمایید.</p>
+        <p>بارمان مرکب کویر این حق را برای خود محفوظ می‌دارد که در هر زمان و بدون اطلاع قبلی، قوانین و مقررات را تغییر دهد.</p>
+    </div>
+
+    <div class="content-card">
+        <h2><i class="fas fa-shopping-cart"></i> قوانین خرید</h2>
+        <ul><li>ثبت سفارش به معنی قبول قیمت و شرایط محصول می‌باشد.</li><li>مسئولیت درستی اطلاعات وارد شده در هنگام ثبت سفارش بر عهده کاربر است.</li><li>بارمان مرکب کویر این حق را دارد که سفارش‌های مشکوک را بدون توضیح لغو کند.</li><li>قیمت مصالح در زمان ثبت سفارش محاسبه می‌شود و تغییرات بعدی تأثیری در سفارش ثبت شده ندارد.</li></ul>
+    </div>
+
+    <div class="content-card">
+        <h2><i class="fas fa-undo-alt"></i> شرایط بازگشت کالا</h2>
+        <ul><li>تا ۱۴ روز پس از تحویل کالا، امکان بازگشت کالا وجود دارد.</li><li>کالا باید در بسته‌بندی اصلی و بدون استفاده باشد.</li><li>هزینه بازگشت کالا در صورت عدم مشکل فنی بر عهده مشتری می‌باشد.</li><li>مصالح مصرفی و باز شده قابل بازگشت نمی‌باشند.</li></ul>
+    </div>
+
+    <div class="content-card">
+        <h2><i class="fas fa-truck"></i> شرایط ارسال</h2>
+        <ul><li>زمان تحویل سفارش‌ها بین ۲ تا ۵ روز کاری می‌باشد.</li><li>هزینه ارسال بر اساس روش انتخابی محاسبه می‌شود.</li><li>سفارش‌های بالای ۵ میلیون تومان شامل ارسال رایگان می‌شوند.</li><li>در صورت عدم حضور در آدرس ثبت شده، کالا به انبار بازگردانده می‌شود و هزینه ارسال مجدد بر عهده مشتری است.</li></ul>
+    </div>
+
+    <div class="content-card">
+        <h2><i class="fas fa-lock"></i> حریم خصوصی</h2>
+        <p>بارمان مرکب کویر به حریم خصوصی کاربران احترام می‌گذارد و اطلاعات شخصی کاربران را محفوظ نگه می‌دارد. اطلاعات ثبت شده فقط برای پردازش سفارشات و ارتباط با مشتریان استفاده می‌شود و در اختیار هیچ شخص یا سازمان دیگری قرار نمی‌گیرد.</p>
+    </div>
+
+    <div class="update-date">آخرین به‌روزرسانی: ۱۴۰۳/۰۲/۱۲</div>
+
+    <div class="footer">
+        <p>© ۱۴۰۳ بارمان مرکب کویر - تمامی حقوق محفوظ است</p>
+        <p style="margin-top: 10px;">
+            <a href="about.html">درباره ما</a>
+            <a href="contact.html">تماس با ما</a>
+            <a href="faq.html">سوالات متداول</a>
+            <a href="terms.html">قوانین</a>
+            <a href="returns.html">بازگشت کالا</a>
+            <a href="shipping.html">شیوه‌های ارسال</a>
+        </p>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>بارمان مرکب کویر | فروشگاه آنلاین مصالح ساختمانی</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ef6b00;
+            --primary-dark: #d35400;
+            --primary-light: #f39c12;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --dark: #2d3436;
+            --gray: #7f8c8d;
+            --gray-light: #ecf0f1;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+            --shadow-md: 0 5px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 15px 35px rgba(0,0,0,0.12);
+            --shadow-xl: 0 25px 50px rgba(0,0,0,0.2);
+            --shadow-neon: 0 0 15px rgba(239,107,0,0.5);
+            --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+            --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --radius: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+        }
+
+        body {
+            font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+            background: var(--light);
+            direction: rtl;
+            color: var(--dark);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* انیمیشن‌ها */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes bounce {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        @keyframes pulse {
+            0%,100% { transform: scale(1); }
+            50% { transform: scale(1.08); box-shadow: var(--shadow-neon); }
+        }
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        @keyframes float {
+            0%,100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* اسکرول بار */
+        ::-webkit-scrollbar { width: 8px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--gray-light); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+
+        .top-bar {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: var(--gray-light);
+            padding: 8px 40px;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        .top-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+        .top-bar a { color: var(--gray-light); text-decoration: none; margin-left: 20px; transition: var(--transition); }
+        .top-bar a:hover { color: var(--primary); transform: translateX(-3px); }
+
+        .main-header {
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(10px);
+            padding: 12px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        .main-header:hover { box-shadow: var(--shadow-xl); }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+        }
+        .logo:hover { transform: scale(1.05); }
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+        .logo:hover .logo-icon { transform: rotate(360deg) scale(1.1); }
+        .logo h1 {
+            font-size: 22px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+
+        .search-wrapper { flex: 1; max-width: 550px; position: relative; }
+        .search-box {
+            display: flex;
+            background: var(--light);
+            border-radius: 50px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+        .search-box:focus-within {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-neon);
+            transform: scale(1.02);
+        }
+        .search-box input {
+            flex: 1;
+            padding: 14px 22px;
+            border: none;
+            background: none;
+            outline: none;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        .search-box button {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 0 28px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .search-box button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        .search-box button:hover::before { left: 100%; }
+        .search-box button:hover { transform: scale(1.05); }
+
+        .header-icons { display: flex; align-items: center; gap: 25px; }
+        .header-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            font-size: 12px;
+            color: var(--gray);
+            position: relative;
+            transition: var(--transition);
+        }
+        .header-icon i { font-size: 22px; margin-bottom: 4px; transition: var(--transition-bounce); }
+        .header-icon:hover { color: var(--primary); }
+        .header-icon:hover i { transform: translateY(-5px) scale(1.1); }
+        .cart-icon, .wishlist-icon {
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 8px;
+            border-radius: 50%;
+        }
+        .cart-icon:hover, .wishlist-icon:hover { background: rgba(239,107,0,0.1); transform: scale(1.05); }
+        .cart-count, .wishlist-count {
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            background: linear-gradient(135deg, var(--danger), #c0392b);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            animation: pulse 1.5s infinite;
+        }
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 26px; cursor: pointer; color: var(--dark); transition: var(--transition); }
+        .mobile-menu-btn:hover { transform: scale(1.1); color: var(--primary); }
+
+        /* ========== دسته‌بندی‌ها مثل دیجی کالا ========== */
+        .categories-section {
+            margin: 30px 40px;
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 25px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            animation: fadeInUp 0.8s ease;
+        }
+        .categories-section:hover { box-shadow: var(--shadow-xl); transform: translateY(-5px); }
+        .categories-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--gray-light);
+        }
+        .categories-header h3 { font-size: 22px; color: var(--dark); display: flex; align-items: center; gap: 10px; }
+        .categories-header h3 i { color: var(--primary); animation: pulse 2s infinite; }
+
+        .categories-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 15px;
+            scrollbar-width: thin;
+            cursor: grab;
+            scroll-snap-type: none;
+        }
+        .categories-container:active { cursor: grabbing; }
+        .categories-container::-webkit-scrollbar { height: 5px; }
+        .categories-container::-webkit-scrollbar-track { background: #e0e0e0; border-radius: 10px; }
+        .categories-container::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        .categories-grid { display: flex; gap: 20px; width: fit-content; }
+
+        .cat-item {
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            padding: 15px;
+            border-radius: var(--radius-lg);
+            background: var(--light);
+            min-width: 140px;
+            width: 140px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .cat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        .cat-item:hover::before { left: 100%; }
+        .cat-item:hover {
+            transform: translateY(-12px) scale(1.05);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: var(--shadow-xl);
+        }
+        .cat-icon {
+            width: 65px;
+            height: 65px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 30px;
+            color: var(--primary);
+            transition: var(--transition-bounce);
+        }
+        .cat-item:hover .cat-icon { transform: scale(1.1) rotate(10deg); box-shadow: var(--shadow-md); }
+        .cat-item span { font-size: 14px; font-weight: 600; }
+        .cat-item p { font-size: 10px; opacity: 0.7; margin-top: 5px; }
+
+        /* ========== بخش شگفت‌انگیز ========== */
+        .amazing-section {
+            background: linear-gradient(135deg, #f39c12, #ef6b00);
+            margin: 30px 40px;
+            border-radius: var(--radius-xl);
+            padding: 35px;
+            color: white;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.9s ease;
+        }
+        .amazing-section::before {
+            content: '🔥';
+            position: absolute;
+            font-size: 200px;
+            bottom: -60px;
+            left: -60px;
+            opacity: 0.15;
+            pointer-events: none;
+            animation: float 4s ease infinite;
+        }
+        .amazing-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            animation: shimmer 4s infinite;
+        }
+        .amazing-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .amazing-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 28px;
+            font-weight: 800;
+        }
+        .amazing-title i { animation: pulse 1.5s infinite; filter: drop-shadow(0 0 5px rgba(255,255,255,0.5)); }
+        .amazing-products-container { overflow-x: auto; overflow-y: hidden; scroll-behavior: smooth; padding-bottom: 10px; cursor: grab; }
+        .amazing-products-container:active { cursor: grabbing; }
+        .amazing-products-container::-webkit-scrollbar { height: 6px; }
+        .amazing-products-container::-webkit-scrollbar-track { background: rgba(255,255,255,0.3); border-radius: 10px; }
+        .amazing-products-container::-webkit-scrollbar-thumb { background: white; border-radius: 10px; }
+        .amazing-products { display: flex; gap: 20px; width: fit-content; }
+        .amazing-card {
+            background: white;
+            color: #333;
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            min-width: 200px;
+            width: 200px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .amazing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+        .amazing-card:hover::before { left: 100%; }
+        .amazing-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: var(--shadow-xl);
+        }
+        .amazing-card span { font-size: 55px; display: inline-block; transition: var(--transition-bounce); }
+        .amazing-card:hover span { transform: scale(1.2) rotate(5deg); }
+        .amazing-card .price { color: var(--danger); font-weight: 800; font-size: 20px; margin-top: 10px; }
+
+        /* ========== بخش محصولات هر دسته با اسکرول حرفه‌ای ========== */
+        .category-section-wrapper {
+            margin: 35px 40px;
+            scroll-margin-top: 80px;
+            animation: fadeInUp 0.6s ease;
+            animation-fill-mode: both;
+        }
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .category-title {
+            font-size: 24px;
+            font-weight: 800;
+            position: relative;
+            padding-right: 15px;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+        .category-title::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 5px;
+            background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+            border-radius: 3px;
+        }
+        .category-title:hover {
+            transform: translateX(-5px);
+            color: var(--primary);
+        }
+        .category-view-all {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 13px;
+            transition: var(--transition-bounce);
+            padding: 6px 15px;
+            border-radius: 30px;
+            background: rgba(239,107,0,0.1);
+        }
+        .category-view-all:hover {
+            color: white;
+            background: var(--primary);
+            transform: translateX(-5px);
+            box-shadow: var(--shadow-neon);
+        }
+
+        /* اسکرول محصولات هر دسته - مثل دیجی کالا */
+        .products-scroll-container {
+            position: relative;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            cursor: grab;
+            scrollbar-width: thin;
+            padding: 10px 0;
+            scroll-snap-type: none;
+        }
+        .products-scroll-container:active {
+            cursor: grabbing;
+        }
+        .products-scroll-container::-webkit-scrollbar {
+            height: 5px;
+        }
+        .products-scroll-container::-webkit-scrollbar-track {
+            background: var(--gray-light);
+            border-radius: 10px;
+        }
+        .products-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+        .products-scroll {
+            display: flex;
+            gap: 25px;
+            width: fit-content;
+        }
+
+        .product-card {
+            width: 260px;
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: var(--transition-bounce);
+            cursor: pointer;
+            position: relative;
+            box-shadow: var(--shadow-md);
+            flex-shrink: 0;
+        }
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+            z-index: 1;
+        }
+        .product-card:hover::before { left: 100%; }
+        .product-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+        .product-img {
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #fef5e7, #fff);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .product-card:hover .product-img { background: linear-gradient(135deg, #fff3e0, #ffe8d4); }
+        .product-img img { max-width: 85%; max-height: 85%; object-fit: contain; transition: var(--transition-bounce); }
+        .product-card:hover .product-img img { transform: scale(1.1); }
+        .product-img span { font-size: 70px; transition: var(--transition-bounce); }
+        .product-card:hover .product-img span { transform: scale(1.15) rotate(5deg); }
+        .discount-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: linear-gradient(135deg, var(--danger), #c0392b);
+            color: white;
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+            z-index: 2;
+        }
+        .new-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, var(--success), #1e8449);
+            color: white;
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: bold;
+            z-index: 2;
+        }
+        .wishlist-btn {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: white;
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: #ccc;
+            box-shadow: var(--shadow-md);
+            z-index: 5;
+            transition: var(--transition-bounce);
+            font-size: 18px;
+        }
+        .wishlist-btn:hover {
+            transform: scale(1.15);
+            background: #fee;
+            box-shadow: var(--shadow-lg);
+        }
+        .wishlist-btn.active { color: var(--danger); animation: pulse 1s ease; }
+        .product-info { padding: 15px; }
+        .product-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            height: 44px;
+            overflow: hidden;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+        .product-card:hover .product-title { color: var(--primary); }
+        .price-row { display: flex; align-items: baseline; gap: 10px; margin: 10px 0; flex-wrap: wrap; }
+        .current-price { color: var(--danger); font-size: 18px; font-weight: 800; }
+        .old-price { color: var(--gray); font-size: 13px; text-decoration: line-through; }
+        .rating { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--warning); }
+
+        .footer {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            padding: 50px 40px 30px;
+            margin-top: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            animation: shimmer 5s infinite;
+        }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
+        .footer-col h4 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+        .footer-col:hover h4::after { width: 100%; }
+        .footer-col a {
+            display: block;
+            color: #b2bec3;
+            text-decoration: none;
+            margin-bottom: 12px;
+            font-size: 13px;
+            transition: var(--transition);
+        }
+        .footer-col a:hover { color: var(--primary); padding-right: 8px; transform: translateX(-5px); }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 35px;
+            margin-top: 35px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 12px;
+            color: #b2bec3;
+        }
+
+        .support-fab {
+            position: fixed;
+            bottom: 85px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--success), #1e8449);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            transition: var(--transition-bounce);
+            animation: bounce 2s infinite;
+        }
+        .support-fab:hover { transform: scale(1.15) rotate(10deg); box-shadow: var(--shadow-xl); animation: none; }
+        .support-fab i { font-size: 28px; color: white; }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 85px;
+            left: 25px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition-bounce);
+        }
+        .back-to-top:hover { transform: scale(1.15); box-shadow: var(--shadow-neon); }
+        .back-to-top.show { display: flex; }
+
+        .empty-all-products {
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+            border-radius: var(--radius-xl);
+            margin: 30px 40px;
+            box-shadow: var(--shadow-md);
+        }
+        .empty-all-products i { font-size: 80px; color: var(--gray); margin-bottom: 20px; opacity: 0.5; }
+        .empty-all-products h3 { font-size: 24px; color: #333; margin-bottom: 10px; }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100%;
+            background: white;
+            z-index: 2000;
+            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 80px 20px 20px;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+        }
+        .mobile-menu.open { right: 0; }
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1999;
+            display: none;
+        }
+        .mobile-overlay.show { display: block; animation: fadeInUp 0.3s ease; }
+        .mobile-menu a {
+            display: block;
+            padding: 12px 0;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid var(--gray-light);
+            transition: var(--transition);
+        }
+        .mobile-menu a:hover { color: var(--primary); padding-right: 15px; transform: translateX(-5px); }
+
+        /* پیام خوش‌آمدگویی */
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+        .welcome-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .welcome-card {
+            background: linear-gradient(135deg, #fff, #fff8f0);
+            border-radius: 40px;
+            padding: 40px 50px;
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            transform: scale(0.7);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            border: 1px solid rgba(239,107,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .welcome-overlay.show .welcome-card {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .welcome-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(239,107,0,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+        .welcome-icon {
+            font-size: 70px;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: bounce 0.8s ease;
+        }
+        .welcome-title {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ef6b00, #d35400);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+        }
+        .welcome-message {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        .welcome-btn {
+            background: linear-gradient(135deg, #ef6b00, #d35400);
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(239,107,0,0.3);
+        }
+        .welcome-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(239,107,0,0.5);
+        }
+        .close-welcome {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 24px;
+            color: #999;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: none;
+            border: none;
+        }
+        .close-welcome:hover {
+            color: #ef6b00;
+            transform: rotate(90deg);
+        }
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ef6b00;
+            position: absolute;
+            animation: confetti 3s ease forwards;
+            z-index: 10000;
+        }
+
+        .toast { display: none; }
+
+        @media (max-width: 768px) {
+            .top-bar { display: none; }
+            .main-header { padding: 12px 20px; }
+            .search-wrapper { display: none; }
+            .mobile-menu-btn { display: block; }
+            .categories-section { margin: 10px 16px; padding: 18px; }
+            .cat-item { min-width: 110px; width: 110px; padding: 10px; }
+            .cat-icon { width: 50px; height: 50px; font-size: 24px; }
+            .amazing-section { margin: 10px 16px; padding: 20px; }
+            .amazing-title { font-size: 20px; }
+            .amazing-card { min-width: 160px; width: 160px; padding: 15px; }
+            .amazing-card span { font-size: 40px; }
+            .category-section-wrapper { margin: 20px 16px; }
+            .category-title { font-size: 18px; }
+            .product-card { width: 200px; }
+            .product-img { height: 170px; }
+            .product-img span { font-size: 55px; }
+            .footer { padding: 30px 20px; }
+            .support-fab, .back-to-top { width: 45px; height: 45px; bottom: 70px; }
+            .welcome-card { padding: 30px 25px; }
+            .welcome-title { font-size: 24px; }
+            .welcome-message { font-size: 16px; }
+            .welcome-icon { font-size: 55px; }
+        }
+        @media (max-width: 480px) {
+            .product-card { width: 170px; }
+            .product-img { height: 140px; }
+            .product-img span { font-size: 45px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div>
+        <a href="about.html">درباره ما</a>
+        <a href="#">مجله ساختمان</a>
+        <a href="contact.html">تماس با ما</a>
+        <a href="faq.html">سوالات متداول</a>
+    </div>
+    <div><i class="fas fa-tag"></i> تخفیف ویژه مصالح تا ۳۰٪</div>
+</div>
+
+<div class="main-header">
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+    <div class="logo" onclick="scrollToTop()">
+        <div class="logo-icon"><i class="fas fa-hard-hat"></i></div>
+        <h1>بارمان مرکب کویر</h1>
+    </div>
+    <div class="search-wrapper">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="جستجوی مصالح ساختمانی..." autocomplete="off">
+            <button onclick="searchProducts()"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="search-suggestions" id="searchSuggestions">
+            <div id="suggestionsList"></div>
+        </div>
+    </div>
+    <div class="header-icons">
+        <div class="header-icon" onclick="goToProfile()"><i class="fas fa-user"></i><span id="displayName">حساب</span></div>
+        <div class="wishlist-icon" onclick="showWishlist()"><i class="far fa-heart"></i><span class="wishlist-count" id="wishlistCount">0</span></div>
+        <div class="cart-icon" onclick="goToCart()"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cartCount">0</span></div>
+        <div class="header-icon" onclick="logout()"><i class="fas fa-sign-out-alt"></i><span>خروج</span></div>
+    </div>
+</div>
+
+<div class="categories-section">
+    <div class="categories-header">
+        <h3><i class="fas fa-compass"></i> دسته‌بندی مصالح</h3>
+    </div>
+    <div class="categories-container" id="categoriesContainer">
+        <div class="categories-grid">
+            <div class="cat-item" onclick="scrollToCategory('cement')"><div class="cat-icon"><i class="fas fa-cube"></i></div><span>سیمان</span><p>تیپ 2 - تیپ 5</p></div>
+            <div class="cat-item" onclick="scrollToCategory('block')"><div class="cat-icon"><i class="fas fa-th-large"></i></div><span>بلوک</span><p>سبک - سنگین</p></div>
+            <div class="cat-item" onclick="scrollToCategory('brick')"><div class="cat-icon"><i class="fas fa-border-all"></i></div><span>آجر</span><p>نسوز - فشاری</p></div>
+            <div class="cat-item" onclick="scrollToCategory('steel')"><div class="cat-icon"><i class="fas fa-chart-line"></i></div><span>تیرآهن</span><p>IPE - INP</p></div>
+            <div class="cat-item" onclick="scrollToCategory('roof')"><div class="cat-icon"><i class="fas fa-home"></i></div><span>سقف</span><p>تیرچه - بلوک</p></div>
+            <div class="cat-item" onclick="scrollToCategory('tile')"><div class="cat-icon"><i class="fas fa-th"></i></div><span>کاشی و سرامیک</span><p>کف - دیوار</p></div>
+            <div class="cat-item" onclick="scrollToCategory('wood')"><div class="cat-icon"><i class="fas fa-tree"></i></div><span>چوب</span><p>روس - ایرانی</p></div>
+            <div class="cat-item" onclick="scrollToCategory('door')"><div class="cat-icon"><i class="fas fa-door-open"></i></div><span>درب و پنجره</span><p>UPVC - آلومینیوم</p></div>
+            <div class="cat-item" onclick="scrollToCategory('paint')"><div class="cat-icon"><i class="fas fa-paint-roller"></i></div><span>رنگ</span><p>پلاستیک - روغنی</p></div>
+            <div class="cat-item" onclick="scrollToCategory('tools')"><div class="cat-icon"><i class="fas fa-tools"></i></div><span>ابزارآلات</span><p>برقی - دستی</p></div>
+            <div class="cat-item" onclick="scrollToCategory('gypsum')"><div class="cat-icon"><i class="fas fa-mortar-board"></i></div><span>گچ</span><p>ساتن - میکرونیزه</p></div>
+            <div class="cat-item" onclick="scrollToCategory('sand')"><div class="cat-icon"><i class="fas fa-sand"></i></div><span>ماسه و شن</span><p>شسته - بادامی</p></div>
+            <div class="cat-item" onclick="scrollToCategory('pumice')"><div class="cat-icon"><i class="fas fa-mountain"></i></div><span>پوکه</span><p>لیکا - هبلکس</p></div>
+            <div class="cat-item" onclick="scrollToCategory('lime')"><div class="cat-icon"><i class="fas fa-fire"></i></div><span>آهک</span><p>صنعتی - سنتی</p></div>
+            <div class="cat-item" onclick="scrollToCategory('pipe')"><div class="cat-icon"><i class="fas fa-water"></i></div><span>لوله</span><p>سیمانی - آزبستی</p></div>
+            <div class="cat-item" onclick="scrollToCategory('insulation')"><div class="cat-icon"><i class="fas fa-thermometer-half"></i></div><span>عایق و ایزوگام</span><p>بارانپوشش</p></div>
+            <div class="cat-item" onclick="scrollToCategory('additive')"><div class="cat-icon"><i class="fas fa-flask"></i></div><span>مواد افزودنی و چسب</span><p>پودر سنگ - چسب</p></div>
+        </div>
+    </div>
+</div>
+
+<div class="amazing-section">
+    <div class="amazing-header">
+        <div class="amazing-title"><i class="fas fa-bolt"></i> شگفت‌انگیزهای ساختمانی</div>
+    </div>
+    <div class="amazing-products-container" id="amazingContainer">
+        <div class="amazing-products" id="amazingProducts"></div>
+    </div>
+</div>
+
+<div id="emptyAllProducts" class="empty-all-products" style="display: none;">
+    <i class="fas fa-box-open"></i>
+    <h3>به زودی...</h3>
+    <p>محصولات جدید به زودی اضافه خواهند شد</p>
+</div>
+
+<!-- بخش‌های محصولات -->
+<div id="category-cement" class="category-section-wrapper"><div class="category-header"><div class="category-title">🧱 سیمان</div><a href="products.html?cat=cement" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="cementContainer"><div class="products-scroll" id="cementProducts"></div></div></div>
+<div id="category-block" class="category-section-wrapper"><div class="category-header"><div class="category-title">🔲 بلوک</div><a href="products.html?cat=block" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="blockContainer"><div class="products-scroll" id="blockProducts"></div></div></div>
+<div id="category-brick" class="category-section-wrapper"><div class="category-header"><div class="category-title">🧱 آجر</div><a href="products.html?cat=brick" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="brickContainer"><div class="products-scroll" id="brickProducts"></div></div></div>
+<div id="category-steel" class="category-section-wrapper"><div class="category-header"><div class="category-title">📐 تیرآهن و پروفیل</div><a href="products.html?cat=steel" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="steelContainer"><div class="products-scroll" id="steelProducts"></div></div></div>
+<div id="category-roof" class="category-section-wrapper"><div class="category-header"><div class="category-title">🏠 سقف</div><a href="products.html?cat=roof" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="roofContainer"><div class="products-scroll" id="roofProducts"></div></div></div>
+<div id="category-tile" class="category-section-wrapper"><div class="category-header"><div class="category-title">🔲 کاشی و سرامیک</div><a href="products.html?cat=tile" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="tileContainer"><div class="products-scroll" id="tileProducts"></div></div></div>
+<div id="category-wood" class="category-section-wrapper"><div class="category-header"><div class="category-title">🌲 چوب</div><a href="products.html?cat=wood" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="woodContainer"><div class="products-scroll" id="woodProducts"></div></div></div>
+<div id="category-door" class="category-section-wrapper"><div class="category-header"><div class="category-title">🚪 درب و پنجره</div><a href="products.html?cat=door" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="doorContainer"><div class="products-scroll" id="doorProducts"></div></div></div>
+<div id="category-paint" class="category-section-wrapper"><div class="category-header"><div class="category-title">🎨 رنگ</div><a href="products.html?cat=paint" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="paintContainer"><div class="products-scroll" id="paintProducts"></div></div></div>
+<div id="category-tools" class="category-section-wrapper"><div class="category-header"><div class="category-title">🔧 ابزارآلات</div><a href="products.html?cat=tools" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="toolsContainer"><div class="products-scroll" id="toolsProducts"></div></div></div>
+<div id="category-gypsum" class="category-section-wrapper"><div class="category-header"><div class="category-title">⚪ گچ</div><a href="products.html?cat=gypsum" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="gypsumContainer"><div class="products-scroll" id="gypsumProducts"></div></div></div>
+<div id="category-sand" class="category-section-wrapper"><div class="category-header"><div class="category-title">🏖️ ماسه و شن</div><a href="products.html?cat=sand" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="sandContainer"><div class="products-scroll" id="sandProducts"></div></div></div>
+<div id="category-pumice" class="category-section-wrapper"><div class="category-header"><div class="category-title">🪨 پوکه</div><a href="products.html?cat=pumice" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="pumiceContainer"><div class="products-scroll" id="pumiceProducts"></div></div></div>
+<div id="category-lime" class="category-section-wrapper"><div class="category-header"><div class="category-title">🔥 آهک</div><a href="products.html?cat=lime" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="limeContainer"><div class="products-scroll" id="limeProducts"></div></div></div>
+<div id="category-pipe" class="category-section-wrapper"><div class="category-header"><div class="category-title">📦 لوله و اتصالات</div><a href="products.html?cat=pipe" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="pipeContainer"><div class="products-scroll" id="pipeProducts"></div></div></div>
+<div id="category-insulation" class="category-section-wrapper"><div class="category-header"><div class="category-title">🛢️ عایق و ایزوگام</div><a href="products.html?cat=insulation" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="insulationContainer"><div class="products-scroll" id="insulationProducts"></div></div></div>
+<div id="category-additive" class="category-section-wrapper"><div class="category-header"><div class="category-title">🧪 مواد افزودنی و چسب</div><a href="products.html?cat=additive" class="category-view-all">مشاهده همه <i class="fas fa-arrow-left"></i></a></div><div class="products-scroll-container" id="additiveContainer"><div class="products-scroll" id="additiveProducts"></div></div></div>
+
+<div class="footer">
+    <div class="footer-content">
+        <div class="footer-col"><h4>بارمان مرکب کویر</h4><a href="about.html">درباره ما</a><a href="contact.html">تماس با ما</a><a href="terms.html">قوانین و مقررات</a><a href="returns.html">بازگشت کالا</a><a href="shipping.html">شیوه ارسال</a></div>
+        <div class="footer-col"><h4>خدمات مشتریان</h4><a href="faq.html">سوالات متداول</a><a href="returns.html">رویه بازگشت کالا</a><a href="shipping.html">شیوه‌های ارسال</a><a href="#">راهنمای خرید</a><a href="#">شرایط استفاده</a></div>
+        <div class="footer-col"><h4>تماس با ما</h4><a href="tel:09131549807"><i class="fas fa-phone"></i> ۰۹۱۳۱۵۴۹۸۰۷</a><a href="tel:09131549867"><i class="fas fa-phone"></i> ۰۹۱۳۱۵۴۹۸۶۷</a><a href="mailto:s75542199@gmail.com"><i class="fas fa-envelope"></i> s75542199@gmail.com</a><a href="#"><i class="fas fa-map-marker-alt"></i> یزد - شهرک صنعتی</a></div>
+        <div class="footer-col"><h4>شبکه‌های اجتماعی</h4><a href="#"><i class="fab fa-instagram"></i> اینستاگرام</a><a href="#"><i class="fab fa-telegram"></i> تلگرام</a><a href="#"><i class="fab fa-whatsapp"></i> واتساپ</a><a href="#"><i class="fab fa-linkedin"></i> لینکدین</a></div>
+    </div>
+    <div class="footer-bottom"><p>© ۱۴۰۳ بارمان مرکب کویر - تمامی حقوق محفوظ است</p><p style="margin-top: 12px; font-size: 11px;"><i class="fas fa-phone"></i> ۰۹۱۳۱۵۴۹۸۰۷ | <i class="fas fa-phone"></i> ۰۹۱۳۱۵۴۹۸۶۷ | <i class="fas fa-envelope"></i> s75542199@gmail.com</p></div>
+</div>
+
+<div class="support-fab" onclick="window.location.href='support-chat.html'"><i class="fas fa-headset"></i></div>
+<div class="hidden-dashboard-btn" onclick="window.location.href='dashboard.html'" title=""></div>
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg"></span></div>
+
+<div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
+<div class="mobile-menu" id="mobileMenu">
+    <div class="search-box" style="width:100%; margin-bottom:20px;"><input type="text" id="mobileSearchInput" placeholder="جستجو..."><button onclick="searchProducts()"><i class="fas fa-search"></i></button></div>
+    <div style="display:flex; flex-direction:column; gap:5px;">
+        <a href="#" onclick="scrollToCategory('cement');toggleMobileMenu();">🧱 سیمان</a>
+        <a href="#" onclick="scrollToCategory('block');toggleMobileMenu();">🔲 بلوک</a>
+        <a href="#" onclick="scrollToCategory('brick');toggleMobileMenu();">🧱 آجر</a>
+        <a href="#" onclick="scrollToCategory('steel');toggleMobileMenu();">📐 تیرآهن</a>
+        <a href="#" onclick="scrollToCategory('roof');toggleMobileMenu();">🏠 سقف</a>
+        <a href="#" onclick="scrollToCategory('tile');toggleMobileMenu();">🔲 کاشی</a>
+        <a href="#" onclick="scrollToCategory('wood');toggleMobileMenu();">🌲 چوب</a>
+        <a href="#" onclick="scrollToCategory('door');toggleMobileMenu();">🚪 درب و پنجره</a>
+        <a href="#" onclick="scrollToCategory('paint');toggleMobileMenu();">🎨 رنگ</a>
+        <a href="#" onclick="scrollToCategory('tools');toggleMobileMenu();">🔧 ابزارآلات</a>
+        <a href="#" onclick="scrollToCategory('gypsum');toggleMobileMenu();">⚪ گچ</a>
+        <a href="#" onclick="scrollToCategory('sand');toggleMobileMenu();">🏖️ ماسه و شن</a>
+        <a href="#" onclick="scrollToCategory('pumice');toggleMobileMenu();">🪨 پوکه</a>
+        <a href="#" onclick="scrollToCategory('lime');toggleMobileMenu();">🔥 آهک</a>
+        <a href="#" onclick="scrollToCategory('pipe');toggleMobileMenu();">📦 لوله</a>
+        <a href="#" onclick="scrollToCategory('insulation');toggleMobileMenu();">🛢️ عایق</a>
+        <a href="#" onclick="scrollToCategory('additive');toggleMobileMenu();">🧪 افزودنی</a>
+        <hr>
+        <a href="about.html" onclick="toggleMobileMenu();">🏪 درباره ما</a>
+        <a href="faq.html" onclick="toggleMobileMenu();">❓ سوالات متداول</a>
+        <a href="contact.html" onclick="toggleMobileMenu();">📞 تماس با ما</a>
+        <hr>
+        <a href="#" onclick="goToProfile();toggleMobileMenu();">👤 پروفایل</a>
+        <a href="#" onclick="showWishlist();toggleMobileMenu();">❤️ علاقه‌مندی‌ها</a>
+        <a href="#" onclick="goToCart();toggleMobileMenu();">🛒 سبد خرید</a>
+        <a href="#" onclick="logout();">🚪 خروج</a>
+    </div>
+</div>
+
+<!-- پیام خوش‌آمدگویی -->
+<div id="welcomeOverlay" class="welcome-overlay">
+    <div class="welcome-card">
+        <button class="close-welcome" onclick="closeWelcome()"><i class="fas fa-times"></i></button>
+        <div class="welcome-icon" id="welcomeIcon">🎉</div>
+        <div class="welcome-title" id="welcomeTitle">خوش آمدید!</div>
+        <div class="welcome-message" id="welcomeMessage">به بارمان مرکب کویر خوش آمدید</div>
+        <button class="welcome-btn" onclick="closeWelcome()">شروع خرید 🚀</button>
+    </div>
+</div>
+
+<script>
+    const STORAGE_KEY = 'barman_products';
+    let products = [], cart = [], wishlist = [];
+    let searchTimeout = null;
+
+    // ==================== پیام‌های خوش‌آمدگویی ====================
+    const welcomeMessages = [
+        { icon: "🎉", title: "خوش آمدید!", message: "به جمع حرفه‌ای‌های ساختمان بپیوندید!" },
+        { icon: "🏗️", title: "شروع ساخت!", message: "با بارمان، پروژه‌هات رو حرفه‌ای شروع کن!" },
+        { icon: "🛒", title: "خرید آسان!", message: "بهترین مصالح با بهترین قیمت، یک کلیک فاصله!" },
+        { icon: "🌟", title: "کیفیت عالی!", message: "مصالح باکیفیت، تحویل سریع، ضمانت برگشت!" },
+        { icon: "🪨", title: "همه چی اینجاست!", message: "از سیمان تا تیرآهن، هر چی نیاز داری!" },
+        { icon: "🏠", title: "ساخت رویاها!", message: "ساخت‌وساز رو با بارمان به سرانجام برسون!" },
+        { icon: "💪", title: "همراه مطمئن!", message: "بارمان، همراه همیشگی سازندگان ایران!" },
+        { icon: "⚡", title: "تخفیف ویژه!", message: "تخفیف‌های شگفت‌انگیز در انتظار توست!" },
+        { icon: "🎁", title: "هدیه ویژه!", message: "به مناسبت ورودت، منتظر تخفیف باش!" },
+        { icon: "🚚", title: "ارسال سریع!", message: "ارسال به سراسر کشور در کمترین زمان!" },
+        { icon: "🔥", title: "شگفت‌انگیز!", message: "محصولات ویژه با تخفیف‌های باورنکردنی!" },
+        { icon: "👷", title: "حرفه‌ای خرید کن!", message: "مثل یک مهندس حرفه‌ای مصالحتو انتخاب کن!" },
+        { icon: "📦", title: "تکمیل‌شده!", message: "هر آنچه برای ساخت نیاز داری، اینجاست!" },
+        { icon: "🤝", title: "ممنون از اعتماد!", message: "از اینکه ما رو انتخاب کردی، سپاسگزاریم!" },
+        { icon: "⭐", title: "۵ ستاره!", message: "کیفیت ۵ ستاره، قیمت مناسب، رضایت شما!" },
+        { icon: "💎", title: "کیفیت الماس!", message: "کیفیت رو با بارمان تجربه کن!" },
+        { icon: "🔨", title: "ساخت آسان!", message: "با بارمان، ساختن لذت‌بخش می‌شه!" },
+        { icon: "🏆", title: "پیشتاز!", message: "پیشتاز صنعت ساختمان ایران، انتخاب شما!" },
+        { icon: "❤️", title: "خوشحالیم!", message: "از اینکه با ما هستی، خوشحالیم!" },
+        { icon: "✨", title: "تجربه خاص!", message: "یه تجربه خرید متفاوت رو با بارمان داشته باش!" }
+    ];
+
+    function showWelcomeMessage() {
+        if (sessionStorage.getItem('welcome_shown')) return;
+        const randomIndex = Math.floor(Math.random() * welcomeMessages.length);
+        const msg = welcomeMessages[randomIndex];
+        document.getElementById('welcomeIcon').innerHTML = msg.icon;
+        document.getElementById('welcomeTitle').innerHTML = msg.title;
+        document.getElementById('welcomeMessage').innerHTML = msg.message;
+        const overlay = document.getElementById('welcomeOverlay');
+        overlay.classList.add('show');
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.width = (Math.random() * 8 + 4) + 'px';
+            confetti.style.height = (Math.random() * 8 + 4) + 'px';
+            confetti.style.background = `hsl(${Math.random() * 60 + 20}, 80%, 55%)`;
+            confetti.style.animationDelay = Math.random() * 0.5 + 's';
+            confetti.style.animationDuration = Math.random() * 2 + 2 + 's';
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 3000);
+        }
+        sessionStorage.setItem('welcome_shown', 'true');
+        setTimeout(() => { if (overlay.classList.contains('show')) closeWelcome(); }, 4000);
+    }
+    
+    function closeWelcome() {
+        document.getElementById('welcomeOverlay').classList.remove('show');
+    }
+
+    // ==================== محصولات پیش‌فرض ====================
+    function getDefaultProducts() {
+        return [
+            { id: 1, name: "پودر سنگ زنبق 25 کیلوگرمی", price: 45000, oldPrice: null, category: "additive", desc: "پودر سنگ زنبق درجه یک", stock: 200, rating: 4.5, reviews: 12, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
+            { id: 2, name: "پودر سنگ نگین 25 کیلوگرمی", price: 46000, oldPrice: null, category: "additive", desc: "پودر سنگ نگین مرغوب", stock: 180, rating: 4.5, reviews: 8, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
+            { id: 3, name: "پوکه لیکا دانه ای", price: 35000, oldPrice: null, category: "pumice", desc: "پوکه لیکا دانه ای", stock: 500, rating: 4.5, reviews: 15, emoji: "🪨", isNew: false, isAmazing: true, imageData: null },
+            { id: 4, name: "ماسه شسته شده مهریز بتنی فله", price: 28000, oldPrice: null, category: "sand", desc: "ماسه شسته مهریز بتنی", stock: 1000, rating: 4.5, reviews: 22, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
+            { id: 5, name: "سیمان مهریز 50 کیلویی", price: 85000, oldPrice: 95000, category: "cement", desc: "سیمان مهریز 50 کیلویی", stock: 1000, rating: 4.9, reviews: 45, emoji: "🧱", isNew: true, isAmazing: true, imageData: null },
+            { id: 6, name: "گچ سفید کاری سمنان 30 کیلویی", price: 28000, oldPrice: null, category: "gypsum", desc: "گچ سفید کاری 30 کیلویی", stock: 500, rating: 4.5, reviews: 18, emoji: "⚪", isNew: false, isAmazing: false, imageData: null },
+            { id: 7, name: "آجر روکار 5 سانت درجه یک", price: 4500, oldPrice: 5500, category: "brick", desc: "آجر روکار 5 سانت درجه یک", stock: 5000, rating: 4.8, reviews: 32, emoji: "🧱", isNew: false, isAmazing: true, imageData: null },
+            { id: 8, name: "بلوک تیغه 10 سانتی", price: 15000, oldPrice: null, category: "block", desc: "بلوک تیغه 10 سانتی", stock: 3000, rating: 4.5, reviews: 14, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
+            { id: 9, name: "میلگرد سایز 14", price: 45000, oldPrice: 52000, category: "steel", desc: "میلگرد سایز 14 هر شاخه", stock: 1800, rating: 4.8, reviews: 28, emoji: "📐", isNew: false, isAmazing: true, imageData: null },
+            { id: 10, name: "چسب کاشی غفاری", price: 25000, oldPrice: null, category: "additive", desc: "چسب کاشی غفاری کیلویی", stock: 400, rating: 4.6, reviews: 19, emoji: "🧪", isNew: false, isAmazing: false, imageData: null }
+        ];
+    }
+
+    function loadProductsFromStorage() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved && JSON.parse(saved).length > 0) {
+            products = JSON.parse(saved);
+        } else {
+            products = getDefaultProducts();
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+        }
+        
+        const emptyMessage = document.getElementById('emptyAllProducts');
+        if (products.length === 0) {
+            if (emptyMessage) emptyMessage.style.display = 'block';
+            const categories = ['cement', 'block', 'brick', 'steel', 'roof', 'tile', 'wood', 'door', 'paint', 'tools', 'gypsum', 'sand', 'pumice', 'lime', 'pipe', 'insulation', 'additive'];
+            categories.forEach(cat => {
+                const section = document.getElementById(`category-${cat}`);
+                if (section) section.style.display = 'none';
+            });
+            const amazingSection = document.querySelector('.amazing-section');
+            if (amazingSection) amazingSection.style.display = 'none';
+        } else {
+            if (emptyMessage) emptyMessage.style.display = 'none';
+            renderAllCategories();
+            renderAmazing();
+            setTimeout(initAllScrolls, 100);
+        }
+        checkAmazingSectionVisibility();
+        updateCartCount();
+        updateWishlistCount();
+        setTimeout(showWelcomeMessage, 500);
+    }
+
+    function formatPrice(p) { return p.toLocaleString(); }
+
+    // ========== تابع اسکرول حرفه‌ای برای هر کانتینر (مثل دیجی کالا) ==========
+    function initSmoothScroll(container) {
+        if (!container) return;
+        
+        // اسکرول با چرخ موس - نرم و کنترل شده
+        container.addEventListener('wheel', function(e) {
+            if (Math.abs(e.deltaY) > 0) {
+                e.preventDefault();
+                container.scrollLeft += e.deltaY * 0.6;
+            }
+        }, { passive: false });
+        
+        // قابلیت درگ و کشیدن با موس + مومنتوم
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        let velocity = 0;
+        let lastX = 0;
+        let lastTime = 0;
+        let momentumId = null;
+        
+        container.addEventListener('mousedown', (e) => {
+            isDown = true;
+            container.style.cursor = 'grabbing';
+            startX = e.pageX - container.offsetLeft;
+            scrollLeft = container.scrollLeft;
+            lastX = e.pageX;
+            lastTime = Date.now();
+            velocity = 0;
+            if (momentumId) clearInterval(momentumId);
+        });
+        
+        container.addEventListener('mouseleave', () => {
+            isDown = false;
+            container.style.cursor = 'grab';
+            if (Math.abs(velocity) > 0.5) {
+                startMomentum(container, velocity);
+            }
+        });
+        
+        container.addEventListener('mouseup', () => {
+            isDown = false;
+            container.style.cursor = 'grab';
+            if (Math.abs(velocity) > 0.5) {
+                startMomentum(container, velocity);
+            }
+        });
+        
+        container.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - container.offsetLeft;
+            const walk = (x - startX) * 1.2;
+            container.scrollLeft = scrollLeft - walk;
+            
+            const now = Date.now();
+            const dx = e.pageX - lastX;
+            const dt = now - lastTime;
+            if (dt > 0) {
+                velocity = (dx / dt) * 15;
+                velocity = Math.min(Math.max(velocity, -30), 30);
+            }
+            lastX = e.pageX;
+            lastTime = now;
+        });
+        
+        function startMomentum(container, startVelocity) {
+            let vel = startVelocity;
+            const friction = 0.95;
+            
+            function step() {
+                if (Math.abs(vel) < 0.5) {
+                    if (momentumId) clearInterval(momentumId);
+                    momentumId = null;
+                    return;
+                }
+                container.scrollLeft -= vel;
+                vel *= friction;
+            }
+            
+            if (momentumId) clearInterval(momentumId);
+            momentumId = setInterval(step, 16);
+        }
+    }
+
+    // ========== راه‌اندازی اسکرول حرفه‌ای برای همه بخش‌ها ==========
+    function initAllScrolls() {
+        // دسته‌بندی‌ها
+        const categoriesContainer = document.getElementById('categoriesContainer');
+        if (categoriesContainer) initSmoothScroll(categoriesContainer);
+        
+        // بخش شگفت‌انگیز
+        const amazingContainer = document.getElementById('amazingContainer');
+        if (amazingContainer) initSmoothScroll(amazingContainer);
+        
+        // محصولات هر دسته
+        const productContainers = [
+            'cementContainer', 'blockContainer', 'brickContainer', 'steelContainer',
+            'roofContainer', 'tileContainer', 'woodContainer', 'doorContainer',
+            'paintContainer', 'toolsContainer', 'gypsumContainer', 'sandContainer',
+            'pumiceContainer', 'limeContainer', 'pipeContainer', 'insulationContainer',
+            'additiveContainer'
+        ];
+        
+        productContainers.forEach(id => {
+            const container = document.getElementById(id);
+            if (container) initSmoothScroll(container);
+        });
+    }
+
+    function renderCategoryProducts(categoryId, containerId, limit = 6) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        const categoryProducts = products.filter(p => p.category === categoryId).slice(0, limit);
+        if (categoryProducts.length === 0) {
+            container.innerHTML = '<div style="text-align:center; padding:40px; width:100%; color:#999;">محصولی در این دسته وجود ندارد</div>';
+            const section = document.getElementById(`category-${categoryId}`);
+            if (section) section.style.display = 'none';
+            return;
+        }
+        const section = document.getElementById(`category-${categoryId}`);
+        if (section) section.style.display = 'block';
+        container.innerHTML = categoryProducts.map(p => `
+            <div class="product-card" onclick="goToProduct(${p.id})">
+                ${p.oldPrice ? `<div class="discount-badge">${Math.round((1 - p.price/p.oldPrice)*100)}%</div>` : ''}
+                ${p.isNew ? `<div class="new-badge">جدید</div>` : ''}
+                <button class="wishlist-btn ${wishlist.includes(p.id) ? 'active' : ''}" onclick="event.stopPropagation(); toggleWishlist(${p.id})">
+                    <i class="${wishlist.includes(p.id) ? 'fas' : 'far'} fa-heart"></i>
+                </button>
+                <div class="product-img">${p.imageData ? `<img src="${p.imageData}" alt="${p.name}">` : `<span>${p.emoji}</span>`}</div>
+                <div class="product-info">
+                    <div class="product-title">${p.name}</div>
+                    <div class="price-row">
+                        <span class="current-price">${formatPrice(p.price)} تومان</span>
+                        ${p.oldPrice ? `<span class="old-price">${formatPrice(p.oldPrice)} تومان</span>` : ''}
+                    </div>
+                    <div class="rating"><i class="fas fa-star"></i> ${p.rating} (${p.reviews})</div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function renderAllCategories() {
+        if (products.length === 0) return;
+        renderCategoryProducts('cement', 'cementProducts');
+        renderCategoryProducts('block', 'blockProducts');
+        renderCategoryProducts('brick', 'brickProducts');
+        renderCategoryProducts('steel', 'steelProducts');
+        renderCategoryProducts('roof', 'roofProducts');
+        renderCategoryProducts('tile', 'tileProducts');
+        renderCategoryProducts('wood', 'woodProducts');
+        renderCategoryProducts('door', 'doorProducts');
+        renderCategoryProducts('paint', 'paintProducts');
+        renderCategoryProducts('tools', 'toolsProducts');
+        renderCategoryProducts('gypsum', 'gypsumProducts');
+        renderCategoryProducts('sand', 'sandProducts');
+        renderCategoryProducts('pumice', 'pumiceProducts');
+        renderCategoryProducts('lime', 'limeProducts');
+        renderCategoryProducts('pipe', 'pipeProducts');
+        renderCategoryProducts('insulation', 'insulationProducts');
+        renderCategoryProducts('additive', 'additiveProducts');
+    }
+
+    function renderAmazing() {
+        if (products.length === 0) return;
+        const amazing = products.filter(p => p.isAmazing === true);
+        const container = document.getElementById('amazingProducts');
+        if (container) {
+            if (amazing.length === 0) { container.innerHTML = '<div style="text-align:center; padding:40px; width:100%;">محصول شگفت‌انگیزی وجود ندارد</div>'; return; }
+            container.innerHTML = amazing.map(p => `
+                <div class="amazing-card" onclick="goToProduct(${p.id})">
+                    <span>${p.emoji}</span>
+                    <div style="font-weight:bold; margin:8px 0;">${p.name.length > 20 ? p.name.substring(0,18)+'...' : p.name}</div>
+                    <div class="price">${formatPrice(p.price)} تومان</div>
+                    ${p.oldPrice ? `<div style="font-size:11px; color:#999; text-decoration:line-through;">${formatPrice(p.oldPrice)} تومان</div>` : ''}
+                </div>
+            `).join('');
+        }
+    }
+
+    function checkAmazingSectionVisibility() {
+        const isVisible = localStorage.getItem('amazing_section_visible');
+        const amazingContainer = document.querySelector('.amazing-section');
+        if (amazingContainer) {
+            if (isVisible === 'false') amazingContainer.style.display = 'none';
+            else amazingContainer.style.display = 'block';
+        }
+    }
+
+    function goToProduct(id) { window.location.href = `product.html?id=${id}`; }
+    function goToCart() { window.location.href = 'cart.html'; }
+    function scrollToCategory(category) { const el = document.getElementById(`category-${category}`); if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); toggleMobileMenu(); }
+    function scrollToProducts() { if (products.length === 0) { document.getElementById('emptyAllProducts')?.scrollIntoView({ behavior: 'smooth' }); } else { document.querySelector('.category-section-wrapper')?.scrollIntoView({ behavior: 'smooth' }); } }
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+    function liveSearch() {
+        const term = document.getElementById('searchInput').value.trim();
+        const suggestionsBox = document.getElementById('searchSuggestions');
+        if (term.length === 0) { suggestionsBox.classList.remove('show'); return; }
+        if (searchTimeout) clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            const filtered = products.filter(p => p.name.toLowerCase().includes(term.toLowerCase()));
+            const suggestionsList = document.getElementById('suggestionsList');
+            if (filtered.length === 0) { suggestionsList.innerHTML = '<div style="padding:20px; text-align:center; color:#999;">🔍 محصولی یافت نشد</div>'; } else {
+                suggestionsList.innerHTML = filtered.slice(0,8).map(p => `<div class="suggestion-item" onclick="goToProduct(${p.id})"><div class="suggestion-emoji">${p.emoji}</div><div class="suggestion-info"><div class="suggestion-name">${p.name}</div><div class="suggestion-price">${formatPrice(p.price)} تومان</div></div><i class="fas fa-arrow-left" style="color:#ccc;"></i></div>`).join('');
+            }
+            suggestionsBox.classList.add('show');
+        }, 300);
+    }
+    
+    function searchProducts() {
+        const term = document.getElementById('searchInput').value.trim();
+        if (term === '') { showToast('لطفاً عبارت جستجو را وارد کنید'); return; }
+        window.location.href = `search.html?q=${encodeURIComponent(term)}`;
+    }
+
+    document.addEventListener('click', function(e) {
+        const wrapper = document.querySelector('.search-wrapper');
+        if (wrapper && !wrapper.contains(e.target)) {
+            document.getElementById('searchSuggestions').classList.remove('show');
+        }
+    });
+
+    function loadCart() { const s = localStorage.getItem('barman_cart'); if (s) { cart = JSON.parse(s); updateCartCount(); } }
+    function updateCartCount() { const count = cart.reduce((s, i) => s + i.quantity, 0); const cartCountSpan = document.getElementById('cartCount'); if (cartCountSpan) cartCountSpan.innerText = count; }
+
+    function loadWishlist() { const s = localStorage.getItem('barman_wishlist'); if (s) wishlist = JSON.parse(s); updateWishlistCount(); }
+    function updateWishlistCount() { const wishlistCountSpan = document.getElementById('wishlistCount'); if (wishlistCountSpan) wishlistCountSpan.innerText = wishlist.length; }
+    function saveWishlist() { localStorage.setItem('barman_wishlist', JSON.stringify(wishlist)); updateWishlistCount(); renderAllCategories(); renderAmazing(); }
+    function toggleWishlist(pid) {
+        if (wishlist.includes(pid)) { wishlist = wishlist.filter(id => id !== pid); showToast('از علاقه‌مندی‌ها حذف شد'); } else { wishlist.push(pid); showToast('به علاقه‌مندی‌ها اضافه شد'); }
+        saveWishlist();
+    }
+    function showWishlist() {
+        if (wishlist.length === 0) { showToast('لیست علاقه‌مندی‌ها خالی است'); return; }
+        let msg = '❤️ محصولات مورد علاقه شما:\n';
+        products.filter(p => wishlist.includes(p.id)).forEach((p, i) => msg += `${i+1}. ${p.name}\n`);
+        alert(msg);
+    }
+
+    function showToast(msg, type = 'success') {
+        let toast = document.getElementById('toast');
+        const toastMsg = document.getElementById('toastMsg');
+        if (toast && toastMsg) {
+            toastMsg.innerText = msg;
+            toast.classList.add('show');
+            if (type === 'error') toast.classList.add('error');
+            else toast.classList.remove('error');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        } else alert(msg);
+    }
+    
+    function goToProfile() { window.location.href = 'profile.html'; }
+    function logout() { 
+        localStorage.removeItem('barman_logged_in'); 
+        localStorage.removeItem('barman_user'); 
+        window.location.href = 'index.html';
+    }
+    function checkLogin() { 
+        const span = document.getElementById('displayName');
+        if(span) span.innerText = localStorage.getItem('barman_logged_in') ? (localStorage.getItem('barman_user') || 'کاربر') : 'ورود';
+    }
+    function toggleMobileMenu() { 
+        document.getElementById('mobileMenu')?.classList.toggle('open'); 
+        document.getElementById('mobileOverlay')?.classList.toggle('show'); 
+    }
+
+    window.addEventListener('storage', function(e) {
+        if (e.key === STORAGE_KEY || e.key === 'products_updated') { loadProductsFromStorage(); showToast('محصولات به‌روزرسانی شدند 🔄'); }
+        if (e.key === 'amazing_section_visible') { document.querySelector('.amazing-section').style.display = e.newValue === 'false' ? 'none' : 'block'; }
+    });
+
+    let lastUpdate = localStorage.getItem('products_updated');
+    setInterval(function() {
+        const currentUpdate = localStorage.getItem('products_updated');
+        if (currentUpdate && currentUpdate !== lastUpdate) { lastUpdate = currentUpdate; loadProductsFromStorage(); showToast('محصولات به‌روزرسانی شدند 🔄'); }
+        checkAmazingSectionVisibility();
+    }, 3000);
+
+    window.addEventListener('scroll', function() {
+        const btn = document.getElementById('backToTop');
+        if (btn) { if (window.scrollY > 300) btn.classList.add('show'); else btn.classList.remove('show'); }
+    });
+    
+    const searchInput = document.getElementById('searchInput');
+    if(searchInput) searchInput.addEventListener('input', () => liveSearch());
+    searchInput?.addEventListener('keypress', function(e) { if (e.key === 'Enter') searchProducts(); });
+    
+    const mobileSearchInput = document.getElementById('mobileSearchInput');
+    if(mobileSearchInput) mobileSearchInput.addEventListener('input', (e) => { document.getElementById('searchInput').value = e.target.value; searchProducts(); });
+
+    loadProductsFromStorage();
+    loadCart();
+    loadWishlist();
+    checkLogin();
+</script>
+</body>
+</html>

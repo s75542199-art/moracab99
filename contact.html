@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تماس با ما | بارمان مرکب کویر</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tahoma', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            min-height: 100vh;
+            direction: rtl;
+        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 15px 25px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.5s ease;
+        }
+        .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .logo-icon {
+            width: 45px; height: 45px;
+            background: linear-gradient(135deg, #ef6b00, #d35400);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        .logo h1 { font-size: 22px; color: #333; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: #666; transition: all 0.3s ease; }
+        .nav-links a:hover { color: #ef6b00; }
+        .back-btn {
+            background: #ef6b00;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover { transform: translateY(-2px); background: #d35400; }
+        .hero {
+            background: linear-gradient(135deg, #ef6b00, #d35400);
+            border-radius: 25px;
+            padding: 50px 30px;
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.6s ease;
+        }
+        .hero h1 { font-size: 32px; margin-bottom: 10px; }
+        .hero p { font-size: 16px; opacity: 0.9; }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .contact-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.5s ease;
+        }
+        .contact-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
+        .contact-icon {
+            width: 70px; height: 70px;
+            background: linear-gradient(135deg, #ef6b00, #d35400);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 28px;
+            color: white;
+        }
+        .contact-card h3 { color: #333; margin-bottom: 10px; }
+        .contact-card p { color: #666; line-height: 1.6; }
+        .contact-card a { color: #ef6b00; text-decoration: none; font-weight: bold; transition: all 0.3s ease; }
+        .contact-card a:hover { color: #d35400; text-decoration: underline; }
+        .contact-form {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            animation: fadeInUp 0.7s ease;
+        }
+        .contact-form h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-right: 15px;
+        }
+        .contact-form h2::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(180deg, #ef6b00, #d35400);
+            border-radius: 2px;
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; color: #333; }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #ef6b00;
+            box-shadow: 0 0 0 3px rgba(239,107,0,0.1);
+        }
+        .submit-btn {
+            background: linear-gradient(135deg, #ef6b00, #d35400);
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(239,107,0,0.3); }
+        .info-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            animation: fadeInUp 0.8s ease;
+        }
+        .info-section h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-right: 15px;
+            display: inline-block;
+        }
+        .info-section h2::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(180deg, #ef6b00, #d35400);
+            border-radius: 2px;
+        }
+        .info-section p { color: #666; line-height: 1.8; }
+        .footer {
+            background: #2d3436;
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 30px;
+            animation: fadeInUp 0.9s ease;
+        }
+        .footer a { color: #b2bec3; text-decoration: none; margin: 0 10px; transition: all 0.3s ease; }
+        .footer a:hover { color: #ef6b00; }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header { flex-direction: column; text-align: center; }
+            .hero h1 { font-size: 24px; }
+            .contact-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo" onclick="window.location.href='shop.html'">
+            <div class="logo-icon"><i class="fas fa-hard-hat"></i></div>
+            <h1>بارمان مرکب کویر</h1>
+        </div>
+        <div class="nav-links">
+            <a href="shop.html">فروشگاه</a>
+            <a href="about.html">درباره ما</a>
+            <a href="faq.html">سوالات</a>
+        </div>
+        <button class="back-btn" onclick="window.location.href='shop.html'">
+            <i class="fas fa-arrow-right"></i> بازگشت
+        </button>
+    </div>
+
+    <div class="hero">
+        <h1><i class="fas fa-headset"></i> تماس با ما</h1>
+        <p>ما ۲۴ ساعته پاسخگوی شما هستیم</p>
+    </div>
+
+    <div class="contact-grid">
+        <div class="contact-card">
+            <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+            <h3>تلفن پشتیبانی ۱</h3>
+            <p><a href="tel:09131549807">۰۹۱۳۱۵۴۹۸۰۷</a></p>
+            <p style="font-size: 12px; margin-top: 5px;">پاسخگویی: ۸ صبح تا ۸ شب</p>
+        </div>
+        <div class="contact-card">
+            <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+            <h3>تلفن پشتیبانی ۲</h3>
+            <p><a href="tel:09131549867">۰۹۱۳۱۵۴۹۸۶۷</a></p>
+            <p style="font-size: 12px; margin-top: 5px;">پاسخگویی: ۸ صبح تا ۸ شب</p>
+        </div>
+        <div class="contact-card">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <h3>ایمیل</h3>
+            <p><a href="mailto:s75542199@gmail.com">s75542199@gmail.com</a></p>
+            <p style="font-size: 12px; margin-top: 5px;">پاسخگویی ظرف ۲۴ ساعت</p>
+        </div>
+    </div>
+
+    <div class="contact-form">
+        <h2><i class="fas fa-paper-plane"></i> ارسال پیام</h2>
+        <form id="contactForm" onsubmit="sendMessage(event)">
+            <div class="form-group"><label>نام و نام خانوادگی</label><input type="text" id="fullName" placeholder="نام خود را وارد کنید" required></div>
+            <div class="form-group"><label>ایمیل</label><input type="email" id="email" placeholder="ایمیل خود را وارد کنید" required></div>
+            <div class="form-group"><label>موضوع</label><input type="text" id="subject" placeholder="موضوع پیام"></div>
+            <div class="form-group"><label>پیام شما</label><textarea id="message" rows="5" placeholder="پیام خود را بنویسید..." required></textarea></div>
+            <button type="submit" class="submit-btn"><i class="fas fa-send"></i> ارسال پیام</button>
+        </form>
+    </div>
+
+    <div class="info-section">
+        <h2><i class="fas fa-clock"></i> ساعات پاسخگویی</h2>
+        <p>شنبه تا پنجشنبه: ۸ صبح تا ۱۸<br>پاسخگویی تلفنی تا ساعت ۲۰<br>پاسخگویی آنلاین: ۲۴ ساعته</p>
+        <p style="margin-top: 15px;"><i class="fas fa-truck"></i> ارسال سریع به سراسر کشور</p>
+    </div>
+
+    <div class="footer">
+        <p>© ۱۴۰۳ بارمان مرکب کویر - تمامی حقوق محفوظ است</p>
+        <p style="margin-top: 10px;">
+            <a href="about.html">درباره ما</a>
+            <a href="contact.html">تماس با ما</a>
+            <a href="faq.html">سوالات متداول</a>
+            <a href="terms.html">قوانین</a>
+            <a href="returns.html">بازگشت کالا</a>
+            <a href="shipping.html">شیوه‌های ارسال</a>
+        </p>
+    </div>
+</div>
+
+<script>
+    function sendMessage(event) {
+        event.preventDefault();
+        const name = document.getElementById('fullName').value;
+        const email = document.getElementById('email').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+        const mailBody = `نام: ${name}%0Aایمیل: ${email}%0Aموضوع: ${subject}%0A%0Aپیام:%0A${message}`;
+        window.location.href = `mailto:s75542199@gmail.com?subject=${encodeURIComponent(subject || 'پیام از بارمان مرکب کویر')}&body=${mailBody}`;
+        alert('پیام شما با موفقیت ارسال شد! در اسرع وقت پاسخگوی شما خواهیم بود.');
+        document.getElementById('contactForm').reset();
+    }
+</script>
+</body>
+</html>

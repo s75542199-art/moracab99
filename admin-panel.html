@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>مدیریت محصولات | بارمان مرکب کویر</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #e67e22;
+            --primary-dark: #d35400;
+            --primary-light: #f39c12;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --dark: #2d3436;
+            --gray: #7f8c8d;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+            --shadow-md: 0 5px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 15px 35px rgba(0,0,0,0.12);
+            --transition: all 0.3s ease;
+            --radius: 12px;
+            --radius-lg: 20px;
+        }
+        body {
+            font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            min-height: 100vh;
+            direction: rtl;
+            padding: 20px;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+
+        .header {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 18px 30px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: var(--shadow-lg);
+        }
+        .logo { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .logo-icon {
+            width: 48px; height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        .logo h1 { font-size: 22px; color: #333; }
+        .logo h1 span { color: var(--primary); }
+        .user-info { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .admin-badge {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 8px 20px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 40px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .btn:hover { transform: translateY(-2px); background: var(--primary-dark); }
+        .btn-shop { background: #27ae60; }
+        .btn-shop:hover { background: #1e8449; }
+        .logout-btn { background: #e74c3c; }
+        .logout-btn:hover { background: #c0392b; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        .stat-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+        .stat-icon {
+            width: 50px; height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        .stat-info h3 { font-size: 24px; font-weight: 800; color: #333; }
+        .stat-info p { color: #999; font-size: 11px; margin-top: 3px; }
+
+        .settings-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: var(--shadow-md);
+        }
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            display: inline-block;
+        }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc;
+            transition: 0.3s;
+            border-radius: 30px;
+        }
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 24px;
+            width: 24px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+        input:checked + .toggle-slider { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); }
+        input:checked + .toggle-slider:before { transform: translateX(30px); }
+
+        .card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-md);
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .card-header h2 { font-size: 20px; display: flex; align-items: center; gap: 10px; }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; color: #555; font-size: 13px; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--radius);
+            font-family: 'Vazirmatn', sans-serif;
+            transition: var(--transition);
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .image-upload-area {
+            border: 2px dashed #ddd;
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: #fafafa;
+        }
+        .image-upload-area:hover { border-color: var(--primary); background: #fef9e7; }
+        .image-preview { width: 150px; height: 150px; margin: 0 auto 15px; border-radius: var(--radius); overflow: hidden; background: #f0f0f0; display: flex; align-items: center; justify-content: center; }
+        .image-preview img { width: 100%; height: 100%; object-fit: cover; }
+        .image-preview span { font-size: 40px; color: #ccc; }
+        .upload-icon { font-size: 30px; color: var(--primary); margin-bottom: 10px; display: block; }
+        
+        .checkbox-group {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        .checkbox-group label { display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer; }
+        .submit-btn {
+            background: linear-gradient(135deg, #27ae60, #1e8449);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+        .submit-btn:hover { transform: translateY(-2px); }
+
+        .empty-products-message {
+            text-align: center;
+            padding: 60px 20px;
+            background: #f8f9fa;
+            border-radius: var(--radius-lg);
+            margin-top: 20px;
+        }
+        .empty-products-message i {
+            font-size: 60px;
+            color: var(--gray);
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        .empty-products-message h3 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .empty-products-message p {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            z-index: 2000;
+            transform: translateX(-400px);
+            transition: transform 0.3s;
+        }
+        .toast.show { transform: translateX(0); }
+        .toast.error { background: #e74c3c; }
+
+        .products-grid { display: flex; flex-direction: column; gap: 15px; }
+        .product-item { background: #f8f9fa; border-radius: 16px; padding: 15px; border: 1px solid #eee; }
+        .product-item:hover { box-shadow: var(--shadow-sm); }
+
+        @media (max-width: 768px) {
+            .container { padding: 10px; }
+            .header { flex-direction: column; text-align: center; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo" onclick="window.location.href='shop.html'">
+            <div class="logo-icon"><i class="fas fa-hard-hat"></i></div>
+            <h1>مدیریت <span>محصولات</span></h1>
+        </div>
+        <div class="user-info">
+            <div class="admin-badge"><i class="fas fa-user-cog"></i> <span id="adminName"></span></div>
+            <a href="shop.html" class="btn btn-shop"><i class="fas fa-store"></i> رفتن به فروشگاه</a>
+            <button class="btn logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> خروج</button>
+        </div>
+    </div>
+
+    <div class="stats-grid" id="statsGrid"></div>
+
+    <div class="settings-card">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <i class="fas fa-bolt" style="font-size: 28px; color: #f39c12;"></i>
+            <div>
+                <h3 style="font-size: 16px;">نمایش بخش شگفت‌انگیزها در فروشگاه</h3>
+                <p style="font-size: 12px; color: #666;">با فعال کردن این گزینه، بخش شگفت‌انگیزها در صفحه اصلی فروشگاه نمایش داده می‌شود</p>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span id="amazingStatusText" style="font-size: 13px; font-weight: bold;">غیرفعال</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="amazingSectionToggle" onchange="toggleAmazingSection()">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2><i class="fas fa-plus-circle"></i> افزودن محصول جدید</h2>
+            <div style="background:#e8f5e9; padding:5px 12px; border-radius:30px; font-size:12px; color:#2e7d32;">
+                <i class="fas fa-image"></i> قابلیت آپلود عکس
+            </div>
+        </div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>دسته‌بندی</label>
+                <select id="productCategory">
+                    <option value="cement">🧱 سیمان</option>
+                    <option value="block">🔲 بلوک</option>
+                    <option value="brick">🧱 آجر</option>
+                    <option value="steel">📐 تیرآهن</option>
+                    <option value="roof">🏠 سقف</option>
+                    <option value="tile">🔲 کاشی</option>
+                    <option value="wood">🌲 چوب</option>
+                    <option value="door">🚪 درب و پنجره</option>
+                    <option value="paint">🎨 رنگ</option>
+                    <option value="tools">🔧 ابزارآلات</option>
+                    <option value="gypsum">⚪ گچ</option>
+                    <option value="sand">🏖️ ماسه و شن</option>
+                    <option value="pumice">🪨 پوکه</option>
+                    <option value="lime">🔥 آهک</option>
+                    <option value="pipe">📦 لوله و اتصالات</option>
+                    <option value="insulation">🛢️ عایق و ایزوگام</option>
+                    <option value="additive">🧪 مواد افزودنی و چسب</option>
+                </select>
+            </div>
+            <div class="form-group"><label>نام محصول</label><input type="text" id="productName" placeholder="مثال: سیمان تیپ 2"></div>
+            <div class="form-group"><label>قیمت (تومان)</label><input type="number" id="productPrice" placeholder="مثال: 85000"></div>
+            <div class="form-group"><label>قیمت قبلی (تخفیف)</label><input type="number" id="productOldPrice" placeholder="مثال: 95000"></div>
+            <div class="form-group"><label>توضیحات</label><textarea id="productDesc" rows="3" placeholder="توضیحات محصول..."></textarea></div>
+            <div class="form-group"><label>موجودی انبار</label><input type="number" id="productStock" value="100"></div>
+        </div>
+        
+        <div class="form-group">
+            <label><i class="fas fa-image"></i> عکس محصول</label>
+            <div class="image-upload-area" onclick="document.getElementById('productImage').click()">
+                <div class="image-preview" id="imagePreview">
+                    <span><i class="fas fa-camera upload-icon"></i><br>برای آپلود کلیک کنید</span>
+                </div>
+                <input type="file" id="productImage" accept="image/*" style="display:none" onchange="previewImage(event)">
+                <p style="font-size:12px; color:#999; margin-top:8px;">فرمت‌های مجاز: JPG, PNG, GIF | حداکثر 2 مگابایت</p>
+            </div>
+        </div>
+        
+        <div class="checkbox-group">
+            <label><input type="checkbox" id="productIsNew"> 🆕 محصول جدید</label>
+            <label><input type="checkbox" id="productIsAmazing"> 🔥 محصول شگفت‌انگیز</label>
+        </div>
+        <button class="submit-btn" onclick="addProduct()"><i class="fas fa-save"></i> ذخیره محصول</button>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><h2><i class="fas fa-edit"></i> لیست محصولات</h2></div>
+        <div class="empty-products-message" id="emptyProductsMessage">
+            <i class="fas fa-box-open"></i>
+            <h3>هیچ محصولی وجود ندارد</h3>
+            <p>از فرم بالا برای افزودن محصول جدید استفاده کنید</p>
+        </div>
+        <div class="products-grid" id="productsGrid" style="display: none;"></div>
+    </div>
+</div>
+
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg"></span></div>
+
+<script>
+    const STORAGE_KEY = 'barman_products';
+    const SETTINGS_KEY = 'barman_settings';
+    let products = [];
+    let settings = { showAmazingSection: true };
+    let currentImageData = null;
+
+    // ==================== محصولات پیش‌فرض از فایل اکسل ====================
+    function getDefaultProducts() {
+        return [
+            // پودر سنگ و مواد افزودنی (دسته additive)
+            { id: 1, name: "پودر سنگ زنبق 25 کیلوگرمی", price: 45000, oldPrice: null, category: "additive", desc: "پودر سنگ زنبق درجه یک", stock: 200, rating: 4.5, reviews: 0, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
+            { id: 2, name: "پودر سنگ نگین 25 کیلوگرمی", price: 46000, oldPrice: null, category: "additive", desc: "پودر سنگ نگین مرغوب", stock: 180, rating: 4.5, reviews: 0, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
+            { id: 3, name: "پودر سنگ آفله 25 کیلوگرمی", price: 44000, oldPrice: null, category: "additive", desc: "پودر سنگ آفله", stock: 150, rating: 4.5, reviews: 0, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
+            { id: 4, name: "در سنگ جوشقان 25 کیلوگرمی", price: 48000, oldPrice: null, category: "additive", desc: "در سنگ جوشقان", stock: 120, rating: 4.5, reviews: 0, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
+            
+            // پوکه (دسته pumice)
+            { id: 5, name: "پوکه لیکا دانه ای", price: 35000, oldPrice: null, category: "pumice", desc: "پوکه لیکا دانه ای", stock: 500, rating: 4.5, reviews: 0, emoji: "🪨", isNew: false, isAmazing: false, imageData: null },
+            { id: 6, name: "پوکه هبلکس دانه ای", price: 32000, oldPrice: null, category: "pumice", desc: "پوکه هبلکس دانه ای", stock: 500, rating: 4.5, reviews: 0, emoji: "🪨", isNew: false, isAmazing: false, imageData: null },
+            { id: 7, name: "پوکه پرلیت دانه ای", price: 38000, oldPrice: null, category: "pumice", desc: "پوکه پرلیت دانه ای", stock: 400, rating: 4.5, reviews: 0, emoji: "🪨", isNew: false, isAmazing: false, imageData: null },
+            { id: 8, name: "پوکه سنگی فله سرویسی", price: 30000, oldPrice: null, category: "pumice", desc: "پوکه سنگی فله", stock: 600, rating: 4.5, reviews: 0, emoji: "🪨", isNew: false, isAmazing: false, imageData: null },
+            { id: 9, name: "پوکه موزاییکی فله سرویسی", price: 31000, oldPrice: null, category: "pumice", desc: "پوکه موزاییکی", stock: 550, rating: 4.5, reviews: 0, emoji: "🪨", isNew: false, isAmazing: false, imageData: null },
+            
+            // ماسه و شن (دسته sand)
+            { id: 10, name: "ماسه شسته شده مهریز بتنی فله", price: 28000, oldPrice: null, category: "sand", desc: "ماسه شسته مهریز بتنی", stock: 1000, rating: 4.5, reviews: 0, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
+            { id: 11, name: "ماسه شسته شده مهریز نرم فله", price: 27000, oldPrice: null, category: "sand", desc: "ماسه شسته مهریز نرم", stock: 1000, rating: 4.5, reviews: 0, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
+            { id: 12, name: "ماسه شسته شده خضرآباد نرم فله", price: 26000, oldPrice: null, category: "sand", desc: "ماسه شسته خضرآباد نرم", stock: 900, rating: 4.5, reviews: 0, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
+            { id: 13, name: "ماسه شسته شده خضرآباد بتنی فله", price: 27500, oldPrice: null, category: "sand", desc: "ماسه شسته خضرآباد بتنی", stock: 900, rating: 4.5, reviews: 0, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
+            { id: 14, name: "سنگدانه بادامی فله", price: 32000, oldPrice: null, category: "sand", desc: "سنگدانه بادامی", stock: 800, rating: 4.5, reviews: 0, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
+            { id: 15, name: "سنگدانه نخودی فله", price: 31000, oldPrice: null, category: "sand", desc: "سنگدانه نخودی", stock: 800, rating: 4.5, reviews: 0, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
+            { id: 16, name: "سنگدانه ماکادوم فله", price: 29000, oldPrice: null, category: "sand", desc: "سنگدانه ماکادوم", stock: 750, rating: 4.5, reviews: 0, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
+            { id: 17, name: "سنگدانه مخلوط فله", price: 28500, oldPrice: null, category: "sand", desc: "سنگدانه مخلوط", stock: 800, rating: 4.5, reviews: 0, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
+            { id: 18, name: "ریک فله", price: 25000, oldPrice: null, category: "sand", desc: "ریک", stock: 700, rating: 4.5, reviews: 0, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
+            { id: 19, name: "گل سرندی", price: 20000, oldPrice: null, category: "sand", desc: "گل سرندی", stock: 500, rating: 4.5, reviews: 0, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
+            { id: 20, name: "خاک باغچه", price: 15000, oldPrice: null, category: "sand", desc: "خاک باغچه", stock: 300, rating: 4.5, reviews: 0, emoji: "🏖️", isNew: false, isAmazing: false, imageData: null },
+            
+            // لوله و اتصالات (دسته pipe)
+            { id: 21, name: "لوله سیمانی 10 سانتی متر", price: 55000, oldPrice: null, category: "pipe", desc: "لوله سیمانی 10 سانتی", stock: 200, rating: 4.5, reviews: 0, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
+            { id: 22, name: "لوله سیمانی 15 سانتی متر", price: 68000, oldPrice: null, category: "pipe", desc: "لوله سیمانی 15 سانتی", stock: 180, rating: 4.5, reviews: 0, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
+            { id: 23, name: "لوله آزبستی 3 متری 20*30", price: 95000, oldPrice: null, category: "pipe", desc: "لوله آزبستی 20*30", stock: 150, rating: 4.5, reviews: 0, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
+            { id: 24, name: "لوله آزبستی 3 متری 20*15", price: 85000, oldPrice: null, category: "pipe", desc: "لوله آزبستی 20*15", stock: 150, rating: 4.5, reviews: 0, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
+            { id: 25, name: "لوله آزبستی 3 متری 10*15", price: 75000, oldPrice: null, category: "pipe", desc: "لوله آزبستی 10*15", stock: 160, rating: 4.5, reviews: 0, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
+            { id: 26, name: "لوله آزبستی 3 متری 20 گرد", price: 90000, oldPrice: null, category: "pipe", desc: "لوله آزبستی 20 گرد", stock: 140, rating: 4.5, reviews: 0, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
+            { id: 27, name: "لوله آزبستی 3 متری 15 گرد", price: 80000, oldPrice: null, category: "pipe", desc: "لوله آزبستی 15 گرد", stock: 145, rating: 4.5, reviews: 0, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
+            { id: 28, name: "لوله آزبستی 3 متری 10 گرد", price: 70000, oldPrice: null, category: "pipe", desc: "لوله آزبستی 10 گرد", stock: 155, rating: 4.5, reviews: 0, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
+            { id: 29, name: "کلاهک 20*30", price: 25000, oldPrice: null, category: "pipe", desc: "کلاهک 20*30", stock: 300, rating: 4.5, reviews: 0, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
+            { id: 30, name: "کلاهک 20*15", price: 22000, oldPrice: null, category: "pipe", desc: "کلاهک 20*15", stock: 300, rating: 4.5, reviews: 0, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
+            { id: 31, name: "کلاهک 20 سانتی متر گرد", price: 20000, oldPrice: null, category: "pipe", desc: "کلاهک 20 گرد", stock: 320, rating: 4.5, reviews: 0, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
+            { id: 32, name: "کلاهک 15 سانتی متر گرد", price: 18000, oldPrice: null, category: "pipe", desc: "کلاهک 15 گرد", stock: 320, rating: 4.5, reviews: 0, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
+            { id: 33, name: "کلاهک 10 سانتی متر گرد", price: 15000, oldPrice: null, category: "pipe", desc: "کلاهک 10 گرد", stock: 350, rating: 4.5, reviews: 0, emoji: "📦", isNew: false, isAmazing: false, imageData: null },
+            
+            // چسب و مواد افزودنی
+            { id: 34, name: "گل کاشی", price: 12000, oldPrice: null, category: "additive", desc: "گل کاشی", stock: 500, rating: 4.5, reviews: 0, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
+            { id: 35, name: "چسب کاشی غفاری (کیلویی)", price: 25000, oldPrice: null, category: "additive", desc: "چسب کاشی غفاری", stock: 400, rating: 4.5, reviews: 0, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
+            { id: 36, name: "چسب کاشی C200 (کیلویی)", price: 28000, oldPrice: null, category: "additive", desc: "چسب کاشی C200", stock: 380, rating: 4.5, reviews: 0, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
+            { id: 37, name: "پین و گوه (بسته ای)", price: 15000, oldPrice: null, category: "tools", desc: "پین و گوه", stock: 300, rating: 4.5, reviews: 0, emoji: "🔧", isNew: false, isAmazing: false, imageData: null },
+            { id: 38, name: "پودر بندکش (کیلویی)", price: 18000, oldPrice: null, category: "additive", desc: "پودر بندکش", stock: 450, rating: 4.5, reviews: 0, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
+            
+            // ایزوگام (دسته insulation)
+            { id: 39, name: "ایزوگام بارانپوشش دلیجان درجه 1 (متری)", price: 45000, oldPrice: null, category: "insulation", desc: "ایزوگام بارانپوشش درجه 1", stock: 500, rating: 4.5, reviews: 0, emoji: "🛢️", isNew: false, isAmazing: false, imageData: null },
+            { id: 40, name: "ایزوگام دلیجان درجه 2 (متری)", price: 35000, oldPrice: null, category: "insulation", desc: "ایزوگام دلیجان درجه 2", stock: 500, rating: 4.5, reviews: 0, emoji: "🛢️", isNew: false, isAmazing: false, imageData: null },
+            
+            // آهک (دسته lime)
+            { id: 41, name: "آهک فله صنعتی (تن)", price: 550000, oldPrice: null, category: "lime", desc: "آهک فله صنعتی هر تن", stock: 100, rating: 4.5, reviews: 0, emoji: "🔥", isNew: false, isAmazing: false, imageData: null },
+            { id: 42, name: "آهک فله سنتی (تن)", price: 520000, oldPrice: null, category: "lime", desc: "آهک فله سنتی هر تن", stock: 100, rating: 4.5, reviews: 0, emoji: "🔥", isNew: false, isAmazing: false, imageData: null },
+            { id: 43, name: "آهک پاکت 40 کیلویی", price: 35000, oldPrice: null, category: "lime", desc: "آهک پاکتی 40 کیلو", stock: 300, rating: 4.5, reviews: 0, emoji: "🔥", isNew: false, isAmazing: false, imageData: null },
+            
+            // گچ (دسته gypsum)
+            { id: 44, name: "گچ سفید کاری سمنان و مازندران 30 کیلویی", price: 28000, oldPrice: null, category: "gypsum", desc: "گچ سفید کاری 30 کیلویی", stock: 500, rating: 4.5, reviews: 0, emoji: "⚪", isNew: false, isAmazing: false, imageData: null },
+            { id: 45, name: "گچ سفید کاری سپیدار 30 کیلویی", price: 29000, oldPrice: null, category: "gypsum", desc: "گچ سفید کاری سپیدار", stock: 450, rating: 4.5, reviews: 0, emoji: "⚪", isNew: false, isAmazing: false, imageData: null },
+            { id: 46, name: "گچ سفید کاری امید 25 کیلویی", price: 26000, oldPrice: null, category: "gypsum", desc: "گچ سفید کاری امید", stock: 480, rating: 4.5, reviews: 0, emoji: "⚪", isNew: false, isAmazing: false, imageData: null },
+            { id: 47, name: "گچ سفید کاری شایان 30 کیلویی", price: 27500, oldPrice: null, category: "gypsum", desc: "گچ سفید کاری شایان", stock: 460, rating: 4.5, reviews: 0, emoji: "⚪", isNew: false, isAmazing: false, imageData: null },
+            { id: 48, name: "فرآورده گچی سوپر نگین 25 کیلویی", price: 35000, oldPrice: null, category: "gypsum", desc: "فرآورده گچی سوپر نگین", stock: 300, rating: 4.5, reviews: 0, emoji: "⚪", isNew: false, isAmazing: false, imageData: null },
+            { id: 49, name: "فرآورده گچی سوپر فولاد 25 کیلویی", price: 36000, oldPrice: null, category: "gypsum", desc: "فرآورده گچی سوپر فولاد", stock: 300, rating: 4.5, reviews: 0, emoji: "⚪", isNew: false, isAmazing: false, imageData: null },
+            { id: 50, name: "فرآورده گچی بتوگیپس 25 کیلویی", price: 38000, oldPrice: null, category: "gypsum", desc: "فرآورده گچی بتوگیپس", stock: 280, rating: 4.5, reviews: 0, emoji: "⚪", isNew: false, isAmazing: false, imageData: null },
+            { id: 51, name: "گچ یزد 30 کیلویی", price: 27000, oldPrice: null, category: "gypsum", desc: "گچ یزد 30 کیلویی", stock: 400, rating: 4.5, reviews: 0, emoji: "⚪", isNew: false, isAmazing: false, imageData: null },
+            
+            // سیمان (دسته cement)
+            { id: 52, name: "سیمان مهریز 50 کیلویی", price: 85000, oldPrice: null, category: "cement", desc: "سیمان مهریز 50 کیلویی", stock: 1000, rating: 4.5, reviews: 0, emoji: "🧱", isNew: false, isAmazing: false, imageData: null },
+            { id: 53, name: "سیمان نایین 50 کیلویی", price: 82000, oldPrice: null, category: "cement", desc: "سیمان نایین 50 کیلویی", stock: 1000, rating: 4.5, reviews: 0, emoji: "🧱", isNew: false, isAmazing: false, imageData: null },
+            { id: 54, name: "سیمان سفید بنوید 25 کیلویی", price: 95000, oldPrice: null, category: "cement", desc: "سیمان سفید بنوید", stock: 500, rating: 4.5, reviews: 0, emoji: "🧱", isNew: false, isAmazing: false, imageData: null },
+            { id: 55, name: "سیمان سفید اصفهان 25 کیلویی", price: 98000, oldPrice: null, category: "cement", desc: "سیمان سفید اصفهان", stock: 500, rating: 4.5, reviews: 0, emoji: "🧱", isNew: false, isAmazing: false, imageData: null },
+            
+            // موزاییک (دسته tile)
+            { id: 56, name: "موزاییک طرح 1 متری", price: 45000, oldPrice: null, category: "tile", desc: "موزاییک طرح 1", stock: 1000, rating: 4.5, reviews: 0, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
+            { id: 57, name: "موزاییک طرح 2 متری", price: 48000, oldPrice: null, category: "tile", desc: "موزاییک طرح 2", stock: 1000, rating: 4.5, reviews: 0, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
+            { id: 58, name: "موزاییک طرح 3 متری", price: 50000, oldPrice: null, category: "tile", desc: "موزاییک طرح 3", stock: 1000, rating: 4.5, reviews: 0, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
+            { id: 59, name: "موزاییک طرح 4 متری", price: 52000, oldPrice: null, category: "tile", desc: "موزاییک طرح 4", stock: 1000, rating: 4.5, reviews: 0, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
+            { id: 60, name: "موزاییک طرح 5 متری", price: 55000, oldPrice: null, category: "tile", desc: "موزاییک طرح 5", stock: 1000, rating: 4.5, reviews: 0, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
+            
+            // آجر (دسته brick)
+            { id: 61, name: "آجر گری دستی (تن)", price: 850000, oldPrice: null, category: "brick", desc: "آجر گری دستی هر تن", stock: 200, rating: 4.5, reviews: 0, emoji: "🧱", isNew: false, isAmazing: false, imageData: null },
+            { id: 62, name: "آجر گری فشاری (تن)", price: 820000, oldPrice: null, category: "brick", desc: "آجر گری فشاری هر تن", stock: 200, rating: 4.5, reviews: 0, emoji: "🧱", isNew: false, isAmazing: false, imageData: null },
+            { id: 63, name: "آجر روکار 5 سانت درجه یک", price: 4500, oldPrice: null, category: "brick", desc: "آجر روکار 5 سانت درجه یک هر عدد", stock: 5000, rating: 4.5, reviews: 0, emoji: "🧱", isNew: false, isAmazing: false, imageData: null },
+            { id: 64, name: "آجر روکار 5 سانت درجه دو", price: 3800, oldPrice: null, category: "brick", desc: "آجر روکار 5 سانت درجه دو", stock: 5000, rating: 4.5, reviews: 0, emoji: "🧱", isNew: false, isAmazing: false, imageData: null },
+            { id: 65, name: "آجر روکار 4 سانت درجه یک", price: 4200, oldPrice: null, category: "brick", desc: "آجر روکار 4 سانت درجه یک", stock: 5000, rating: 4.5, reviews: 0, emoji: "🧱", isNew: false, isAmazing: false, imageData: null },
+            { id: 66, name: "آجر روکار 4 سانت درجه دو", price: 3500, oldPrice: null, category: "brick", desc: "آجر روکار 4 سانت درجه دو", stock: 5000, rating: 4.5, reviews: 0, emoji: "🧱", isNew: false, isAmazing: false, imageData: null },
+            
+            // بلوک (دسته block)
+            { id: 67, name: "بلوک تیغه 5 سانتی", price: 12000, oldPrice: null, category: "block", desc: "بلوک تیغه 5 سانتی", stock: 3000, rating: 4.5, reviews: 0, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
+            { id: 68, name: "بلوک تیغه 10 سانتی", price: 15000, oldPrice: null, category: "block", desc: "بلوک تیغه 10 سانتی", stock: 3000, rating: 4.5, reviews: 0, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
+            { id: 69, name: "بلوک تیغه 15 سانتی", price: 18000, oldPrice: null, category: "block", desc: "بلوک تیغه 15 سانتی", stock: 3000, rating: 4.5, reviews: 0, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
+            { id: 70, name: "بلوک سقفی آجری 20", price: 22000, oldPrice: null, category: "block", desc: "بلوک سقفی آجری 20", stock: 2000, rating: 4.5, reviews: 0, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
+            { id: 71, name: "بلوک سقفی آجری 25", price: 25000, oldPrice: null, category: "block", desc: "بلوک سقفی آجری 25", stock: 2000, rating: 4.5, reviews: 0, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
+            { id: 72, name: "بلوک ته پر دیواری سیمانی", price: 14000, oldPrice: null, category: "block", desc: "بلوک ته پر سیمانی", stock: 2500, rating: 4.5, reviews: 0, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
+            { id: 73, name: "بلوک تیغه لیکا 10", price: 16000, oldPrice: null, category: "block", desc: "بلوک تیغه لیکا 10", stock: 2000, rating: 4.5, reviews: 0, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
+            { id: 74, name: "بلوک تیغه لیکا 15", price: 19000, oldPrice: null, category: "block", desc: "بلوک تیغه لیکا 15", stock: 2000, rating: 4.5, reviews: 0, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
+            { id: 75, name: "بلوک تیغه لیکا 20", price: 22000, oldPrice: null, category: "block", desc: "بلوک تیغه لیکا 20", stock: 2000, rating: 4.5, reviews: 0, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
+            { id: 76, name: "بلوک تیغه هبلکس 10", price: 18000, oldPrice: null, category: "block", desc: "بلوک تیغه هبلکس 10", stock: 1800, rating: 4.5, reviews: 0, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
+            { id: 77, name: "بلوک تیغه هبلکس 15", price: 21000, oldPrice: null, category: "block", desc: "بلوک تیغه هبلکس 15", stock: 1800, rating: 4.5, reviews: 0, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
+            { id: 78, name: "بلوک تیغه هبلکس 20", price: 24000, oldPrice: null, category: "block", desc: "بلوک تیغه هبلکس 20", stock: 1800, rating: 4.5, reviews: 0, emoji: "🔲", isNew: false, isAmazing: false, imageData: null },
+            
+            // فوم سقفی (دسته roof)
+            { id: 79, name: "فوم سقفی 20", price: 35000, oldPrice: null, category: "roof", desc: "فوم سقفی 20", stock: 1000, rating: 4.5, reviews: 0, emoji: "🏠", isNew: false, isAmazing: false, imageData: null },
+            { id: 80, name: "فوم سقفی 25", price: 40000, oldPrice: null, category: "roof", desc: "فوم سقفی 25", stock: 1000, rating: 4.5, reviews: 0, emoji: "🏠", isNew: false, isAmazing: false, imageData: null },
+            { id: 81, name: "ورق فوم 2 سانتی", price: 28000, oldPrice: null, category: "roof", desc: "ورق فوم 2 سانتی", stock: 1500, rating: 4.5, reviews: 0, emoji: "🏠", isNew: false, isAmazing: false, imageData: null },
+            { id: 82, name: "ورق فوم 3 سانتی", price: 32000, oldPrice: null, category: "roof", desc: "ورق فوم 3 سانتی", stock: 1500, rating: 4.5, reviews: 0, emoji: "🏠", isNew: false, isAmazing: false, imageData: null },
+            { id: 83, name: "ورق فوم 5 سانتی", price: 42000, oldPrice: null, category: "roof", desc: "ورق فوم 5 سانتی", stock: 1200, rating: 4.5, reviews: 0, emoji: "🏠", isNew: false, isAmazing: false, imageData: null },
+            { id: 84, name: "فوم رولی", price: 55000, oldPrice: null, category: "roof", desc: "فوم رولی", stock: 800, rating: 4.5, reviews: 0, emoji: "🏠", isNew: false, isAmazing: false, imageData: null },
+            
+            // چسب 123 (دسته additive)
+            { id: 85, name: "چسب 123 استارباند", price: 18000, oldPrice: null, category: "additive", desc: "چسب 123 استارباند", stock: 500, rating: 4.5, reviews: 0, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
+            { id: 86, name: "چسب 123 ترک فیک", price: 17000, oldPrice: null, category: "additive", desc: "چسب 123 ترک فیک", stock: 500, rating: 4.5, reviews: 0, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
+            { id: 87, name: "چسب 123 دیبا فیکس", price: 17500, oldPrice: null, category: "additive", desc: "چسب 123 دیبا فیکس", stock: 500, rating: 4.5, reviews: 0, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
+            { id: 88, name: "چسب 123 میتراپل", price: 18500, oldPrice: null, category: "additive", desc: "چسب 123 میتراپل", stock: 500, rating: 4.5, reviews: 0, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
+            { id: 89, name: "چسب 123 آرازیم", price: 19000, oldPrice: null, category: "additive", desc: "چسب 123 آرازیم", stock: 500, rating: 4.5, reviews: 0, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
+            { id: 90, name: "چسب 123 ثنا باند", price: 17500, oldPrice: null, category: "additive", desc: "چسب 123 ثنا باند", stock: 500, rating: 4.5, reviews: 0, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
+            { id: 91, name: "چسب 123 استاربلو", price: 19500, oldPrice: null, category: "additive", desc: "چسب 123 استاربلو", stock: 500, rating: 4.5, reviews: 0, emoji: "🧪", isNew: false, isAmazing: false, imageData: null },
+            
+            // میلگرد و تیرآهن (دسته steel)
+            { id: 92, name: "میلگرد سایز 8", price: 25000, oldPrice: null, category: "steel", desc: "میلگرد سایز 8 هر شاخه", stock: 2000, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 93, name: "میلگرد سایز 10", price: 32000, oldPrice: null, category: "steel", desc: "میلگرد سایز 10 هر شاخه", stock: 2000, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 94, name: "میلگرد سایز 12", price: 38000, oldPrice: null, category: "steel", desc: "میلگرد سایز 12 هر شاخه", stock: 2000, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 95, name: "میلگرد سایز 14", price: 45000, oldPrice: null, category: "steel", desc: "میلگرد سایز 14 هر شاخه", stock: 1800, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 96, name: "میلگرد سایز 16", price: 52000, oldPrice: null, category: "steel", desc: "میلگرد سایز 16 هر شاخه", stock: 1800, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 97, name: "میلگرد سایز 18", price: 60000, oldPrice: null, category: "steel", desc: "میلگرد سایز 18 هر شاخه", stock: 1500, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 98, name: "میلگرد سایز 20", price: 68000, oldPrice: null, category: "steel", desc: "میلگرد سایز 20 هر شاخه", stock: 1500, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 99, name: "میلگرد سایز 22", price: 75000, oldPrice: null, category: "steel", desc: "میلگرد سایز 22 هر شاخه", stock: 1200, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 100, name: "میلگرد سایز 24", price: 85000, oldPrice: null, category: "steel", desc: "میلگرد سایز 24 هر شاخه", stock: 1200, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 101, name: "میلگرد سایز 25", price: 90000, oldPrice: null, category: "steel", desc: "میلگرد سایز 25 هر شاخه", stock: 1000, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 102, name: "خاموت سایز 8", price: 15000, oldPrice: null, category: "steel", desc: "خاموت سایز 8", stock: 3000, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 103, name: "خاموت سایز 10", price: 18000, oldPrice: null, category: "steel", desc: "خاموت سایز 10", stock: 3000, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 104, name: "تیرآهن 14", price: 850000, oldPrice: null, category: "steel", desc: "تیرآهن 14 هر شاخه", stock: 500, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 105, name: "تیرآهن 16", price: 950000, oldPrice: null, category: "steel", desc: "تیرآهن 16 هر شاخه", stock: 500, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 106, name: "تیرآهن 18", price: 1050000, oldPrice: null, category: "steel", desc: "تیرآهن 18 هر شاخه", stock: 450, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 107, name: "تیرآهن 20", price: 1150000, oldPrice: null, category: "steel", desc: "تیرآهن 20 هر شاخه", stock: 450, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 108, name: "تیرآهن 22", price: 1250000, oldPrice: null, category: "steel", desc: "تیرآهن 22 هر شاخه", stock: 400, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 109, name: "تیرآهن 24", price: 1350000, oldPrice: null, category: "steel", desc: "تیرآهن 24 هر شاخه", stock: 400, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 110, name: "نبشی 3", price: 45000, oldPrice: null, category: "steel", desc: "نبشی 3", stock: 1000, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 111, name: "نبشی 4", price: 55000, oldPrice: null, category: "steel", desc: "نبشی 4", stock: 1000, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 112, name: "نبشی 5", price: 68000, oldPrice: null, category: "steel", desc: "نبشی 5", stock: 900, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 113, name: "نبشی 8", price: 95000, oldPrice: null, category: "steel", desc: "نبشی 8", stock: 800, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null },
+            { id: 114, name: "نبشی 10", price: 120000, oldPrice: null, category: "steel", desc: "نبشی 10", stock: 800, rating: 4.5, reviews: 0, emoji: "📐", isNew: false, isAmazing: false, imageData: null }
+        ];
+    }
+    // ================================================================
+
+    function loadSettings() {
+        const saved = localStorage.getItem(SETTINGS_KEY);
+        if (saved) settings = JSON.parse(saved);
+        else settings = { showAmazingSection: true };
+        const toggle = document.getElementById('amazingSectionToggle');
+        const statusText = document.getElementById('amazingStatusText');
+        if (toggle) {
+            toggle.checked = settings.showAmazingSection;
+            statusText.innerText = settings.showAmazingSection ? 'فعال' : 'غیرفعال';
+            statusText.style.color = settings.showAmazingSection ? '#f39c12' : '#999';
+        }
+        localStorage.setItem('amazing_section_visible', settings.showAmazingSection);
+    }
+
+    function saveSettings() {
+        localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+        localStorage.setItem('amazing_section_visible', settings.showAmazingSection);
+        localStorage.setItem('settings_updated', Date.now().toString());
+    }
+
+    function toggleAmazingSection() {
+        const toggle = document.getElementById('amazingSectionToggle');
+        const statusText = document.getElementById('amazingStatusText');
+        settings.showAmazingSection = toggle.checked;
+        saveSettings();
+        statusText.innerText = settings.showAmazingSection ? 'فعال' : 'غیرفعال';
+        statusText.style.color = settings.showAmazingSection ? '#f39c12' : '#999';
+        showToast(`بخش شگفت‌انگیزها ${settings.showAmazingSection ? 'فعال شد 🔥' : 'غیرفعال شد'}`);
+    }
+
+    function previewImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+            if (file.size > 2 * 1024 * 1024) {
+                showToast('حجم فایل نباید بیشتر از 2 مگابایت باشد!', 'error');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                currentImageData = e.target.result;
+                document.getElementById('imagePreview').innerHTML = `<img src="${e.target.result}" style="width:100%; height:100%; object-fit:cover;">`;
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function loadProducts() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved && JSON.parse(saved).length > 0) {
+            products = JSON.parse(saved);
+        } else {
+            // اگر محصولی در localStorage نبود، محصولات پیش‌فرض از اکسل رو ذخیره کن
+            products = getDefaultProducts();
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+        }
+        updateStats();
+        renderProductsList();
+    }
+
+    function saveProducts() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+        localStorage.setItem('products_updated', Date.now().toString());
+        updateStats();
+        renderProductsList();
+        showToast('تغییرات ذخیره شد ✅');
+    }
+
+    function updateStats() {
+        const statsHtml = `
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-boxes"></i></div><div class="stat-info"><h3>${products.length}</h3><p>کل محصولات</p></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-cube"></i></div><div class="stat-info"><h3>${products.filter(p => p.category === 'cement').length}</h3><p>سیمان</p></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-th-large"></i></div><div class="stat-info"><h3>${products.filter(p => p.category === 'block' || p.category === 'brick').length}</h3><p>بلوک و آجر</p></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-mortar-board"></i></div><div class="stat-info"><h3>${products.filter(p => p.category === 'gypsum').length}</h3><p>گچ</p></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-bolt"></i></div><div class="stat-info"><h3>${products.filter(p => p.isAmazing).length}</h3><p>شگفت‌انگیزها</p></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-sand"></i></div><div class="stat-info"><h3>${products.filter(p => p.category === 'sand').length}</h3><p>ماسه و شن</p></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-mountain"></i></div><div class="stat-info"><h3>${products.filter(p => p.category === 'pumice').length}</h3><p>پوکه</p></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-fire"></i></div><div class="stat-info"><h3>${products.filter(p => p.category === 'lime').length}</h3><p>آهک</p></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-water"></i></div><div class="stat-info"><h3>${products.filter(p => p.category === 'pipe').length}</h3><p>لوله</p></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-thermometer-half"></i></div><div class="stat-info"><h3>${products.filter(p => p.category === 'insulation').length}</h3><p>عایق</p></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-flask"></i></div><div class="stat-info"><h3>${products.filter(p => p.category === 'additive').length}</h3><p>افزودنی و چسب</p></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-chart-line"></i></div><div class="stat-info"><h3>${products.filter(p => p.category === 'steel').length}</h3><p>تیرآهن و میلگرد</p></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-home"></i></div><div class="stat-info"><h3>${products.filter(p => p.category === 'roof').length}</h3><p>سقف</p></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-th"></i></div><div class="stat-info"><h3>${products.filter(p => p.category === 'tile').length}</h3><p>کاشی</p></div></div>
+        `;
+        document.getElementById('statsGrid').innerHTML = statsHtml;
+    }
+
+    function addProduct() {
+        const name = document.getElementById('productName').value.trim();
+        const price = parseInt(document.getElementById('productPrice').value);
+        const oldPrice = parseInt(document.getElementById('productOldPrice').value) || null;
+        const category = document.getElementById('productCategory').value;
+        const desc = document.getElementById('productDesc').value.trim();
+        const stock = parseInt(document.getElementById('productStock').value) || 100;
+        const isNew = document.getElementById('productIsNew').checked;
+        const isAmazing = document.getElementById('productIsAmazing').checked;
+        
+        if (!name || !price || !desc) {
+            showToast('❌ لطفاً نام، قیمت و توضیحات را پر کنید!', 'error');
+            return;
+        }
+        
+        const emojiMap = { 
+            cement:"🧱", block:"🔲", brick:"🧱", steel:"📐", roof:"🏠", tile:"🔲", wood:"🌲", door:"🚪", paint:"🎨", tools:"🔧", gypsum:"⚪",
+            sand:"🏖️", pumice:"🪨", lime:"🔥", pipe:"📦", insulation:"🛢️", additive:"🧪"
+        };
+        const newId = Math.max(...products.map(p => p.id), 0) + 1;
+        
+        const newProduct = {
+            id: newId, name: name, price: price, oldPrice: oldPrice, category: category,
+            desc: desc, stock: stock, rating: 4.5, reviews: 0, emoji: emojiMap[category] || "📦",
+            isNew: isNew, isAmazing: isAmazing, imageData: currentImageData
+        };
+        
+        products.push(newProduct);
+        saveProducts();
+        clearForm();
+        showToast(`✅ محصول "${name}" با موفقیت اضافه شد! ${isAmazing ? 'در شگفت‌انگیزها 🔥' : ''}`);
+    }
+
+    function clearForm() {
+        document.getElementById('productName').value = '';
+        document.getElementById('productPrice').value = '';
+        document.getElementById('productOldPrice').value = '';
+        document.getElementById('productDesc').value = '';
+        document.getElementById('productStock').value = '100';
+        document.getElementById('productIsNew').checked = false;
+        document.getElementById('productIsAmazing').checked = false;
+        document.getElementById('productImage').value = '';
+        currentImageData = null;
+        document.getElementById('imagePreview').innerHTML = '<span><i class="fas fa-camera upload-icon"></i><br>برای آپلود کلیک کنید</span>';
+    }
+
+    function toggleAmazing(id) {
+        const product = products.find(p => p.id === id);
+        if (product) {
+            product.isAmazing = !product.isAmazing;
+            saveProducts();
+            showToast(`${product.name} ${product.isAmazing ? 'به شگفت‌انگیزها اضافه شد 🔥' : 'از شگفت‌انگیزها حذف شد'}`);
+        }
+    }
+
+    function deleteProduct(id) {
+        const product = products.find(p => p.id === id);
+        if (confirm(`⚠️ آیا از حذف محصول "${product.name}" اطمینان دارید؟`)) {
+            products = products.filter(p => p.id !== id);
+            saveProducts();
+            showToast(`🗑 محصول "${product.name}" حذف شد!`);
+        }
+    }
+
+    function editProduct(id) {
+        window.location.href = `edit-product.html?id=${id}`;
+    }
+
+    function getCategoryName(cat) {
+        const names = { 
+            cement: 'سیمان', block: 'بلوک', brick: 'آجر', steel: 'تیرآهن', roof: 'سقف', tile: 'کاشی', 
+            wood: 'چوب', door: 'درب و پنجره', paint: 'رنگ', tools: 'ابزارآلات', gypsum: 'گچ',
+            sand: 'ماسه و شن', pumice: 'پوکه', lime: 'آهک', pipe: 'لوله و اتصالات', 
+            insulation: 'عایق و ایزوگام', additive: 'مواد افزودنی و چسب'
+        };
+        return names[cat] || cat;
+    }
+
+    function renderProductsList() {
+        const grid = document.getElementById('productsGrid');
+        const emptyMessage = document.getElementById('emptyProductsMessage');
+        
+        if (products.length === 0) {
+            emptyMessage.style.display = 'block';
+            grid.style.display = 'none';
+            return;
+        }
+        
+        emptyMessage.style.display = 'none';
+        grid.style.display = 'block';
+        
+        grid.innerHTML = products.map(p => `
+            <div class="product-item">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap;">
+                    ${p.imageData ? `<img src="${p.imageData}" style="width: 50px; height: 50px; border-radius: 10px; object-fit: cover;">` : `<div style="font-size: 40px;">${p.emoji}</div>`}
+                    <div style="font-weight: bold; font-size: 14px; flex: 1;">${p.name}</div>
+                    <div style="color: #e74c3c; font-weight: bold; font-size: 15px;">${p.price.toLocaleString()} تومان</div>
+                </div>
+                <div style="font-size:12px; color:#999; margin-bottom:8px; display: flex; gap: 8px; flex-wrap: wrap;">
+                    <span><i class="fas fa-tag"></i> ${getCategoryName(p.category)}</span>
+                    <span><i class="fas fa-box"></i> موجودی: ${p.stock}</span>
+                    <span><i class="fas fa-star" style="color:#f39c12;"></i> ${p.rating}</span>
+                    ${p.isAmazing ? '<span style="background:#f39c12; color:white; padding:2px 10px; border-radius:20px; font-size:11px;">🔥 شگفت‌انگیز</span>' : ''}
+                    ${p.isNew ? '<span style="background:#27ae60; color:white; padding:2px 10px; border-radius:20px; font-size:11px;">🆕 جدید</span>' : ''}
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap;">
+                    <button onclick="editProduct(${p.id})" style="background: #3498db; color: white; border: none; padding: 8px 12px; border-radius: 30px; cursor: pointer;"><i class="fas fa-edit"></i> ویرایش</button>
+                    <button onclick="deleteProduct(${p.id})" style="background: #e74c3c; color: white; border: none; padding: 8px 12px; border-radius: 30px; cursor: pointer;"><i class="fas fa-trash"></i> حذف</button>
+                    <button onclick="toggleAmazing(${p.id})" style="background: #f39c12; color: white; border: none; padding: 8px 12px; border-radius: 30px; cursor: pointer;"><i class="fas fa-bolt"></i> ${p.isAmazing ? 'حذف از شگفت‌انگیز' : 'اضافه به شگفت‌انگیز'}</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function showToast(msg, type = 'success') {
+        const toast = document.getElementById('toast');
+        const toastMsg = document.getElementById('toastMsg');
+        toastMsg.innerText = msg;
+        toast.classList.add('show');
+        if (type === 'error') toast.classList.add('error');
+        else toast.classList.remove('error');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    function logout() {
+        localStorage.removeItem('admin_logged_in');
+        localStorage.removeItem('admin_user');
+        window.location.href = 'admin-login.html';
+    }
+
+    function checkLogin() {
+        if (!localStorage.getItem('admin_logged_in')) {
+            window.location.href = 'admin-login.html';
+        }
+        document.getElementById('adminName').innerText = localStorage.getItem('admin_user') || 'مدیر';
+    }
+
+    checkLogin();
+    loadSettings();
+    loadProducts();
+</script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>تسویه حساب | بارمان مرکب کویر</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #ef6b00;
+            --primary-dark: #d35400;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --dark: #2d3436;
+            --gray: #7f8c8d;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+            --shadow-md: 0 5px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 15px 35px rgba(0,0,0,0.12);
+            --transition: all 0.3s ease;
+            --radius: 12px;
+            --radius-lg: 20px;
+        }
+        body {
+            font-family: 'Tahoma', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            direction: rtl;
+            padding: 20px;
+        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .header {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 15px 25px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: var(--shadow-md);
+            animation: fadeInUp 0.5s ease;
+        }
+        .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .logo-icon {
+            width: 45px; height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        .logo h1 { font-size: 22px; color: #333; }
+        .back-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .back-btn:hover { transform: translateY(-2px); }
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 25px;
+            animation: fadeInUp 0.6s ease;
+        }
+        .checkout-section {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-md);
+        }
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            color: #333;
+        }
+        .section-title i { color: var(--primary); margin-left: 8px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; color: #555; font-size: 13px; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--radius);
+            font-family: inherit;
+            transition: var(--transition);
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(239,107,0,0.1);
+        }
+        .payment-cod-only {
+            background: linear-gradient(135deg, #fef5e7, #fff);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .payment-cod-only i { font-size: 40px; color: var(--primary); }
+        .payment-cod-only h4 { font-size: 18px; margin-bottom: 5px; color: #333; }
+        .payment-cod-only p { font-size: 13px; color: #666; }
+        .order-summary {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+        .cart-items-list { max-height: 300px; overflow-y: auto; margin-bottom: 15px; }
+        .cart-items-list::-webkit-scrollbar { width: 4px; }
+        .cart-items-list::-webkit-scrollbar-track { background: #f0f0f0; border-radius: 10px; }
+        .cart-items-list::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        .order-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #eee; }
+        .order-item-img {
+            width: 50px;
+            height: 50px;
+            background: var(--light);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+        }
+        .order-item-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+        .order-item-info { flex: 1; }
+        .order-item-title { font-size: 13px; font-weight: bold; margin-bottom: 5px; }
+        .order-item-price { font-size: 12px; color: var(--danger); font-weight: bold; }
+        .order-item-quantity { font-size: 11px; color: var(--gray); margin-top: 3px; }
+        .order-total { padding: 15px 0; border-top: 2px solid #eee; margin-top: 10px; }
+        .total-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; }
+        .grand-total { font-size: 18px; font-weight: bold; color: var(--danger); border-top: 1px dashed #eee; padding-top: 12px; margin-top: 8px; }
+        .empty-cart { text-align: center; padding: 40px 20px; color: var(--gray); }
+        .empty-cart i { font-size: 50px; margin-bottom: 15px; opacity: 0.5; }
+        .submit-order {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 40px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: var(--transition);
+        }
+        .submit-order:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(239,107,0,0.3); }
+        .submit-order:disabled { opacity: 0.6; cursor: not-allowed; }
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 30px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            margin-top: 30px;
+            animation: fadeInUp 0.9s ease;
+        }
+        .footer a { color: #b2bec3; text-decoration: none; margin: 0 10px; transition: var(--transition); }
+        .footer a:hover { color: var(--primary); }
+        @media (max-width: 768px) {
+            .checkout-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .header { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo" onclick="window.location.href='shop.html'">
+            <div class="logo-icon"><i class="fas fa-hard-hat"></i></div>
+            <h1>بارمان مرکب کویر</h1>
+        </div>
+        <button class="back-btn" onclick="window.location.href='shop.html'">
+            <i class="fas fa-arrow-right"></i> بازگشت به سبد خرید
+        </button>
+    </div>
+
+    <div class="checkout-grid">
+        <div>
+            <div class="checkout-section">
+                <div class="section-title"><i class="fas fa-user"></i> اطلاعات شخصی</div>
+                <div class="form-row"><div class="form-group"><label>نام</label><input type="text" id="firstName" placeholder="نام"></div><div class="form-group"><label>نام خانوادگی</label><input type="text" id="lastName" placeholder="نام خانوادگی"></div></div>
+                <div class="form-group"><label><i class="fas fa-phone"></i> تلفن همراه</label><input type="tel" id="phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹"></div>
+                <div class="form-group"><label><i class="fas fa-envelope"></i> ایمیل (اختیاری)</label><input type="email" id="email" placeholder="example@email.com"></div>
+            </div>
+            <div class="checkout-section">
+                <div class="section-title"><i class="fas fa-map-marker-alt"></i> آدرس تحویل سفارش</div>
+                <div class="form-group"><label>استان</label><select id="province"><option value="یزد">یزد</option></select></div>
+                <div class="form-group"><label>شهر</label><select id="city"><option value="یزد">یزد</option><option value="اردکان">اردکان</option><option value="میبد">میبد</option><option value="بافق">بافق</option><option value="مهریز">مهریز</option><option value="ابرکوه">ابرکوه</option><option value="تفت">تفت</option><option value="خاتم">خاتم</option><option value="بهاباد">بهاباد</option><option value="اشکذر">اشکذر</option></select></div>
+                <div class="form-group"><label>آدرس کامل</label><textarea id="address" rows="3" placeholder="خیابان، پلاک، واحد..."></textarea></div>
+                <div class="form-group"><label>کد پستی</label><input type="text" id="postalCode" placeholder="کد پستی ۱۰ رقمی"></div>
+            </div>
+            <div class="checkout-section">
+                <div class="section-title"><i class="fas fa-credit-card"></i> روش پرداخت</div>
+                <div class="payment-cod-only">
+                    <i class="fas fa-truck"></i>
+                    <div><h4>پرداخت در محل</h4><p>پرداخت نقدی هنگام تحویل سفارش</p><p style="font-size: 12px; margin-top: 5px;">✔ پس از تحویل کالا، مبلغ را به مامور تحویل پرداخت کنید</p></div>
+                </div>
+            </div>
+        </div>
+        <div class="order-summary">
+            <div class="section-title"><i class="fas fa-shopping-cart"></i> سبد خرید</div>
+            <div class="cart-items-list" id="orderItems"></div>
+            <div class="order-total">
+                <div class="total-row"><span>جمع سبد خرید</span><span id="subtotal">0 تومان</span></div>
+                <div class="total-row"><span>هزینه ارسال</span><span id="shipping">0 تومان</span></div>
+                <div class="total-row grand-total"><span>مجموع قابل پرداخت</span><span id="total">0 تومان</span></div>
+            </div>
+            <button class="submit-order" id="submitBtn" onclick="submitOrder()"><i class="fas fa-check-circle"></i> نهایی کردن سفارش</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© ۱۴۰۳ بارمان مرکب کویر - تمامی حقوق محفوظ است</p>
+        <p style="margin-top: 10px;">
+            <a href="about.html">درباره ما</a>
+            <a href="contact.html">تماس با ما</a>
+            <a href="faq.html">سوالات متداول</a>
+            <a href="terms.html">قوانین</a>
+            <a href="returns.html">بازگشت کالا</a>
+            <a href="shipping.html">شیوه‌های ارسال</a>
+        </p>
+    </div>
+</div>
+
+<script>
+    function loadCart() {
+        const cart = JSON.parse(localStorage.getItem('barman_cart')) || [];
+        const container = document.getElementById('orderItems');
+        let subtotal = 0;
+        if (cart.length === 0) {
+            container.innerHTML = `<div class="empty-cart"><i class="fas fa-shopping-cart"></i><p>سبد خرید خالی است</p><a href="shop.html" style="color: var(--primary); text-decoration: none; display: inline-block; margin-top: 10px;">← بازگشت به فروشگاه</a></div>`;
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('subtotal').innerHTML = '0 تومان';
+            document.getElementById('shipping').innerHTML = '0 تومان';
+            document.getElementById('total').innerHTML = '0 تومان';
+            return;
+        }
+        document.getElementById('submitBtn').disabled = false;
+        container.innerHTML = cart.map(item => `<div class="order-item"><div class="order-item-img">${item.imageData ? `<img src="${item.imageData}">` : `<span>${item.emoji}</span>`}</div><div class="order-item-info"><div class="order-item-title">${item.name}</div><div class="order-item-price">${(item.price * item.quantity).toLocaleString()} تومان</div><div class="order-item-quantity">تعداد: ${item.quantity}</div></div></div>`).join('');
+        subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const shipping = subtotal > 5000000 ? 0 : 50000;
+        document.getElementById('subtotal').innerHTML = subtotal.toLocaleString() + ' تومان';
+        document.getElementById('shipping').innerHTML = shipping === 0 ? 'رایگان' : shipping.toLocaleString() + ' تومان';
+        document.getElementById('total').innerHTML = (subtotal + shipping).toLocaleString() + ' تومان';
+    }
+    function generateOrderId() { const date = new Date(); const year = date.getFullYear().toString().slice(-2); const month = String(date.getMonth() + 1).padStart(2, '0'); const day = String(date.getDate()).padStart(2, '0'); const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0'); return `ORD-${year}${month}${day}-${random}`; }
+    function submitOrder() {
+        const cart = JSON.parse(localStorage.getItem('barman_cart')) || [];
+        if (cart.length === 0) { alert('❌ سبد خرید خالی است!'); window.location.href = 'shop.html'; return; }
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const address = document.getElementById('address').value.trim();
+        if (!firstName || !lastName) { alert('⚠️ لطفاً نام و نام خانوادگی خود را وارد کنید'); return; }
+        if (!phone || phone.length < 11) { alert('⚠️ لطفاً شماره تلفن معتبر وارد کنید'); return; }
+        if (!address) { alert('⚠️ لطفاً آدرس کامل خود را وارد کنید'); return; }
+        const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const shipping = subtotal > 5000000 ? 0 : 50000;
+        const total = subtotal + shipping;
+        const orderId = generateOrderId();
+        const newOrder = {
+            id: orderId, date: new Date().toLocaleDateString('fa-IR'),
+            customer: { name: firstName + " " + lastName, phone: phone, email: document.getElementById('email').value.trim() || 'ندارد' },
+            address: { province: document.getElementById('province').value, city: document.getElementById('city').value, address: address, postalCode: document.getElementById('postalCode').value.trim() || 'ندارد' },
+            items: cart.map(item => ({ name: item.name, quantity: item.quantity, price: item.price })),
+            subtotal: subtotal, shipping: shipping, total: total, paymentMethod: 'پرداخت در محل', status: 'pending'
+        };
+        const existingOrders = JSON.parse(localStorage.getItem('barman_orders')) || [];
+        existingOrders.push(newOrder);
+        localStorage.setItem('barman_orders', JSON.stringify(existingOrders));
+        alert(`✅ سفارش شما با موفقیت ثبت شد!\n\nشماره سفارش: ${orderId}\nمبلغ قابل پرداخت: ${total.toLocaleString()} تومان\n\nکارشناسان ما برای هماهنگی با شما تماس خواهند گرفت.`);
+        localStorage.removeItem('barman_cart');
+        window.location.href = 'shop.html';
+    }
+    function loadUserData() {
+        const user = localStorage.getItem('barman_user');
+        if (user) { const users = JSON.parse(localStorage.getItem('barman_users') || '{}'); if (users[user]) { document.getElementById('firstName').value = users[user].firstName || ''; document.getElementById('lastName').value = users[user].lastName || ''; document.getElementById('phone').value = users[user].phone || ''; document.getElementById('email').value = users[user].email || ''; } }
+    }
+    loadCart(); loadUserData();
+</script>
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>پنل پشتیبانی | بارمان مرکب کویر</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tahoma', sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%); direction: rtl; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { background: white; border-radius: 20px; padding: 18px 30px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .logo { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .logo-icon { width: 48px; height: 48px; background: linear-gradient(135deg, #e67e22, #d35400); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; }
+        .logo h1 { font-size: 22px; color: #333; }
+        .user-info { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .admin-badge { background: linear-gradient(135deg, #e67e22, #d35400); color: white; padding: 8px 20px; border-radius: 40px; display: flex; align-items: center; gap: 10px; font-weight: 600; }
+        .btn { background: #e67e22; color: white; border: none; padding: 8px 22px; border-radius: 40px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 600; transition: all 0.3s ease; }
+        .btn:hover { transform: translateY(-2px); background: #d35400; }
+        .logout-btn { background: #e74c3c; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; border-radius: 20px; padding: 20px; display: flex; align-items: center; gap: 18px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+        .stat-icon { width: 60px; height: 60px; background: linear-gradient(135deg, #e67e22, #d35400); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 28px; color: white; }
+        .stat-info h3 { font-size: 32px; font-weight: 800; color: #333; }
+        .stat-info p { color: #999; font-size: 13px; }
+        .users-list { background: white; border-radius: 20px; padding: 20px; margin-bottom: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+        .user-selector { display: flex; gap: 10px; flex-wrap: wrap; max-height: 120px; overflow-y: auto; padding: 10px; background: #f8f9fa; border-radius: 15px; }
+        .user-tag { background: #e0e0e0; padding: 8px 15px; border-radius: 30px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 8px; transition: all 0.2s ease; }
+        .user-tag:hover { background: #c0c0c0; transform: scale(1.02); }
+        .user-tag.active { background: linear-gradient(135deg, #e67e22, #d35400); color: white; }
+        .user-tag .unread-badge { background: #e74c3c; color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 10px; display: inline-flex; align-items: center; justify-content: center; margin-right: 5px; }
+        .chat-panel { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); display: grid; grid-template-columns: 1fr 300px; gap: 20px; display: none; }
+        .chat-area { border-left: 1px solid #eee; padding-left: 20px; }
+        .messages-container { height: 400px; overflow-y: auto; padding: 15px; background: #f8f9fa; border-radius: 15px; margin-bottom: 15px; }
+        .support-message { margin-bottom: 15px; }
+        .support-message.user { text-align: right; }
+        .support-message.support { text-align: left; }
+        .support-bubble { display: inline-block; padding: 10px 15px; border-radius: 18px; max-width: 80%; word-wrap: break-word; }
+        .support-message.user .support-bubble { background: linear-gradient(135deg, #e67e22, #d35400); color: white; }
+        .support-message.support .support-bubble { background: #e0e0e0; color: #333; }
+        .support-time { font-size: 10px; color: #999; margin-top: 3px; }
+        .chat-input-area { display: flex; gap: 10px; }
+        .chat-input-area input { flex: 1; padding: 10px 15px; border: 2px solid #e0e0e0; border-radius: 30px; font-family: inherit; outline: none; transition: all 0.3s ease; }
+        .chat-input-area input:focus { border-color: #e67e22; }
+        .chat-input-area button { background: linear-gradient(135deg, #e67e22, #d35400); color: white; border: none; padding: 10px 20px; border-radius: 30px; cursor: pointer; transition: all 0.3s ease; }
+        .chat-input-area button:hover { transform: scale(1.02); opacity: 0.9; }
+        .user-info-card { background: #f8f9fa; border-radius: 15px; padding: 15px; }
+        .user-info-card p { margin-bottom: 10px; font-size: 13px; }
+        .close-chat-btn { width: 100%; background: #e74c3c; color: white; border: none; padding: 10px; border-radius: 30px; cursor: pointer; margin-top: 15px; transition: all 0.3s ease; }
+        .close-chat-btn:hover { background: #c0392b; transform: scale(1.02); }
+        .empty-state { text-align: center; padding: 60px; color: #999; }
+        .toast { position: fixed; bottom: 30px; left: 30px; background: #27ae60; color: white; padding: 10px 20px; border-radius: 50px; z-index: 2000; transform: translateX(-400px); transition: transform 0.3s; }
+        .toast.show { transform: translateX(0); }
+        .toast.error { background: #e74c3c; }
+        .loading-indicator { display: inline-block; width: 16px; height: 16px; border: 2px solid #fff; border-radius: 50%; border-top-color: transparent; animation: spin 0.6s linear infinite; margin-right: 8px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .auto-refresh-badge { background: #27ae60; color: white; padding: 2px 10px; border-radius: 20px; font-size: 11px; margin-right: 10px; }
+        @media (max-width: 768px) { .chat-panel { grid-template-columns: 1fr; } .chat-area { border-left: none; border-bottom: 1px solid #eee; padding-left: 0; padding-bottom: 20px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo" onclick="window.location.href='shop.html'">
+            <div class="logo-icon"><i class="fas fa-hard-hat"></i></div>
+            <h1>پنل <span>پشتیبانی</span></h1>
+        </div>
+        <div class="user-info">
+            <div class="admin-badge"><i class="fas fa-headset"></i> <span id="adminName"></span></div>
+            <a href="shop.html" class="btn"><i class="fas fa-store"></i> فروشگاه</a>
+            <button class="btn logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> خروج</button>
+        </div>
+    </div>
+    <div class="stats-grid" id="statsGrid"></div>
+    <div class="users-list">
+        <h3><i class="fas fa-users"></i> کاربران در حال چت <span class="auto-refresh-badge" id="refreshStatus"><i class="fas fa-sync-alt"></i> بروزرسانی خودکار هر 1 ثانیه</span></h3>
+        <div class="user-selector" id="userSelector"></div>
+    </div>
+    <div class="chat-panel" id="chatPanel">
+        <div class="chat-area">
+            <div class="chat-header-info" style="display:flex; justify-content:space-between; margin-bottom:15px;">
+                <h4>مکالمه با <span id="selectedUser"></span></h4>
+                <button class="btn" style="background:#e74c3c; padding:5px 12px;" onclick="closeChat()">بستن</button>
+            </div>
+            <div class="messages-container" id="messagesContainer"></div>
+            <div class="chat-input-area">
+                <input type="text" id="replyInput" placeholder="پاسخ خود را بنویسید..." onkeypress="handleReplyKeyPress(event)">
+                <button onclick="sendReply()"><i class="fas fa-paper-plane"></i> ارسال</button>
+            </div>
+        </div>
+        <div class="user-info-card">
+            <h4>اطلاعات کاربر</h4>
+            <div id="userInfo"></div>
+            <button class="close-chat-btn" onclick="endChat()"><i class="fas fa-power-off"></i> پایان چت</button>
+        </div>
+    </div>
+    <div id="emptyState" class="empty-state">
+        <i class="fas fa-comment-slash" style="font-size:60px; opacity:0.5;"></i>
+        <p>هیچ کاربری برای چت وجود ندارد</p>
+    </div>
+</div>
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg"></span></div>
+
+<script>
+    let allChats = {};
+    let currentSelectedUser = null;
+    let refreshInterval = null;
+    let lastMessageCount = 0;
+
+    // بارگذاری همه چت‌ها از localStorage
+    function loadAllChats() {
+        const chatHistory = JSON.parse(localStorage.getItem('chat_history')) || [];
+        allChats = {};
+        chatHistory.forEach(msg => { 
+            if(!allChats[msg.user]) {
+                allChats[msg.user] = { 
+                    phone: msg.phone, 
+                    messages: [], 
+                    lastSeen: msg.time,
+                    lastMessageTime: msg.time
+                }; 
+            }
+            allChats[msg.user].messages.push(msg); 
+            allChats[msg.user].lastSeen = msg.time;
+            allChats[msg.user].lastMessageTime = msg.time;
+        });
+        
+        // مرتب‌سازی پیام‌ها بر اساس زمان
+        for(let user in allChats) {
+            allChats[user].messages.sort((a, b) => new Date(a.time) - new Date(b.time));
+        }
+        
+        // به‌روزرسانی آمار
+        const totalUsers = Object.keys(allChats).length;
+        const totalMessages = chatHistory.length;
+        document.getElementById('statsGrid').innerHTML = `
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-info"><h3>${totalUsers}</h3><p>کاربران</p></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-comments"></i></div><div class="stat-info"><h3>${totalMessages}</h3><p>کل پیام‌ها</p></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-clock"></i></div><div class="stat-info"><h3>${refreshInterval ? 'فعال' : 'غیرفعال'}</h3><p>بروزرسانی خودکار</p></div></div>
+        `;
+        
+        // به‌روزرسانی لیست کاربران
+        const container = document.getElementById('userSelector');
+        const users = Object.keys(allChats).sort((a,b) => {
+            return new Date(allChats[b].lastMessageTime) - new Date(allChats[a].lastMessageTime);
+        });
+        
+        if(users.length === 0) { 
+            container.innerHTML = '<p style="color:#999;">هیچ کاربری وجود ندارد</p>'; 
+            document.getElementById('emptyState').style.display = 'block'; 
+            if(!currentSelectedUser) {
+                document.getElementById('chatPanel').style.display = 'none';
+            }
+        } else { 
+            container.innerHTML = users.map(user => {
+                const isActive = (currentSelectedUser === user);
+                const unreadCount = 0; // می‌تونی قابلیت نخوانده رو هم اضافه کنی
+                return `<div class="user-tag ${isActive ? 'active' : ''}" onclick="selectUser('${user.replace(/'/g, "\\'")}')">
+                    <i class="fas fa-user-circle"></i> ${user}
+                    ${unreadCount > 0 ? `<span class="unread-badge">${unreadCount}</span>` : ''}
+                </div>`;
+            }).join(''); 
+            document.getElementById('emptyState').style.display = 'none'; 
+        }
+    }
+    
+    // ریست کردن پیام‌ها (دریافت پیام‌های جدید بدون ریلود صفحه)
+    function refreshMessages() {
+        if(!currentSelectedUser) return;
+        
+        const chatHistory = JSON.parse(localStorage.getItem('chat_history')) || [];
+        const userMessages = chatHistory.filter(msg => msg.user === currentSelectedUser);
+        const currentMessages = allChats[currentSelectedUser]?.messages || [];
+        
+        // بررسی اگر پیام جدیدی اضافه شده
+        if(userMessages.length !== currentMessages.length) {
+            // به‌روزرسانی allChats
+            allChats[currentSelectedUser] = {
+                phone: userMessages[0]?.phone || '',
+                messages: userMessages,
+                lastSeen: userMessages[userMessages.length-1]?.time || new Date().toLocaleString('fa-IR'),
+                lastMessageTime: userMessages[userMessages.length-1]?.time || new Date().toLocaleString('fa-IR')
+            };
+            
+            // نمایش پیام‌ها در کانتینر
+            const container = document.getElementById('messagesContainer');
+            const wasAtBottom = container.scrollHeight - container.scrollTop <= 100;
+            
+            container.innerHTML = userMessages.map(msg => `
+                <div class="support-message ${msg.sender}">
+                    <div class="support-bubble">
+                        ${msg.message.replace(/\n/g,'<br>')}
+                        <div class="support-time">${msg.time}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // اگر کاربر پایین صفحه بود، اسکرول کن به پایین
+            if(wasAtBottom) {
+                container.scrollTop = container.scrollHeight;
+            }
+            
+            // به‌روزرسانی اطلاعات کاربر
+            if(allChats[currentSelectedUser]) {
+                document.getElementById('userInfo').innerHTML = `
+                    <p><i class="fas fa-user"></i> نام کاربری: ${currentSelectedUser}</p>
+                    <p><i class="fas fa-phone"></i> تلفن: ${allChats[currentSelectedUser].phone || 'ثبت نشده'}</p>
+                    <p><i class="fas fa-clock"></i> آخرین فعالیت: ${allChats[currentSelectedUser].lastSeen}</p>
+                    <p><i class="fas fa-comment-dots"></i> تعداد پیام‌ها: ${userMessages.length}</p>
+                `;
+            }
+            
+            // به‌روزرسانی لیست کاربران (برای نمایش آخرین پیام)
+            loadAllChats();
+        }
+    }
+    
+    // انتخاب کاربر و شروع چت با ریفرش خودکار
+    function selectUser(user) {
+        // ذخیره کاربر قبلی
+        const previousUser = currentSelectedUser;
+        currentSelectedUser = user;
+        
+        // بروزرسانی کلاس active در لیست کاربران
+        document.querySelectorAll('.user-tag').forEach(tag => {
+            tag.classList.remove('active');
+            if(tag.innerText.includes(user)) {
+                tag.classList.add('active');
+            }
+        });
+        
+        document.getElementById('selectedUser').innerText = user;
+        document.getElementById('chatPanel').style.display = 'grid';
+        
+        const userData = allChats[user];
+        if(userData) {
+            document.getElementById('userInfo').innerHTML = `
+                <p><i class="fas fa-user"></i> نام کاربری: ${user}</p>
+                <p><i class="fas fa-phone"></i> تلفن: ${userData.phone || 'ثبت نشده'}</p>
+                <p><i class="fas fa-clock"></i> آخرین فعالیت: ${userData.lastSeen}</p>
+                <p><i class="fas fa-comment-dots"></i> تعداد پیام‌ها: ${userData.messages.length}</p>
+            `;
+            
+            const container = document.getElementById('messagesContainer');
+            container.innerHTML = userData.messages.map(msg => `
+                <div class="support-message ${msg.sender}">
+                    <div class="support-bubble">
+                        ${msg.message.replace(/\n/g,'<br>')}
+                        <div class="support-time">${msg.time}</div>
+                    </div>
+                </div>
+            `).join('');
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        // ریست کردن تایمر قبلی اگر وجود داشت
+        if(refreshInterval) {
+            clearInterval(refreshInterval);
+            refreshInterval = null;
+        }
+        
+        // شروع تایمر جدید برای ریفرش هر 1 ثانیه
+        refreshInterval = setInterval(() => {
+            refreshMessages();
+        }, 1000);
+        
+        // آپدیت وضعیت در استاتوس
+        document.getElementById('refreshStatus').innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> بروزرسانی خودکار هر 1 ثانیه (فعال)';
+        
+        showToast(`ورود به چت با ${user} - بروزرسانی خودکار فعال شد`, 'success');
+    }
+    
+    // ارسال پیام
+    function sendReply() {
+        const input = document.getElementById('replyInput');
+        const message = input.value.trim();
+        if(!message || !currentSelectedUser) return;
+        
+        const newMsg = { 
+            user: currentSelectedUser, 
+            phone: allChats[currentSelectedUser]?.phone || '', 
+            message: message, 
+            sender: 'support', 
+            time: new Date().toLocaleString('fa-IR') 
+        };
+        
+        const chatHistory = JSON.parse(localStorage.getItem('chat_history')) || [];
+        chatHistory.push(newMsg);
+        localStorage.setItem('chat_history', JSON.stringify(chatHistory));
+        localStorage.setItem('new_chat_message', Date.now().toString());
+        
+        // به‌روزرسانی محلی
+        if(!allChats[currentSelectedUser]) {
+            allChats[currentSelectedUser] = { phone: '', messages: [], lastSeen: newMsg.time };
+        }
+        allChats[currentSelectedUser].messages.push(newMsg);
+        allChats[currentSelectedUser].lastSeen = newMsg.time;
+        
+        // اضافه کردن پیام به صفحه
+        const container = document.getElementById('messagesContainer');
+        container.innerHTML += `
+            <div class="support-message support">
+                <div class="support-bubble">
+                    ${message.replace(/\n/g,'<br>')}
+                    <div class="support-time">${newMsg.time}</div>
+                </div>
+            </div>
+        `;
+        container.scrollTop = container.scrollHeight;
+        input.value = '';
+        
+        // به‌روزرسانی لیست کاربران
+        loadAllChats();
+        
+        showToast(`پاسخ به ${currentSelectedUser} ارسال شد`);
+    }
+    
+    // پایان چت و حذف کاربر از لیست
+    function endChat() {
+        if(!currentSelectedUser) return;
+        if(confirm(`آیا از پایان چت با ${currentSelectedUser} اطمینان دارید؟`)) {
+            const chatHistory = JSON.parse(localStorage.getItem('chat_history')) || [];
+            const newHistory = chatHistory.filter(msg => msg.user !== currentSelectedUser);
+            localStorage.setItem('chat_history', JSON.stringify(newHistory));
+            
+            // توقف تایمر
+            if(refreshInterval) {
+                clearInterval(refreshInterval);
+                refreshInterval = null;
+            }
+            
+            currentSelectedUser = null;
+            document.getElementById('chatPanel').style.display = 'none';
+            document.getElementById('refreshStatus').innerHTML = '<i class="fas fa-sync-alt"></i> بروزرسانی خودکار هر 1 ثانیه';
+            loadAllChats();
+            showToast(`چت با کاربر پایان یافت`);
+        }
+    }
+    
+    // بستن پنل چت (بدون حذف کاربر)
+    function closeChat() { 
+        // توقف تایمر
+        if(refreshInterval) {
+            clearInterval(refreshInterval);
+            refreshInterval = null;
+        }
+        currentSelectedUser = null; 
+        document.getElementById('chatPanel').style.display = 'none';
+        document.getElementById('refreshStatus').innerHTML = '<i class="fas fa-sync-alt"></i> بروزرسانی خودکار هر 1 ثانیه';
+        // حذف کلاس active از همه کاربران
+        document.querySelectorAll('.user-tag').forEach(tag => {
+            tag.classList.remove('active');
+        });
+        showToast('پنل چت بسته شد', 'info');
+    }
+    
+    function handleReplyKeyPress(e) { 
+        if(e.key === 'Enter') sendReply(); 
+    }
+    
+    function showToast(msg, type = 'success') { 
+        const t = document.getElementById('toast'); 
+        const toastMsg = document.getElementById('toastMsg');
+        toastMsg.innerText = msg; 
+        t.classList.add('show');
+        if(type === 'error') t.classList.add('error');
+        else t.classList.remove('error');
+        setTimeout(() => t.classList.remove('show'), 2000); 
+    }
+    
+    function logout() { 
+        // توقف تایمر قبل از خروج
+        if(refreshInterval) {
+            clearInterval(refreshInterval);
+            refreshInterval = null;
+        }
+        localStorage.removeItem('support_logged_in'); 
+        localStorage.removeItem('support_user'); 
+        window.location.href = 'support-login.html'; 
+    }
+    
+    function checkLogin() { 
+        if(!localStorage.getItem('support_logged_in')) window.location.href = 'support-login.html'; 
+        document.getElementById('adminName').innerText = localStorage.getItem('support_user') || 'پشتیبان'; 
+    }
+    
+    // بارگذاری اولیه و تنظیم تایمر برای بروزرسانی لیست کاربران (هر 2 ثانیه)
+    let userListInterval = setInterval(() => {
+        loadAllChats();
+    }, 2000);
+    
+    // پاک کردن تایمرها هنگام خروج از صفحه
+    window.addEventListener('beforeunload', function() {
+        if(refreshInterval) {
+            clearInterval(refreshInterval);
+        }
+        if(userListInterval) {
+            clearInterval(userListInterval);
+        }
+    });
+    
+    checkLogin();
+    loadAllChats();
+</script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شیوه‌های ارسال | بارمان مرکب کویر</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tahoma', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            direction: rtl;
+        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; animation: fadeInUp 0.5s ease; }
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 15px 25px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .logo-icon {
+            width: 45px; height: 45px;
+            background: linear-gradient(135deg, #ef6b00, #d35400);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        .logo h1 { font-size: 22px; color: #333; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: #666; transition: all 0.3s ease; }
+        .nav-links a:hover { color: #ef6b00; }
+        .back-btn {
+            background: #ef6b00;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover { transform: translateY(-2px); background: #d35400; }
+        .hero {
+            background: linear-gradient(135deg, #ef6b00, #d35400);
+            border-radius: 25px;
+            padding: 50px 30px;
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.6s ease;
+        }
+        .hero h1 { font-size: 32px; margin-bottom: 10px; }
+        .hero p { font-size: 16px; opacity: 0.9; }
+        .content-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.5s ease;
+        }
+        .content-card h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            color: #ef6b00;
+        }
+        .content-card p, .content-card li { color: #666; line-height: 1.8; margin-bottom: 15px; }
+        .content-card ul { padding-right: 20px; margin: 15px 0; }
+        .shipping-method { display: flex; align-items: center; gap: 15px; padding: 15px; border: 1px solid #eee; border-radius: 12px; margin-bottom: 15px; }
+        .shipping-icon {
+            width: 50px; height: 50px;
+            background: #fef5e7;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #ef6b00;
+        }
+        .shipping-info h3 { font-size: 16px; margin-bottom: 5px; }
+        .info-box { background: #e8f8f5; border-right: 4px solid #27ae60; padding: 15px; border-radius: 12px; margin: 20px 0; }
+        .footer {
+            background: #2d3436;
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 30px;
+            animation: fadeInUp 0.8s ease;
+        }
+        .footer a { color: #b2bec3; text-decoration: none; margin: 0 10px; transition: all 0.3s ease; }
+        .footer a:hover { color: #ef6b00; }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header { flex-direction: column; text-align: center; }
+            .hero h1 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo" onclick="window.location.href='shop.html'">
+            <div class="logo-icon"><i class="fas fa-hard-hat"></i></div>
+            <h1>بارمان مرکب کویر</h1>
+        </div>
+        <div class="nav-links">
+            <a href="shop.html">فروشگاه</a>
+            <a href="about.html">درباره ما</a>
+            <a href="contact.html">تماس با ما</a>
+        </div>
+        <button class="back-btn" onclick="window.location.href='shop.html'">
+            <i class="fas fa-arrow-right"></i> بازگشت
+        </button>
+    </div>
+
+    <div class="hero">
+        <h1><i class="fas fa-truck"></i> شیوه‌های ارسال</h1>
+        <p>ارسال سریع و مطمئن به سراسر استان یزد</p>
+    </div>
+
+    <div class="content-card">
+        <h2><i class="fas fa-truck"></i> روش‌های ارسال</h2>
+        <div class="shipping-method"><div class="shipping-icon"><i class="fas fa-truck"></i></div><div class="shipping-info"><h3>ارسال با بارمان مرکب کویر</h3><p>ارسال توسط خودروهای فروشگاه - زمان تحویل: ۱ تا ۳ روز کاری</p><p style="color: #ef6b00; font-weight: bold;">هزینه: ۵۰,۰۰۰ تومان (برای خرید بالای ۵ میلیون تومان رایگان)</p></div></div>
+        <div class="shipping-method"><div class="shipping-icon"><i class="fas fa-motorcycle"></i></div><div class="shipping-info"><h3>ارسال فوری (فقط شهر یزد)</h3><p>ارسال درب منزل با موتورسیکلت - زمان تحویل: ۲ تا ۴ ساعت</p><p style="color: #ef6b00; font-weight: bold;">هزینه: ۸۰,۰۰۰ تومان</p></div></div>
+    </div>
+
+    <div class="content-card">
+        <h2><i class="fas fa-clock"></i> زمان تحویل سفارش</h2>
+        <ul><li><strong>شهر یزد:</strong> ۱ تا ۲ روز کاری</li><li><strong>سایر شهرهای استان یزد:</strong> ۲ تا ۴ روز کاری</li><li><strong>ارسال فوری (فقط یزد):</strong> ۲ تا ۴ ساعت</li></ul>
+        <div class="info-box"><i class="fas fa-info-circle" style="color: #27ae60;"></i> <strong>ارسال رایگان:</strong> برای خریدهای بالای ۵ میلیون تومان، هزینه ارسال رایگان می‌باشد.</div>
+    </div>
+
+    <div class="content-card">
+        <h2><i class="fas fa-map-marker-alt"></i> مناطق تحت پوشش</h2>
+        <p>در حال حاضر ارسال سفارشات仅限于 استان یزد انجام می‌شود:</p>
+        <ul><li>یزد</li><li>اردکان</li><li>میبد</li><li>بافق</li><li>مهریز</li><li>ابرکوه</li><li>تفت</li><li>خاتم</li><li>بهاباد</li><li>اشکذر</li></ul>
+    </div>
+
+    <div class="content-card">
+        <h2><i class="fas fa-box"></i> بسته‌بندی</h2>
+        <p>تمامی محصولات با بسته‌بندی استاندارد و مقاوم ارسال می‌شوند:</p>
+        <ul><li>بسته‌بندی ضد ضربه برای کاشی و سرامیک</li><li>بسته‌بندی مقاوم برای سیمان و مصالح فله</li><li>بسته‌بندی اختصاصی برای محصولات حساس</li></ul>
+    </div>
+
+    <div class="footer">
+        <p>© ۱۴۰۳ بارمان مرکب کویر - تمامی حقوق محفوظ است</p>
+        <p style="margin-top: 10px;">
+            <a href="about.html">درباره ما</a>
+            <a href="contact.html">تماس با ما</a>
+            <a href="faq.html">سوالات متداول</a>
+            <a href="terms.html">قوانین</a>
+            <a href="returns.html">بازگشت کالا</a>
+            <a href="shipping.html">شیوه‌های ارسال</a>
+        </p>
+    </div>
+</div>
+</body>
+</html>

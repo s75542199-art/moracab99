@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>پشتیبانی آنلاین | بارمان مرکب کویر</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #e67e22; --primary-dark: #ef6b00; --success: #27ae60; --danger: #e74c3c; --dark: #2d3436; --gray: #7f8c8d; --light: #f8f9fa; --white: #ffffff; --shadow-sm: 0 2px 8px rgba(0,0,0,0.05); --shadow-md: 0 5px 20px rgba(0,0,0,0.08); --radius: 12px; --radius-lg: 20px; }
+        body { font-family: 'Tahoma', sans-serif; background: linear-gradient(135deg, #e67e22, #d35400); min-height: 100vh; direction: rtl; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        .header { background: rgba(255,255,255,0.95); border-radius: var(--radius-lg); padding: 15px 25px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; box-shadow: var(--shadow-md); }
+        .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .logo-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; }
+        .logo h1 { font-size: 22px; color: #333; }
+        .back-btn { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; border: none; padding: 8px 20px; border-radius: 30px; cursor: pointer; }
+        .user-profile { background: white; border-radius: var(--radius-lg); padding: 15px 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 15px; box-shadow: var(--shadow-sm); }
+        .user-avatar { width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; color: white; }
+        .user-details h3 { font-size: 16px; }
+        .user-details p { font-size: 12px; color: var(--gray); }
+        .logout-chat-btn { margin-right: auto; background: var(--danger); color: white; border: none; padding: 5px 15px; border-radius: 30px; cursor: pointer; font-size: 12px; }
+        .chat-container { background: white; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); display: flex; flex-direction: column; height: 550px; }
+        .chat-header { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); padding: 15px 20px; color: white; display: flex; align-items: center; gap: 12px; }
+        .chat-header-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .online-badge { display: inline-block; width: 8px; height: 8px; background: var(--success); border-radius: 50%; margin-left: 5px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .chat-messages { flex: 1; padding: 15px; overflow-y: auto; background: var(--light); }
+        .message { display: flex; margin-bottom: 15px; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .message.user { justify-content: flex-end; }
+        .message.support { justify-content: flex-start; }
+        .message-bubble { max-width: 75%; padding: 10px 15px; border-radius: 18px; }
+        .message.user .message-bubble { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; border-bottom-left-radius: 4px; }
+        .message.support .message-bubble { background: white; color: #333; border-bottom-right-radius: 4px; box-shadow: var(--shadow-sm); }
+        .message-time { font-size: 9px; margin-top: 4px; opacity: 0.7; }
+        .chat-input-container { padding: 15px; background: white; border-top: 1px solid #eee; display: flex; gap: 10px; }
+        .chat-input { flex: 1; padding: 10px 15px; border: 2px solid #e0e0e0; border-radius: 30px; font-size: 13px; font-family: inherit; }
+        .chat-input:focus { outline: none; border-color: var(--primary); }
+        .send-btn { width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border: none; border-radius: 50%; color: white; cursor: pointer; }
+        .footer { background: rgba(255,255,255,0.1); border-radius: var(--radius-lg); padding: 20px; text-align: center; margin-top: 30px; color: white; }
+        .footer a { color: rgba(255,255,255,0.8); text-decoration: none; margin: 0 10px; }
+        @media (max-width: 768px) { .container { padding: 15px; } .message-bubble { max-width: 85%; } .header { flex-direction: column; text-align: center; } .user-profile { flex-wrap: wrap; } .logout-chat-btn { margin-right: 0; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo" onclick="window.location.href='shop.html'"><div class="logo-icon"><i class="fas fa-hard-hat"></i></div><h1>بارمان مرکب کویر</h1></div>
+        <button class="back-btn" onclick="window.location.href='shop.html'"><i class="fas fa-arrow-right"></i> بازگشت</button>
+    </div>
+    <div class="user-profile">
+        <div class="user-avatar"><i class="fas fa-user"></i></div>
+        <div class="user-details"><h3 id="userNameDisplay">کاربر مهمان</h3><p><i class="fas fa-phone"></i> <span id="userPhoneDisplay"></span></p></div>
+        <button class="logout-chat-btn" onclick="logoutFromChat()"><i class="fas fa-sign-out-alt"></i> خروج از چت</button>
+    </div>
+    <div class="chat-container">
+        <div class="chat-header"><div class="chat-header-icon"><i class="fas fa-headset"></i></div><div><h3><span class="online-badge"></span> پشتیبانی آنلاین</h3><p>پاسخگوی شما هستیم - ۲۴ ساعته</p></div></div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message support"><div class="message-bubble">سلام! وقت بخیر. چطور می‌توانم به شما کمک کنم؟ 😊<div class="message-time">همین الان</div></div></div>
+        </div>
+        <div class="chat-input-container"><input type="text" class="chat-input" id="chatInput" placeholder="پیام خود را بنویسید..." onkeypress="handleKeyPress(event)"><button class="send-btn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button></div>
+    </div>
+    <div class="footer"><p>© ۱۴۰۳ بارمان مرکب کویر</p><p><a href="about.html">درباره ما</a> | <a href="contact.html">تماس با ما</a> | <a href="faq.html">سوالات</a></p></div>
+</div>
+<script>
+    let currentUser = localStorage.getItem('barman_user') || 'مهمان';
+    let currentUserPhone = localStorage.getItem('barman_user_phone') || '';
+    let lastMessageCount = 0;
+    
+    document.getElementById('userNameDisplay').innerText = currentUser;
+    document.getElementById('userPhoneDisplay').innerText = currentUserPhone || 'ثبت نشده';
+    
+    function logoutFromChat() { 
+        if(confirm('آیا از خروج از چت اطمینان دارید؟')) window.location.href = 'shop.html'; 
+    }
+    
+    function sendMessage() {
+        const input = document.getElementById('chatInput');
+        const message = input.value.trim();
+        if(message === '') return;
+        
+        addMessageToScreen(message, 'user');
+        input.value = '';
+        
+        const chatHistory = JSON.parse(localStorage.getItem('chat_history')) || [];
+        chatHistory.push({ 
+            user: currentUser, 
+            phone: currentUserPhone, 
+            message: message, 
+            sender: 'user', 
+            time: new Date().toLocaleString('fa-IR') 
+        });
+        localStorage.setItem('chat_history', JSON.stringify(chatHistory));
+        localStorage.setItem('new_chat_message', Date.now().toString());
+    }
+    
+    function addMessageToScreen(text, sender) {
+        const messagesDiv = document.getElementById('chatMessages');
+        const time = new Date().toLocaleTimeString('fa-IR', { hour:'2-digit', minute:'2-digit' });
+        messagesDiv.innerHTML += `<div class="message ${sender}"><div class="message-bubble">${text.replace(/\n/g,'<br>')}<div class="message-time">${time}</div></div></div>`;
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+    
+    function handleKeyPress(event) { 
+        if(event.key === 'Enter') sendMessage(); 
+    }
+    
+    // ========== تابع اصلی: دریافت و نمایش پیام‌های جدید ==========
+    function loadAndDisplayMessages() {
+        const chatHistory = JSON.parse(localStorage.getItem('chat_history')) || [];
+        
+        // فقط پیام‌های مربوط به این کاربر
+        const myMessages = chatHistory.filter(msg => msg.user === currentUser);
+        
+        const messagesDiv = document.getElementById('chatMessages');
+        
+        // شمارش پیام‌های موجود در صفحه
+        let currentScreenMessages = 0;
+        if (messagesDiv.children.length > 0) {
+            currentScreenMessages = messagesDiv.children.length;
+        }
+        
+        // اگر تعداد پیام‌ها تغییر کرده (پیام جدید آمده)
+        if (myMessages.length !== currentScreenMessages) {
+            // بازسازی کامل صفحه پیام‌ها
+            if (myMessages.length === 0) {
+                messagesDiv.innerHTML = '<div class="message support"><div class="message-bubble">سلام! وقت بخیر. چطور می‌توانم به شما کمک کنم؟ 😊<div class="message-time">همین الان</div></div></div>';
+            } else {
+                messagesDiv.innerHTML = myMessages.map(msg => `
+                    <div class="message ${msg.sender}">
+                        <div class="message-bubble">
+                            ${msg.message.replace(/\n/g, '<br>')}
+                            <div class="message-time">${new Date(msg.time).toLocaleTimeString('fa-IR', { hour:'2-digit', minute:'2-digit' })}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // اسکرول به پایین
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            
+            // اعلان پیام جدید از پشتیبان
+            if (myMessages.length > 0 && myMessages[myMessages.length - 1].sender === 'support') {
+                document.title = "🔔 پیام جدید از پشتیبان!";
+                setTimeout(() => { document.title = "پشتیبانی آنلاین | بارمان مرکب کویر"; }, 3000);
+            }
+        }
+    }
+    
+    // بارگذاری اولیه
+    function initChat() {
+        loadAndDisplayMessages();
+    }
+    
+    // بروزرسانی خودکار هر 1 ثانیه
+    setInterval(() => {
+        loadAndDisplayMessages();
+    }, 1000);
+    
+    // گوش دادن به تغییرات localStorage برای بروزرسانی لحظه‌ای
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'chat_history' || e.key === 'new_chat_message') {
+            loadAndDisplayMessages();
+        }
+    });
+    
+    initChat();
+    document.getElementById('chatInput').focus();
+</script>
+</body>
+</html>

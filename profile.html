@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پروفایل کاربری | بارمان مرکب کویر</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tahoma', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            min-height: 100vh;
+            direction: rtl;
+            padding: 20px;
+        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .container { max-width: 900px; margin: 0 auto; animation: fadeInUp 0.5s ease; }
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 15px 25px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .header h2 { color: #333; display: flex; align-items: center; gap: 10px; }
+        .header h2 i { color: #ef6b00; }
+        .back-btn {
+            background: linear-gradient(135deg, #ef6b00, #d35400);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(239,107,0,0.3); }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
+        .card-title {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+            border-right: 4px solid #ef6b00;
+            padding-right: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ef6b00, #d35400);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .info-row {
+            display: flex;
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            flex-wrap: wrap;
+        }
+        .info-label { width: 120px; font-weight: bold; color: #555; }
+        .info-value { flex: 1; color: #333; }
+        .edit-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 11px;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        .edit-btn:hover { background: #2980b9; transform: translateY(-1px); }
+        .footer {
+            background: #2d3436;
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 30px;
+            animation: fadeInUp 0.8s ease;
+        }
+        .footer a { color: #b2bec3; text-decoration: none; margin: 0 10px; transition: all 0.3s ease; }
+        .footer a:hover { color: #ef6b00; }
+        @media (max-width: 600px) {
+            .container { padding: 10px; }
+            .info-row { flex-direction: column; }
+            .info-label { width: 100%; margin-bottom: 5px; }
+            .header { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h2><i class="fas fa-user-circle"></i> پروفایل من</h2>
+        <button class="back-btn" onclick="window.location.href='shop.html'">
+            <i class="fas fa-arrow-right"></i> بازگشت به فروشگاه
+        </button>
+    </div>
+    
+    <div class="card">
+        <div class="avatar"><i class="fas fa-user"></i></div>
+        <div class="info-row">
+            <div class="info-label"><i class="fas fa-user"></i> نام کاربری:</div>
+            <div class="info-value" id="username"></div>
+        </div>
+        <div class="info-row">
+            <div class="info-label"><i class="fas fa-envelope"></i> ایمیل:</div>
+            <div class="info-value" id="email"><span id="emailValue"></span><button class="edit-btn" onclick="editEmail()">ویرایش</button></div>
+        </div>
+        <div class="info-row">
+            <div class="info-label"><i class="fas fa-phone"></i> تلفن:</div>
+            <div class="info-value" id="phone"><span id="phoneValue"></span><button class="edit-btn" onclick="editPhone()">ویرایش</button></div>
+        </div>
+        <div class="info-row">
+            <div class="info-label"><i class="fas fa-map-marker-alt"></i> آدرس:</div>
+            <div class="info-value" id="address"><span id="addressValue"></span><button class="edit-btn" onclick="editAddress()">ویرایش</button></div>
+        </div>
+        <div class="info-row">
+            <div class="info-label"><i class="fas fa-calendar-alt"></i> تاریخ عضویت:</div>
+            <div class="info-value" id="registerDate"></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title"><i class="fas fa-heart"></i> خوش آمدید</div>
+        <p style="color: #666; line-height: 1.6;">به پروفایل کاربری خود خوش آمدید. شما می‌توانید اطلاعات شخصی خود را ویرایش کنید.</p>
+        <p style="color: #666; line-height: 1.6; margin-top: 10px;">برای خرید و مشاهده محصولات جدید مصالح ساختمانی، به فروشگاه مراجعه کنید.</p>
+    </div>
+
+    <div class="footer">
+        <p>© ۱۴۰۳ بارمان مرکب کویر - تمامی حقوق محفوظ است</p>
+        <p style="margin-top: 10px;">
+            <a href="about.html">درباره ما</a>
+            <a href="contact.html">تماس با ما</a>
+            <a href="faq.html">سوالات متداول</a>
+            <a href="terms.html">قوانین</a>
+            <a href="returns.html">بازگشت کالا</a>
+            <a href="shipping.html">شیوه‌های ارسال</a>
+        </p>
+    </div>
+</div>
+
+<script>
+    let currentUser = localStorage.getItem('barman_user');
+    if(!currentUser) window.location.href = 'index.html';
+    document.getElementById('username').innerText = currentUser;
+    let registeredUsers = JSON.parse(localStorage.getItem('barman_users')) || {};
+    if(registeredUsers[currentUser] && registeredUsers[currentUser].registerDate){
+        document.getElementById('registerDate').innerText = registeredUsers[currentUser].registerDate;
+        document.getElementById('emailValue').innerText = registeredUsers[currentUser].email || 'ثبت نشده';
+        document.getElementById('phoneValue').innerText = registeredUsers[currentUser].phone || 'ثبت نشده';
+    } else {
+        let today = new Date().toLocaleDateString('fa-IR');
+        document.getElementById('registerDate').innerText = today;
+        document.getElementById('emailValue').innerText = 'ثبت نشده';
+        document.getElementById('phoneValue').innerText = 'ثبت نشده';
+    }
+    document.getElementById('addressValue').innerText = localStorage.getItem('barman_address') || 'ثبت نشده';
+    function editEmail(){
+        let newEmail = prompt('ایمیل جدید:', document.getElementById('emailValue').innerText);
+        if(newEmail && newEmail.includes('@')){
+            document.getElementById('emailValue').innerText = newEmail;
+            if(registeredUsers[currentUser]) registeredUsers[currentUser].email = newEmail;
+            localStorage.setItem('barman_users', JSON.stringify(registeredUsers));
+            showMessage('ایمیل با موفقیت تغییر کرد');
+        } else if(newEmail) { showMessage('ایمیل نامعتبر است', 'error'); }
+    }
+    function editPhone(){
+        let newPhone = prompt('شماره تلفن جدید:');
+        if(newPhone && newPhone.length >= 11){
+            document.getElementById('phoneValue').innerText = newPhone;
+            if(registeredUsers[currentUser]) registeredUsers[currentUser].phone = newPhone;
+            localStorage.setItem('barman_users', JSON.stringify(registeredUsers));
+            localStorage.setItem('barman_user_phone', newPhone);
+            showMessage('شماره تلفن با موفقیت تغییر کرد');
+        } else if(newPhone) { showMessage('شماره تلفن نامعتبر است', 'error'); }
+    }
+    function editAddress(){
+        let newAddress = prompt('آدرس جدید:');
+        if(newAddress){
+            document.getElementById('addressValue').innerText = newAddress;
+            localStorage.setItem('barman_address', newAddress);
+            showMessage('آدرس با موفقیت تغییر کرد');
+        }
+    }
+    function showMessage(msg, type = 'success'){
+        let toast = document.createElement('div');
+        toast.style.cssText = `position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: ${type === 'success' ? '#27ae60' : '#e74c3c'}; color: white; padding: 10px 20px; border-radius: 30px; z-index: 2000; animation: fadeIn 0.3s ease; font-size: 13px;`;
+        toast.innerText = msg;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2000);
+    }
+    let style = document.createElement('style');
+    style.textContent = `@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}`;
+    document.head.appendChild(style);
+</script>
+</body>
+</html>
